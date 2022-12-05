@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Fortune | Login</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link href="../static/css/login.css" th:href="@{/css/login.css}" rel="stylesheet"/>
+	</head>
+	<body>
+		<div class="container">
+			<form name="form1" class="box" th:action="@{/login}" method="post">
+				<h4>Fortune<span> | Login</span></h4>
+
+				<input type="text" name="username" placeholder="Usuário">
+				<input type="password" name="password" placeholder="Senha">
+
+				<button type="submit" class="btn1">Acessar</button>
+			</form>
+		</div>
+
+
+		<div th:if="${param.error}">
+			<div class="alert alert-primary position-absolute top-0 end-0 mr-3 mt-3"  role="alert">
+				Senha ou usuário inválido!
+			</div>
+		</div>
+
+		<div th:if="${param.logout}">
+			<div class="alert alert-primary position-absolute top-0 end-0 translate-middle mr-3 mt-3" role="alert">
+				Realize o Login de acesso!
+			</div>
+		</div>
+	</body>
+</html>
