@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/receita")
+@RequestMapping("/")
 public class HomeReceitaControllerImpl implements HomeReceitaController {
     @Autowired
     private DespesaBO despesasBO;

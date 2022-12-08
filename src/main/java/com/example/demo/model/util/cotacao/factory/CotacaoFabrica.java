@@ -1,4 +1,4 @@
-package com.example.demo.model.util.cotacao.fabrica;
+package com.example.demo.model.util.cotacao.factory;
 
 
 import com.example.demo.model.util.cotacao.adpter.Cotacao;

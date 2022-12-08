@@ -11,23 +11,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-@RequestMapping("/investimento")
+@RequestMapping("/default")
 public interface HomeInvestimentoController {
 
-    @RequestMapping(value="/", method=RequestMethod.GET)
+    @RequestMapping(value="/investimento", method=RequestMethod.GET)
     public String investimento(ModelMap model);
 
-    @RequestMapping(value="/salva-despesa", method=RequestMethod.POST)
+    @RequestMapping(value="/salva-investimento", method=RequestMethod.POST)
     public String salvarInvestimento(@Valid @ModelAttribute DespesaDTO despesa, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException;
 
-    @RequestMapping(value = "/delete_despesa", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete-investimento", method = RequestMethod.GET)
     public String handleDeleteInvestimento(@RequestParam(name = "codigo") Long codigo);
 
-    @GetMapping("/editar-despesa/{codigo}")
+    @GetMapping("/editar-investimento/{codigo}")
     public String editarInvestimento ( @PathVariable long codigo, Model model) throws
     PessoaInexistenteOuInativaException;
 
-    @PostMapping("/update_despesa/{codigo}")
+    @PostMapping("/update-investimento/{codigo}")
     public String updateInvestimento(@PathVariable("codigo") long codigo, @Valid DespesaDTO despesa,
                                 BindingResult result, Model model, RedirectAttributes attributes, HttpServletResponse response) throws
     PessoaInexistenteOuInativaException;

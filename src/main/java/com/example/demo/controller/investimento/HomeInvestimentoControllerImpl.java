@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/investimento")
+@RequestMapping("/")
 public class HomeInvestimentoControllerImpl implements HomeInvestimentoController {
     @Autowired
     private DespesaBO despesasBO;
@@ -29,7 +29,7 @@ public class HomeInvestimentoControllerImpl implements HomeInvestimentoControlle
     public String investimento(ModelMap model){
         ListaDespesaTipoDTO despesas = despesasBO.buscaDespesasTipo();
         model.addAttribute("despesas", despesas);
-        return "despesa";
+        return "investimento";
     }
 
     @Override

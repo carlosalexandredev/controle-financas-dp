@@ -1,7 +1,9 @@
 package com.example.demo.model.util.cotacao.adpter;
 
-import com.example.demo.model.util.cotacao.conector.CotacaoAPI;
+import com.example.demo.model.util.MonetarioUtil;
+import com.example.demo.model.util.cotacao.connector.CotacaoAPI;
 import com.example.demo.model.util.cotacao.dto.DolarCotacaoDTO;
+import com.example.demo.model.util.enuns.TipoMoeda;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,7 +48,8 @@ public class CotacaoDolar extends CotacaoAPI implements Cotacao<DolarCotacaoDTO>
     public static void testeRetorno() throws IOException {
         CotacaoDolar ct = new CotacaoDolar();
         var dolarDto = ct.consultaCotacao(new BigDecimal(8000));
-        System.out.println(dolarDto.toString());
+        MonetarioUtil mon = MonetarioUtil.getInstance();
+        System.out.println(mon.monetarios(dolarDto.getValorDolar(), 17, TipoMoeda.DOLAR));
     }
 
 }

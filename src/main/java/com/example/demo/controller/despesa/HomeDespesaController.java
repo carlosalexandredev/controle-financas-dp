@@ -11,10 +11,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-@RequestMapping("/")
+@RequestMapping("/default")
 public interface HomeDespesaController {
 
-    @RequestMapping(value="/", method=RequestMethod.GET)
+    @RequestMapping(value="/despesa", method=RequestMethod.GET)
     public String despesas(ModelMap model);
 
     @RequestMapping(value="/salva-despesa", method=RequestMethod.POST)

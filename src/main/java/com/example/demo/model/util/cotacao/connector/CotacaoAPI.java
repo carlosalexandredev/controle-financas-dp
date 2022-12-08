@@ -1,4 +1,4 @@
-package com.example.demo.model.util.cotacao.conector;
+package com.example.demo.model.util.cotacao.connector;
 
 import okhttp3.*;
 

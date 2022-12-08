@@ -1,6 +1,6 @@
 package com.example.demo.model.util.cotacao.adpter;
 
-import com.example.demo.model.util.cotacao.conector.CotacaoAPI;
+import com.example.demo.model.util.cotacao.connector.CotacaoAPI;
 import com.example.demo.model.util.cotacao.dto.EuroCotacaoDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
