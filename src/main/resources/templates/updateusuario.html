@@ -34,12 +34,30 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a th:href="@{/despesa}">
+            <a href="./receita">
               <i class="now-ui-icons business_money-coins"></i>
-              <p>Despesas</p>
+              <p>Receita</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
+            <a href="./investimento">
+              <i class="now-ui-icons business_briefcase-24"></i>
+              <p>Investimento</p>
+            </a>
+          </li>
+          <li>
+            <a href="./despesa">
+              <i class="now-ui-icons shopping_basket"></i>
+              <p>Despesa</p>
+            </a>
+          </li>
+          <li>
+            <a thref="./conversor">
+              <i class="now-ui-icons arrows-1_refresh-69"></i>
+              <p>Conversor Monetário</p>
+            </a>
+          </li>
+          <li class="active">
             <a th:href="@{/funcionario}">
               <i class="now-ui-icons users_single-02"></i>
               <p>Usuários</p>
@@ -200,12 +218,11 @@
                       </div>
                       <div class="col-md-2 px-3">
                         <div class="form-group">
-                          <a th:href="@{/funcionario}" class="btn btn-secondary form-control design_app" value="Limpar" style="background-color: #003e7e; color: white">Voltar</a>
+                          <a th:href="@{/funcionario}" class="btn btn-secondary form-control design_app" value="Voltar" style="background-color: #003e7e; color: white">Voltar</a>
                         </div>
                       </div>
                     </div>
                   </form>
-              </div>
               </div>
             </div>
           </div>

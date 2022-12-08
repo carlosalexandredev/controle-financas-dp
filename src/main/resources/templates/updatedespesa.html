@@ -33,10 +33,28 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active">
-            <a th:href="@{/despesa}">
+          <li>
+            <a href="./receita">
               <i class="now-ui-icons business_money-coins"></i>
-              <p>Despesas</p>
+              <p>Receita</p>
+            </a>
+          </li>
+          <li>
+            <a href="./investimento">
+              <i class="now-ui-icons business_briefcase-24"></i>
+              <p>Investimento</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="./despesa">
+              <i class="now-ui-icons shopping_basket"></i>
+              <p>Despesa</p>
+            </a>
+          </li>
+          <li>
+            <a thref="./conversor">
+              <i class="now-ui-icons arrows-1_refresh-69"></i>
+              <p>Conversor Monetário</p>
             </a>
           </li>
           <li>
@@ -146,8 +164,6 @@
                     </div>
                     <div class="col-md-2 px-3">
                       <div class="form-group">
-                        <label>ID Pessoa</label>
-                        <input type="number" min="0" class="form-control" placeholder="ID Pessoa" name="pessoa" th:value="${despesa.pessoa.codigo}" required>
                       </div>
                     </div>
                   </div>
@@ -191,7 +207,6 @@
                       <th scope="col">Vencimento</th>
                       <th scope="col">Valor</th>
                       <th scope="col">Tipo</th>
-                      <th scope="col">Pessoa</th>
                       <th scope="col"></th>
                     </tr>
                     </thead>
@@ -204,7 +219,6 @@
                       <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
                       <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
                       <td data-label="Tipo"><span th:utext="${despesa.tipodespesa}"></span></td>
-                      <td data-label="Pessoa"><span th:utext="${despesa.pessoa.nome}"></span></td>
                     </tr>
                     <tr th:if="${despesa == null}">
                       <div class="alert alert-info mt-4">

@@ -1,6 +1,6 @@
 package com.example.demo.model.entity;
 
-import com.example.demo.model.util.enuns.NomeInvestimentos;
+import com.example.demo.model.util.enuns.TipoInvestimentos;
 import com.example.demo.model.util.enuns.TipoMoeda;
 import lombok.Data;
 
@@ -19,6 +19,6 @@ public class Investimento {
     private String descricao;
     private LocalDate data;
     private BigDecimal valor;
-    private NomeInvestimentos investimento;
+    private TipoInvestimentos investimento;
     private TipoMoeda moeda;
 }

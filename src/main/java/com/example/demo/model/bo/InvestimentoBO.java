@@ -100,9 +100,6 @@ public class InvestimentoBO {
      * @Rule 2 - Regras checar Validations em DespesaDTO.
      **/
     public DespesaDTO criarDespesa(DespesaDTO despesa, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
-        Pessoa pessoa = pessoaDAO.getById(despesa.getPessoa().getCodigo());
-        if(!Objects.nonNull(pessoa) || !pessoa.getStatus().equals(TipoStatus.ATIVO))
-            throw new PessoaInexistenteOuInativaException();
         Despesa despesaSalva = despesaDAO.save(modelMapper.map(despesa, Despesa.class));
         publisher.publishEvent(new RecursoCriadoEvent(this, response, despesaSalva.getCodigo()));
         return modelMapper.map(despesa, DespesaDTO.class);

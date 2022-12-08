@@ -1,59 +1,56 @@
 package com.example.demo.model.util;
 
+import com.example.demo.model.util.enuns.TipoMoeda;
+import org.apache.commons.lang3.StringUtils;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Objects;
+
+import static java.text.NumberFormat.getNumberInstance;
+import static org.apache.commons.lang3.StringUtils.right;
+
 /**
  * @TAG SG02
  * Singleton - Design Pattern Criacional
- * @Author ->>Seu nome<<--
  * */
 
 public class MonetarioUtil {
 
+    private static MonetarioUtil monetarioUtil;
 
+    private MonetarioUtil() {
+    }
 
-//    private final static NumberFormat REAL_FORMATO = getNumberInstance(new Locale("pt", "BR"));
-//    private final NumberFormat euFormat = getNumberInstance(new Locale("en", "US"));
-//    private final NumberFormat esFormat = getNumberInstance(new Locale("es", "ES"));
-//
+    public static MonetarioUtil getInstance() {
+        if(Objects.isNull(monetarioUtil)){
+            monetarioUtil = new MonetarioUtil();
+        }
+        return monetarioUtil;
+    }
 
-//    public static final int DIFF_TAM_MONETARIO = 2;
-
-
-//    static
-//    {
-//        DECIMAL_FORMAT.setMinimumFractionDigits(FRACTION_DIGITS);
-//    }
-
-    /**
-     * Método construtor privado
-     * Criar metodo getInstance
-     *
-     * Ex.:
-     * public static ModelMapper getInstance() {
-     *         if(Objects.isNull(modelMapper)){ <-- Verificar se já existe instancio do objeto
-     *             modelMapper = new ModelMapper(); <-- Se não existir crie um objeto
-     *         }
-     *         return modelMapper; <-- caso o objeto já existe retorne-o.
-     *     }
-     *
-     * */
-
-
-
-//    public String monetarios(Number valor, Integer tam, TipoMoeda tipo)
-//    {
-//        if (valor instanceof Integer || valor instanceof BigDecimal)
-//        {
-//            switch (tipo) {
-//                case REAL:
-//                    return "R$" + right(DECIMAL_FORMAT.format(valor), tam - DIFF_TAM_MONETARIO);
-//                case DOLAR:
-//                    return "US$" + right(euFormat.format(valor), tam - DIFF_TAM_MONETARIO);
-//                case EURO:
-//                    return "€" + right(esFormat.format(valor), tam - DIFF_TAM_MONETARIO);
-//                default:
-//                    return String.valueOf(valor);
-//            }
-//        }
-//        return "";
-//    }
+    private final static NumberFormat DECIMAL_FORMAT =
+            DecimalFormat.getNumberInstance(new Locale("pt", "BR"));
+    private final NumberFormat euFormat = getNumberInstance(new Locale("en", "US"));
+    private final NumberFormat esFormat = getNumberInstance(new Locale("es", "ES"));
+    private static final int FRACTION_DIGITS = 2;
+    public static final int DIFF_TAM_MONETARIO = 2;
+    static {DECIMAL_FORMAT.setMinimumFractionDigits(FRACTION_DIGITS);}
+    public String monetarios(Number valor, Integer tam, TipoMoeda tipo) {
+        if (valor instanceof Integer || valor instanceof BigDecimal)
+        {
+            switch (tipo) {
+                case REAL:
+                    return "R$ " + right(DECIMAL_FORMAT.format(valor), tam - DIFF_TAM_MONETARIO);
+                case DOLAR:
+                    return "US$ " + right(euFormat.format(valor), tam - DIFF_TAM_MONETARIO);
+                case EURO:
+                    return "€ " + right(esFormat.format(valor), tam - DIFF_TAM_MONETARIO);
+                default:
+                    return String.valueOf(valor);
+            }
+        }
+        return StringUtils.EMPTY;
+    }
 }

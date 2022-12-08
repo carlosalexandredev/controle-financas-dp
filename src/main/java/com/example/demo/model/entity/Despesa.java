@@ -40,7 +40,6 @@ public class Despesa {
 	private TipoDespesa tipodespesa;
 	@NotNull
 	private BigDecimal valor;
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name= "codigo_pessoa")
 	private Pessoa pessoa;

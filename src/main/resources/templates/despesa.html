@@ -214,12 +214,6 @@
                           <input type="number" step="0.01" class="form-control" placeholder="Valor" name="valor" required>
                         </div>
                       </div>
-                      <div class="col-md-2 px-3">
-                        <div class="form-group">
-                          <label>ID Pessoa</label>
-                          <input type="number" min="0" class="form-control" placeholder="ID Pessoa" name="pessoa" required>
-                        </div>
-                      </div>
                     </div>
                     <div class="alert alert-warning mt-4" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
                       <b> Atenção - </b>
@@ -256,7 +250,6 @@
                         <th scope="col">Descrição</th>
                         <th scope="col">Vencimento</th>
                         <th scope="col">Valor</th>
-                        <th scope="col">Pessoa</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -269,7 +262,6 @@
                         <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
                         <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
                         <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                        <td data-label="Pessoa"><span th:utext="${despesa.pessoa.nome}"></span></td>
                         <td data-label="Editar" class="row-adjustments-line">
                           <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                             <i class="fa fa-edit" aria-hidden="true"></i>
@@ -306,7 +298,6 @@
                       <th scope="col">Descrição</th>
                       <th scope="col">Vencimento</th>
                       <th scope="col">Valor</th>
-                      <th scope="col">Pessoa</th>
                       <th scope="col"></th>
                     </tr>
                     </thead>
@@ -319,7 +310,6 @@
                       <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
                       <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
                       <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                      <td data-label="Pessoa"><span th:utext="${despesa.pessoa.nome}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
                         <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
@@ -355,7 +345,6 @@
                       <th scope="col">Descrição</th>
                       <th scope="col">Vencimento</th>
                       <th scope="col">Valor</th>
-                      <th scope="col">Pessoa</th>
                       <th scope="col"></th>
                     </tr>
                     </thead>
@@ -368,7 +357,6 @@
                       <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
                       <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
                       <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                      <td data-label="Pessoa"><span th:utext="${despesa.pessoa.nome}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
                         <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
@@ -406,7 +394,6 @@
                       <th scope="col">Descrição</th>
                       <th scope="col">Vencimento</th>
                       <th scope="col">Valor</th>
-                      <th scope="col">Pessoa</th>
                       <th scope="col"></th>
                     </tr>
                     </thead>
@@ -419,7 +406,6 @@
                       <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
                       <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
                       <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                      <td data-label="Pessoa"><span th:utext="${despesa.pessoa.nome}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
                         <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Receita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long codigo;
     private String nome;
     private String descricao;
     private LocalDate data;

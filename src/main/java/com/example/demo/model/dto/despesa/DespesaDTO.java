@@ -35,8 +35,5 @@ public class DespesaDTO {
 
 	@NotNull
 	private TipoDespesa tipodespesa;
-
-	@NotNull
-	private Pessoa pessoa;
 	
 }

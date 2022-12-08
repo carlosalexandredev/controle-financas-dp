@@ -74,7 +74,6 @@ public final class DespesaDTOBuilder {
         despesaDTO.setDataVencimento(dataVencimento);
         despesaDTO.setValor(valor);
         despesaDTO.setTipodespesa(tipodespesa);
-        despesaDTO.setPessoa(pessoa);
         return despesaDTO;
     }
 }

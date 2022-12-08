@@ -1,10 +1,9 @@
 package com.example.demo.model.dto.investimento;
 
-import com.example.demo.model.util.enuns.NomeInvestimentos;
+import com.example.demo.model.util.enuns.TipoInvestimentos;
 import com.example.demo.model.util.enuns.TipoMoeda;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -20,7 +19,7 @@ public class InvestimentoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotEmpty
-    private NomeInvestimentos nome;
+    private String nome;
     @NotBlank
     @Size(max = 200)
     private String descricao;
@@ -29,7 +28,7 @@ public class InvestimentoDTO implements Serializable {
     @NotNull
     private BigDecimal valor;
     @NotNull
-    private NomeInvestimentos investimento;
+    private TipoInvestimentos investimento;
     @NotNull
     private TipoMoeda moeda;
 
