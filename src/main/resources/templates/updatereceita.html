@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../static/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Fortune | Receitas</title>
+  <title>Fortune | Editar Despesa</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -33,7 +33,7 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active">
+          <li>
             <a href="./receita">
               <i class="now-ui-icons business_money-coins"></i>
               <p>Receita</p>
@@ -45,14 +45,14 @@
               <p>Investimento</p>
             </a>
           </li>
-          <li>
+          <li class="active">
             <a href="./despesa">
               <i class="now-ui-icons shopping_basket"></i>
               <p>Despesa</p>
             </a>
           </li>
           <li>
-            <a href="./conversor">
+            <a thref="./conversor">
               <i class="now-ui-icons arrows-1_refresh-69"></i>
               <p>Conversor Monetário</p>
             </a>
@@ -84,7 +84,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand">Receitas</a>
+            <a class="navbar-brand">Despesas</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -110,136 +110,124 @@
       </div>
       <div class="content">
         <div class="row">
-
-
-          <div class="col-lg-12">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Total Receitas</h5>
-              </div>
-              <div class="card-body">
-                <h3>R$
-<!--                  <span th:text="${receitas.total}">-->
-
-                  </span></h3>
-              </div>
-            </div>
-          </div>
-
-
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-                Cadastrar Receita
+                Editar dados da despesa <span th:text="${despesa.nome}"></span>
               </div>
               <div class="card-body ">
-                  <form th:action="@{/salva-receita}" th:object="${receita}" method="post">
-                    <div class="row">
-                      <div class="col-md-6 px-3">
-                        <div class="form-group">
-                          <label>Nome</label>
-                          <input type="text" class="form-control" placeholder="Nome" name="nome" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6 px-3">
-                        <div class="form-group">
-                          <label>Descrição</label>
-                          <input type="text" min="0" class="form-control" placeholder="Descrição" name="descricao">
-                        </div>
+                <form th:action="@{/update_despesa/{codigo}(codigo=${despesa.codigo})}" th:object="${despesa}" method="post">
+                  <div class="row">
+                    <div class="col-md-6 px-3">
+                      <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${despesa.nome}" required>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-4 px-3">
-                        <div class="form-group">
-                          <label>Valor</label>
-                          <input type="number" step="0.01" class="form-control" placeholder="Valor" name="valor" required>
-                        </div>
-                      </div>
-                      <div class="col-md-4 px-3">
-                        <div class="form-group">
-                          <label>Tipo Moeda</label>
-                          <select class="form-control" placeholder="Moeda" name="tipomoeda" required>
-                            <option value="">Selecione</option>
-                            <option value="REAL">REAL</option>
-                            <option value="EURO">EURO</option>
-                            <option value="DOLAR">DÓLAR</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-4 px-3">
-                        <div class="form-group">
-                          <label>Data</label>
-                          <input type="date" min="0" class="form-control" placeholder="data" name="data" required>
-                        </div>
+                    <div class="col-md-6 px-3">
+                      <div class="form-group">
+                        <label>Setor</label>
+                        <input type="text" class="form-control" placeholder="Setor" name="setor" th:value="${despesa.setor}" required>
                       </div>
                     </div>
-                    <div class="alert alert-warning mt-4" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
-                      <b> Atenção - </b>
-                      <span th:text="${mensagem}"></span>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-2 px-3 ml-auto">
-                        <div class="form-group">
-                          <button type="submit" class="btn btn-primary form-control design_app">Cadastrar</button>
-                        </div>
-                      </div>
-                      <div class="col-md-2 px-3">
-                        <div class="form-group">
-                          <button type="reset" class="btn btn-secondary form-control design_app" value="Limpar">Limpar</button>
-                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 px-3">
+                      <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" min="0" class="form-control" placeholder="Descrição" name="descricao" th:value="${despesa.descricao}">
                       </div>
                     </div>
-                  </form>
+                    <div class="col-md-2 px-3">
+                      <div class="form-group">
+                        <label>Vencimento</label>
+                        <input type="date" min="0" class="form-control" placeholder="Vencimento" name="dataVencimento" th:value="${despesa.dataVencimento}" required>
+                      </div>
+                    </div>
+                    <div class="col-md-2 px-3">
+                      <div class="form-group">
+                        <label>Tipo Despesa</label>
+                        <select class="form-control" placeholder="Despesa" name="tipodespesa" th:value="${despesa.tipodespesa}" required>
+                          <option value="">Selecione</option>
+                          <option value="FIXAS">FIXAS</option>
+                          <option value="VARIAVEIS">VARIAVEIS</option>
+                          <option value="EXTRAORDINARIAS">EXTRAORDINARIAS</option>
+                          <option value="REGULARES">REGULARES</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-2 px-3">
+                      <div class="form-group">
+                        <label>Valor</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="Valor" name="valor" th:value="${receita.valor}" required>
+                      </div>
+                    </div>
+                    <div class="col-md-2 px-3">
+                      <div class="form-group">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="alert alert-warning mt-4" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+                    <b> Atenção - </b>
+                    <span th:text="${mensagem}"></span>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 px-3 ml-auto">
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-control design_app">Atualizar</button>
+                      </div>
+                    </div>
+                    <div class="col-md-2 px-3">
+                      <div class="form-group">
+                        <button type="reset" class="btn btn-secondary form-control design_app" value="Limpar">Limpar</button>
+                      </div>
+                    </div>
+                    <div class="col-md-2 px-3">
+                      <div class="form-group">
+                        <a th:href="@{/receita}" class="btn btn-secondary form-control design_app" value="Limpar" style="background-color: #003e7e; color: white">Voltar</a>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-                Lista de Receitas
+                Dados da receita de <span th:text="${receita.nome}"></span>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
-                      <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Tipo Moeda</th>
-                        <th scope="col">Data</th>
-                      </tr>
+                    <tr>
+                      <th scope="col">Código</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Descrição</th>
+                      <th scope="col">Valor</th>
+                      <th scope="col">Tipo Moeda</th>
+                      <th scope="col">Data</th>
+                    </tr>
                     </thead>
                     <tbody>
-                      <tr  th:each="receita : ${receitas}">
-
-                        <th data-label="Código" scope="row"><span th:utext="${receita.codigo}"></span></th>
-                        <td data-label="Nome"><span th:utext="${receita.nome}"></span></td>
-                        <td data-label="Descrição"><span th:utext="${receita.descricao}"></span></td>
-                        <td data-label="Valor"><span th:utext="${receita.valorformatado}"></span></td>
-                        <td data-label="Tipo Moeda"><span th:utext="${receita.tipomoeda}"></span></td>
-                        <td data-label="Data"><span  th:utext="${receita.dataformatada}"></span></td>
-                        <td data-label="Editar" class="row-adjustments-line">
-                          <a th:href="@{/editar-receita/{codigo}(codigo=${receita.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
-                            <i class="fa fa-edit" aria-hidden="true"></i>
-                          </a>
-                          <a th:href="@{/delete_receita(codigo=${receita.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
-                              <i class="fa fa-trash" aria-hidden="true"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr th:if="${receitas.empty}">
-                          <div class="alert alert-info mt-4">
-                            <span><b> Info - </b> Nenhuma receita cadastrada!</span>
-                          </div>
-                      </tr>
+                    <tr>
+                      <th data-label="Código" scope="row"><span th:utext="${receita.codigo}"></span></th>
+                      <td data-label="Nome"><span th:utext="${receita.nome}"></span></td>
+                      <td data-label="Descrição"><span th:utext="${receita.descricao}"></span></td>
+                      <td data-label="Valor"><span th:utext="${receita.valorformatado}"></span></td>
+                      <td data-label="Tipo Moeda"><span th:utext="${receita.tipomoeda}"></span></td>
+                      <td data-label="Data"><span  th:utext="${receita.dataformatada}"></span></td>
+                    </tr>
+                    <tr th:if="${despesa == null}">
+                      <div class="alert alert-info mt-4">
+                        <span><b> Info - </b> Nenhuma receita cadastrada!</span>
+                      </div>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

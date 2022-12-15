@@ -17,7 +17,5 @@ public class Receita {
     private String descricao;
     private LocalDate data;
     private BigDecimal valor;
-    private TipoMoeda moeda;
-    @ManyToOne
-    private Pessoa usuario;
+    private TipoMoeda tipomoeda;
 }

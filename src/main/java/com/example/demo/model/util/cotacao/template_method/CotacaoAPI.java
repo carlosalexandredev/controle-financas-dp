@@ -1,13 +1,15 @@
-package com.example.demo.model.util.cotacao.connector;
+package com.example.demo.model.util.cotacao.template_method;
 
 import okhttp3.*;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
-public abstract class CotacaoAPI {
+/** Template Method */
+
+public abstract class CotacaoAPI<DTO> {
+
     private static final String BASE_URL = "https://economia.awesomeapi.com.br/last/";
-    private static final int TIMEOUT = 30;
-
     protected String getCotacaoMoeda(String moeda) throws IOException {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder
@@ -23,5 +25,7 @@ public abstract class CotacaoAPI {
         Response response = call.execute();
         return response.body().string();
     }
+
+    abstract DTO consultaCotacao(BigDecimal valor) throws IOException;
 }
 

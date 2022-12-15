@@ -4,18 +4,29 @@ import com.example.demo.model.bo.event.RecursoCriadoEvent;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
 import com.example.demo.model.dao.receita.ReceitaDAO;
 import com.example.demo.model.dto.despesa.DespesaDTO;
+import com.example.demo.model.dto.despesa.ListaDespesaTipoDTO;
 import com.example.demo.model.dto.pessoa.PessoaDTO;
 import com.example.demo.model.dto.receita.ReceitaDTO;
 import com.example.demo.model.entity.Despesa;
 import com.example.demo.model.entity.Receita;
 import com.example.demo.model.util.ModelMapperUtil;
+import com.example.demo.model.util.MonetarioUtil;
+import com.example.demo.model.util.enuns.TipoMoeda;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +37,9 @@ public class ReceitaBO {
     private ReceitaDAO receitaDAO;
 
     private ModelMapper modelMapper = ModelMapperUtil.getInstance();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    MonetarioUtil monetarioUtil = MonetarioUtil.getInstance();
+
 
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -36,54 +50,44 @@ public class ReceitaBO {
      **/
     public List<ReceitaDTO> buscaReceitasAll(){
         List<Receita> receitas = receitaDAO.findAll();
+        List<ReceitaDTO> receitaDTOs = new ArrayList<>();
+        if(!receitas.isEmpty()) {
+            for (Receita receita : receitas) {
+                ReceitaDTO receitaDto = ReceitaDTO.builder()
+                        .codigo(receita.getCodigo())
+                        .nome(receita.getNome())
+                        .descricao(receita.getDescricao())
+                        .data(receita.getData())
+                        .dataformatada(receita.getData().format(formatter))
+                        .valor(receita.getValor())
+                        .valorformatado(monetarioUtil.monetarios(receita.getValor(), 17, receita.getTipomoeda()))
+                        .tipomoeda(receita.getTipomoeda())
+                        .build();
+                receitaDTOs.add(receitaDto);
+            }
+        }
 
-        return receitas.stream()
-                .map(task -> modelMapper.map(task, ReceitaDTO.class))
-                .collect(Collectors.toList());
+        return receitaDTOs;
     }
 
-//    public ListaDespesaTipoDTO buscaDespesasTipo(){
-//        List<DespesaDTO> fixas = new ArrayList<>();
-//        List<DespesaDTO> variaveis = new ArrayList<>();
-//        List<DespesaDTO> extraordinarias = new ArrayList<>();
-//        List<DespesaDTO> regulares = new ArrayList<>();
-//
-//        List<ReceitaDTO> despesas = despesaDAO.findAll()
-//                .stream().map(task -> modelMapper.map(task, DespesaDTO.class))
-//                .collect(Collectors.toList());
-//
-//        for (ReceitaDTO despesa: despesas) {
-//            if(despesa.getTipodespesa().equals(TipoDespesa.FIXAS))
-//                fixas.add(despesa);
-//            if(despesa.getTipodespesa().equals(TipoDespesa.VARIAVEIS))
-//                variaveis.add(despesa);
-//            if(despesa.getTipodespesa().equals(TipoDespesa.EXTRAORDINARIAS))
-//                extraordinarias.add(despesa);
-//            if(despesa.getTipodespesa().equals(TipoDespesa.REGULARES))
-//                regulares.add(despesa);
-//        }
 
-//        return ListaDespesaTipoDTO.builder()
-//                .despesasFixas(fixas).totalFixas(calculaTotalDespesas(fixas))
-//                .despesasVariaveis(variaveis).totalVariaveis(calculaTotalDespesas(variaveis))
-//                .despesasExtraordinarias(extraordinarias).totalExtraordinarias(calculaTotalDespesas(extraordinarias))
-//                .despesasRegulares(regulares).totalRegulares(calculaTotalDespesas(regulares))
-//                .build();
-//    }
 
-//    public BigDecimal calculaTotalDespesas(List<DespesaDTO> despesas){
-//        return despesas.stream()
-//                .map(despesa -> despesa.getValor())
-//                .reduce(BigDecimal.ZERO,BigDecimal::add);
-//    }
+    public ListaDespesaTipoDTO buscaReceitaTipo(){
+
+        List<DespesaDTO> listaVazia = Collections.emptyList();
+        BigDecimal valorVazio = new BigDecimal('0');
+
+        return ListaDespesaTipoDTO.builder()
+                .build();
+    }
 
     /**
      * @Method buscaDespesasById(Long codigo)
      * @Rule 1 - Realiza busca de uma única tarefa na base de dados.
      **/
-    public Optional<ReceitaDTO> buscaDespesaById(Long codigo) {
-        Optional<Receita> despesa = receitaDAO.findById(codigo);
-        return Optional.of(modelMapper.map(despesa.get(), ReceitaDTO.class));
+    public Optional<ReceitaDTO> buscaReceitaById(Long codigo) {
+        Optional<Receita> receita = receitaDAO.findById(codigo);
+        return Optional.of(modelMapper.map(receita.get(), ReceitaDTO.class));
     }
 
     /**
@@ -91,10 +95,10 @@ public class ReceitaBO {
      * @Rule 1 - Realiza inserção de despesa na base de dados.
      * @Rule 2 - Regras checar Validations em DespesaDTO.
      **/
-    public ReceitaDTO criarDespesa(DespesaDTO despesa, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
-        Receita receitaSalva = receitaDAO.save(modelMapper.map(despesa, Receita.class));
+    public ReceitaDTO criarDespesa(ReceitaDTO receita, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
+        Receita receitaSalva = receitaDAO.save(modelMapper.map(receita, Receita.class));
         publisher.publishEvent(new RecursoCriadoEvent(this, response, receitaSalva.getCodigo()));
-        return modelMapper.map(despesa, ReceitaDTO.class);
+        return modelMapper.map(receita, ReceitaDTO.class);
     }
 
     /**
@@ -106,9 +110,9 @@ public class ReceitaBO {
     }
 
 
-    public PessoaDTO atualizaReceita(Long codigo, DespesaDTO tarefa) throws PessoaInexistenteOuInativaException {
-        Receita despesaSalva = receitaDAO.getById(codigo);
-        BeanUtils.copyProperties(tarefa, despesaSalva, "codigo");
-        return modelMapper.map(receitaDAO.save(despesaSalva), PessoaDTO.class);
+    public ReceitaDTO atualizaReceita(Long codigo, ReceitaDTO receita) throws PessoaInexistenteOuInativaException {
+        Receita receitaSalva = receitaDAO.getById(codigo);
+        BeanUtils.copyProperties(receita, receitaSalva, "codigo");
+        return modelMapper.map(receitaDAO.save(receitaSalva), ReceitaDTO.class);
     }
 }

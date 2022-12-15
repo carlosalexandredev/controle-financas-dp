@@ -1,14 +1,14 @@
 package com.example.demo.model.util.cotacao.factory;
 
 
-import com.example.demo.model.util.cotacao.adpter.Cotacao;
-import com.example.demo.model.util.cotacao.adpter.CotacaoDolar;
-import com.example.demo.model.util.cotacao.adpter.CotacaoEuro;
+import com.example.demo.model.util.cotacao.template_method.CotacaoAPI;
+import com.example.demo.model.util.cotacao.template_method.CotacaoDolar;
+import com.example.demo.model.util.cotacao.template_method.CotacaoEuro;
 import com.example.demo.model.util.enuns.TipoMoeda;
 
 public class CotacaoFabrica {
     /** Factory Method */
-    public static Cotacao getCotacao(TipoMoeda tipoMoeda) {
+    public static CotacaoAPI getCotacao(TipoMoeda tipoMoeda) {
         switch (tipoMoeda){
             case DOLAR:  {return new CotacaoDolar();}
             case EURO:  {return new CotacaoEuro();}

@@ -45,7 +45,4 @@ public class Pessoa {
 
 	@NotNull
 	private TipoUsuario privilegio;
-
-	private String username;
-	private String authorities;
 }

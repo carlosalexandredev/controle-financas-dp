@@ -1,7 +1,6 @@
-package com.example.demo.model.util.cotacao.adpter;
+package com.example.demo.model.util.cotacao.template_method;
 
 import com.example.demo.model.util.MonetarioUtil;
-import com.example.demo.model.util.cotacao.connector.CotacaoAPI;
 import com.example.demo.model.util.cotacao.dto.DolarCotacaoDTO;
 import com.example.demo.model.util.enuns.TipoMoeda;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class CotacaoDolar extends CotacaoAPI implements Cotacao<DolarCotacaoDTO> {
+public class CotacaoDolar extends CotacaoAPI<DolarCotacaoDTO> {
     @Override
     public DolarCotacaoDTO consultaCotacao(BigDecimal valor) throws IOException {
         String response = super.getCotacaoMoeda("USD-BRL");
@@ -47,7 +46,7 @@ public class CotacaoDolar extends CotacaoAPI implements Cotacao<DolarCotacaoDTO>
     @DisplayName("Teste de classe e comunicação com API de Cotação")
     public static void testeRetorno() throws IOException {
         CotacaoDolar ct = new CotacaoDolar();
-        var dolarDto = ct.consultaCotacao(new BigDecimal(8000));
+        var dolarDto = ct.consultaCotacao(new BigDecimal(1));
         MonetarioUtil mon = MonetarioUtil.getInstance();
         System.out.println(mon.monetarios(dolarDto.getValorDolar(), 17, TipoMoeda.DOLAR));
     }
