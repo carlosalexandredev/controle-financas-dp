@@ -11,6 +11,7 @@ import com.example.demo.model.entity.Despesa;
 import com.example.demo.model.entity.Receita;
 import com.example.demo.model.util.ModelMapperUtil;
 import com.example.demo.model.util.MonetarioUtil;
+import com.example.demo.model.util.TotalizadorMoedaDTO;
 import com.example.demo.model.util.enuns.TipoMoeda;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -40,17 +41,31 @@ public class ReceitaBO {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     MonetarioUtil monetarioUtil = MonetarioUtil.getInstance();
 
-
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    /**
-     * @Method buscaDespesaAll()
-     * @Rule 1 - Realiza busca de todos despesas na base de dados.
-     **/
-    public List<ReceitaDTO> buscaReceitasAll(){
+    public TotalizadorMoedaDTO buscaTotalizacaoReceitasAll(List<Receita> receita){
+        List<Receita> receitas = receitaDAO.findAll();
+        TotalizadorMoedaDTO totalizacao = new TotalizadorMoedaDTO();
+        totalizacao.setTotalReal(calculaTotal(receitas, TipoMoeda.REAL));
+        totalizacao.setTotalEuro(calculaTotal(receitas, TipoMoeda.EURO));
+        totalizacao.setTotalDolar(calculaTotal(receitas, TipoMoeda.DOLAR));
+        return totalizacao;
+    }
+
+    private String calculaTotal(List<Receita> receitas, TipoMoeda moeda) {
+        BigDecimal total = receitas.stream()
+                .filter(rec -> rec.getTipomoeda() == moeda)
+                .map(rec -> rec.getValor())
+                .reduce(BigDecimal.ZERO,BigDecimal::add);
+
+        return monetarioUtil.monetarios(total, 17, moeda);
+    }
+
+    public TotalizadorMoedaDTO buscaReceitasAll(){
         List<Receita> receitas = receitaDAO.findAll();
         List<ReceitaDTO> receitaDTOs = new ArrayList<>();
+
         if(!receitas.isEmpty()) {
             for (Receita receita : receitas) {
                 ReceitaDTO receitaDto = ReceitaDTO.builder()
@@ -66,8 +81,9 @@ public class ReceitaBO {
                 receitaDTOs.add(receitaDto);
             }
         }
-
-        return receitaDTOs;
+        TotalizadorMoedaDTO totalizacao = buscaTotalizacaoReceitasAll(receitas);
+        totalizacao.setListaFinancas(receitaDTOs);
+        return totalizacao;
     }
 
 
@@ -81,30 +97,26 @@ public class ReceitaBO {
                 .build();
     }
 
-    /**
-     * @Method buscaDespesasById(Long codigo)
-     * @Rule 1 - Realiza busca de uma única tarefa na base de dados.
-     **/
-    public Optional<ReceitaDTO> buscaReceitaById(Long codigo) {
-        Optional<Receita> receita = receitaDAO.findById(codigo);
-        return Optional.of(modelMapper.map(receita.get(), ReceitaDTO.class));
+    public ReceitaDTO buscaReceitaById(Long codigo) {
+        Receita receita = receitaDAO.findById(codigo).get();
+        return ReceitaDTO.builder()
+                .codigo(receita.getCodigo())
+                .nome(receita.getNome())
+                .descricao(receita.getDescricao())
+                .data(receita.getData())
+                .dataformatada(receita.getData().format(formatter))
+                .valor(receita.getValor())
+                .valorformatado(monetarioUtil.monetarios(receita.getValor(), 17, receita.getTipomoeda()))
+                .tipomoeda(receita.getTipomoeda())
+                .build();
     }
 
-    /**
-     * @Method criarDespesa(DespesaDTO despesa, HttpServletResponse response)
-     * @Rule 1 - Realiza inserção de despesa na base de dados.
-     * @Rule 2 - Regras checar Validations em DespesaDTO.
-     **/
     public ReceitaDTO criarDespesa(ReceitaDTO receita, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
         Receita receitaSalva = receitaDAO.save(modelMapper.map(receita, Receita.class));
         publisher.publishEvent(new RecursoCriadoEvent(this, response, receitaSalva.getCodigo()));
         return modelMapper.map(receita, ReceitaDTO.class);
     }
 
-    /**
-     * @Method removerDespesa(Long codigo)
-     * @Rule 1 - Remover o despesa pelo seu codigo.
-     **/
     public void removerReceita(Long codigo) {
         receitaDAO.deleteById(codigo);
     }
@@ -113,6 +125,17 @@ public class ReceitaBO {
     public ReceitaDTO atualizaReceita(Long codigo, ReceitaDTO receita) throws PessoaInexistenteOuInativaException {
         Receita receitaSalva = receitaDAO.getById(codigo);
         BeanUtils.copyProperties(receita, receitaSalva, "codigo");
-        return modelMapper.map(receitaDAO.save(receitaSalva), ReceitaDTO.class);
+        receitaSalva = receitaDAO.save(receitaSalva);
+        ReceitaDTO receitaDto = ReceitaDTO.builder()
+                .codigo(receitaSalva.getCodigo())
+                .nome(receitaSalva.getNome())
+                .descricao(receitaSalva.getDescricao())
+                .data(receitaSalva.getData())
+                .dataformatada(receitaSalva.getData().format(formatter))
+                .valor(receitaSalva.getValor())
+                .valorformatado(monetarioUtil.monetarios(receitaSalva.getValor(), 17, receita.getTipomoeda()))
+                .tipomoeda(receitaSalva.getTipomoeda())
+                .build();
+        return receitaDto;
     }
 }

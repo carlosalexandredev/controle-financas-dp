@@ -21,7 +21,7 @@ public interface HomeReceitaController {
     @RequestMapping(value="/salva-receita", method=RequestMethod.POST)
     public String salvarReceita(@Valid @ModelAttribute ReceitaDTO receita, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException;
 
-    @RequestMapping(value = "/delete-receita", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete_receita", method = RequestMethod.GET)
     public String handleDeleteReceita(@RequestParam(name = "codigo") Long codigo);
 
     @GetMapping("/editar-receita/{codigo}")

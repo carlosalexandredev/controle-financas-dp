@@ -42,7 +42,6 @@ public class HomeDespesaControllerImpl implements HomeDespesaController {
     @Override
     public String handleDeleteDespesa(@RequestParam(name = "codigo") Long codigo) {
         despesasBO.removerDespesa(codigo);
-
         return "redirect:/despesa";
     }
 

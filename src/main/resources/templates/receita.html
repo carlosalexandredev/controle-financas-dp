@@ -4,8 +4,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../static/assets/img/favicon.png">
+  <link rel="icon" type="image/png" th:href="@{/assets/img/favicon.png}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>Fortune | Receitas</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -17,6 +16,8 @@
   <link href="../static/assets/css/now-ui-dashboard.css?v=1.5.0"  th:href="@{/assets/css/now-ui-dashboard.css}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../static/assets/demo/demo.css" th:href="@{/assets/demo/demo.css}" rel="stylesheet" />
+  <link href="../static/css/printable.css" th:href="@{/css/printable.css}" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -92,15 +93,11 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#administrador">
-                  <i class="now-ui-icons ui-2_settings-90"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Administrador</span>
-                  </p>
-                </a>
-              </li>
+            <ul class="nav">
+              <buttom class="btn btn-primary col-md-12" onclick="printFunction()">
+                  <i class="now-ui-icons files_paper mr-3"></i>
+                  <p>Imprimir</p>
+              </buttom>
             </ul>
           </div>
         </div>
@@ -112,16 +109,23 @@
         <div class="row">
 
 
-          <div class="col-lg-12">
+          <div class="col-md-12">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Total Receitas</h5>
               </div>
-              <div class="card-body">
-                <h3>R$
-<!--                  <span th:text="${receitas.total}">-->
-
-                  </span></h3>
+              <div class="card-body text-center">
+                <div class="row">
+                  <div class="col-md-4">
+                     <h3><span th:utext="${receitas.totalReal}"></span></h3>
+                  </div>
+                  <div class="col-md-4">
+                    <h3><span th:utext="${receitas.totalDolar}"></span></h3>
+                  </div>
+                  <div class="col-md-4">
+                    <h3><span th:utext="${receitas.totalEuro}"></span></h3>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -211,13 +215,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr  th:each="receita : ${receitas}">
+                      <tr  th:each="receita : ${receitas.listaFinancas}">
 
-                        <th data-label="Código" scope="row"><span th:utext="${receita.codigo}"></span></th>
+                        <th data-label="Código" scope="row" class="text-center"><span th:utext="${receita.codigo}"></span></th>
                         <td data-label="Nome"><span th:utext="${receita.nome}"></span></td>
                         <td data-label="Descrição"><span th:utext="${receita.descricao}"></span></td>
                         <td data-label="Valor"><span th:utext="${receita.valorformatado}"></span></td>
-                        <td data-label="Tipo Moeda"><span th:utext="${receita.tipomoeda}"></span></td>
+                        <td data-label="Tipo Moeda" class="text-center"><span th:utext="${receita.tipomoeda}"></span></td>
                         <td data-label="Data"><span  th:utext="${receita.dataformatada}"></span></td>
                         <td data-label="Editar" class="row-adjustments-line">
                           <a th:href="@{/editar-receita/{codigo}(codigo=${receita.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
@@ -228,7 +232,7 @@
                           </a>
                         </td>
                       </tr>
-                      <tr th:if="${receitas.empty}">
+                      <tr th:if="${receitas.listaFinancas.empty}">
                           <div class="alert alert-info mt-4">
                             <span><b> Info - </b> Nenhuma receita cadastrada!</span>
                           </div>
@@ -245,7 +249,78 @@
     </div>
   </div>
 
+  <!-- Versão impressa -->
+
+  <div class="printable d-none d-print-block">
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-chart">
+            <div class="card-header">
+              <h5 class="card-category">Total Receitas</h5>
+            </div>
+            <div class="card-body text-center">
+              <div class="row">
+                <div class="col-md-4">
+                  <h3><span th:utext="${receitas.totalReal}"></span></h3>
+                </div>
+                <div class="col-md-4">
+                  <h3><span th:utext="${receitas.totalDolar}"></span></h3>
+                </div>
+                <div class="col-md-4">
+                  <h3><span th:utext="${receitas.totalEuro}"></span></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card ">
+            <div class="card-header ">
+              Lista de Receitas
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Tipo Moeda</th>
+                    <th scope="col">Data</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr  th:each="receita : ${receitas.listaFinancas}">
+                    <th data-label="Código" scope="row" class="text-center"><span th:utext="${receita.codigo}"></span></th>
+                    <td data-label="Nome"><span th:utext="${receita.nome}"></span></td>
+                    <td data-label="Descrição"><span th:utext="${receita.descricao}"></span></td>
+                    <td data-label="Valor"><span th:utext="${receita.valorformatado}"></span></td>
+                    <td data-label="Tipo Moeda" class="text-center"><span th:utext="${receita.tipomoeda}"></span></td>
+                    <td data-label="Data"><span  th:utext="${receita.dataformatada}"></span></td>
+                  </tr>
+                  <tr th:if="${receitas.listaFinancas.empty}">
+                    <div class="alert alert-info mt-4">
+                      <span><b> Info - </b> Nenhuma receita cadastrada!</span>
+                    </div>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!--   Core JS Files   -->
+  <script>
+    function printFunction() {
+      window.print();
+    }
+  </script>
+
   <script src="../static/assets/js/core/jquery.min.js"></script>
   <script src="../static/assets/js/core/popper.min.js"></script>
   <script src="../static/assets/js/core/bootstrap.min.js"></script>
