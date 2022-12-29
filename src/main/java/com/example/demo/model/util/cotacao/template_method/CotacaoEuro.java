@@ -1,5 +1,6 @@
 package com.example.demo.model.util.cotacao.template_method;
 
+import com.example.demo.model.util.cotacao.dto.CotacaoDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.testng.annotations.Test;
 
@@ -22,7 +23,7 @@ public class CotacaoEuro extends CotacaoAPI{
     @DisplayName("Teste de classe e comunicação com API de Cotação")
     public static void testeRetorno() throws IOException {
         CotacaoEuro ct = new CotacaoEuro();
-        var euroDto = ct.consultaCotacao(new BigDecimal(500));
+        CotacaoDTO euroDto = ct.consultaCotacao(new BigDecimal(500));
         System.out.println(euroDto.toString());
     }
 }
