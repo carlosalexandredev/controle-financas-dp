@@ -4,10 +4,9 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../static/assets/img/favicon.png">
+  <link rel="icon" type="image/png" th:href="@{/assets/img/favicon.png}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Fortune | Editar Despesa</title>
+  <title>Fortune | Editar Receita</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -34,25 +33,25 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="./receita">
+            <a thref="@{/receita}">
               <i class="now-ui-icons business_money-coins"></i>
               <p>Receita</p>
             </a>
           </li>
           <li>
-            <a href="./investimento">
+            <a thref="@{/investimento}">
               <i class="now-ui-icons business_briefcase-24"></i>
               <p>Investimento</p>
             </a>
           </li>
           <li class="active">
-            <a href="./despesa">
+            <a thref="@{/despesa}">
               <i class="now-ui-icons shopping_basket"></i>
               <p>Despesa</p>
             </a>
           </li>
           <li>
-            <a thref="./conversor">
+            <a th:href="@{/conversor}">
               <i class="now-ui-icons arrows-1_refresh-69"></i>
               <p>Conversor Monetário</p>
             </a>
@@ -84,7 +83,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand">Despesas</a>
+            <a class="navbar-brand">Receitas</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -113,57 +112,46 @@
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-                Editar dados da despesa <span th:text="${despesa.nome}"></span>
+                Editar dados da receita <span th:text="${receita.nome}"></span>
               </div>
               <div class="card-body ">
-                <form th:action="@{/update_despesa/{codigo}(codigo=${despesa.codigo})}" th:object="${despesa}" method="post">
+                <form th:action="@{/update_receita/{codigo}(codigo=${receita.codigo})}" th:object="${receita}" method="post">
                   <div class="row">
                     <div class="col-md-6 px-3">
                       <div class="form-group">
                         <label>Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${despesa.nome}" required>
+                        <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${receita.nome}" required>
                       </div>
                     </div>
                     <div class="col-md-6 px-3">
                       <div class="form-group">
-                        <label>Setor</label>
-                        <input type="text" class="form-control" placeholder="Setor" name="setor" th:value="${despesa.setor}" required>
+                        <label>Descrição</label>
+                        <input type="text" min="0" class="form-control" placeholder="Descrição" name="descricao" th:value="${receita.descricao}">
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6 px-3">
-                      <div class="form-group">
-                        <label>Descrição</label>
-                        <input type="text" min="0" class="form-control" placeholder="Descrição" name="descricao" th:value="${despesa.descricao}">
-                      </div>
-                    </div>
-                    <div class="col-md-2 px-3">
-                      <div class="form-group">
-                        <label>Vencimento</label>
-                        <input type="date" min="0" class="form-control" placeholder="Vencimento" name="dataVencimento" th:value="${despesa.dataVencimento}" required>
-                      </div>
-                    </div>
-                    <div class="col-md-2 px-3">
-                      <div class="form-group">
-                        <label>Tipo Despesa</label>
-                        <select class="form-control" placeholder="Despesa" name="tipodespesa" th:value="${despesa.tipodespesa}" required>
-                          <option value="">Selecione</option>
-                          <option value="FIXAS">FIXAS</option>
-                          <option value="VARIAVEIS">VARIAVEIS</option>
-                          <option value="EXTRAORDINARIAS">EXTRAORDINARIAS</option>
-                          <option value="REGULARES">REGULARES</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-2 px-3">
+                    <div class="col-md-4 px-3">
                       <div class="form-group">
                         <label>Valor</label>
                         <input type="number" step="0.01" class="form-control" placeholder="Valor" name="valor" th:value="${receita.valor}" required>
                       </div>
                     </div>
-                    <div class="col-md-2 px-3">
+                    <div class="col-md-4 px-3">
                       <div class="form-group">
+                        <label>Tipo Moeda</label>
+                        <select class="form-control" placeholder="Moeda" name="tipomoeda" th:value="${receita.tipomoeda}" required>
+                          <option value="">Selecione</option>
+                          <option value="REAL">REAL</option>
+                          <option value="EURO">EURO</option>
+                          <option value="DOLAR">DÓLAR</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4 px-3">
+                      <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" min="0" class="form-control" placeholder="data" name="data" th:value="${receita.data}" required>
                       </div>
                     </div>
                   </div>
@@ -184,7 +172,7 @@
                     </div>
                     <div class="col-md-2 px-3">
                       <div class="form-group">
-                        <a th:href="@{/receita}" class="btn btn-secondary form-control design_app" value="Limpar" style="background-color: #003e7e; color: white">Voltar</a>
+                        <a th:href="@{/receita}" class="btn btn-secondary form-control design_app" value="Voltar" style="background-color: #003e7e; color: white">Voltar</a>
                       </div>
                     </div>
                   </div>
@@ -217,7 +205,7 @@
                       <td data-label="Tipo Moeda"><span th:utext="${receita.tipomoeda}"></span></td>
                       <td data-label="Data"><span  th:utext="${receita.dataformatada}"></span></td>
                     </tr>
-                    <tr th:if="${despesa == null}">
+                    <tr th:if="${receita == null}">
                       <div class="alert alert-info mt-4">
                         <span><b> Info - </b> Nenhuma receita cadastrada!</span>
                       </div>

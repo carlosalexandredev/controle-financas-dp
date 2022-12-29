@@ -5,6 +5,7 @@ import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaExce
 import com.example.demo.model.dto.despesa.DespesaDTO;
 import com.example.demo.model.dto.despesa.ListaDespesaTipoDTO;
 import com.example.demo.model.dto.receita.ReceitaDTO;
+import com.example.demo.model.util.TotalizadorMoedaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,7 @@ public class HomeReceitaControllerImpl implements HomeReceitaController {
 
     @Override
     public String receitas(ModelMap model){
-        List<ReceitaDTO> receitas = receitaBO.buscaReceitasAll();
+        TotalizadorMoedaDTO receitas = receitaBO.buscaReceitasAll();
         model.addAttribute("receitas", receitas);
         return "receita";
     }
@@ -47,14 +48,13 @@ public class HomeReceitaControllerImpl implements HomeReceitaController {
     @Override
     public String handleDeleteReceita(@RequestParam(name = "codigo") Long codigo) {
         receitaBO.removerReceita(codigo);
-
         return "redirect:/receita";
     }
 
     @Override
     public String editarReceita(@PathVariable long codigo, Model model) throws PessoaInexistenteOuInativaException {
-        Optional<ReceitaDTO> receita = receitaBO.buscaReceitaById(codigo);
-        model.addAttribute("receita", receita.get());
+        ReceitaDTO receita = receitaBO.buscaReceitaById(codigo);
+        model.addAttribute("receita", receita);
         return "updatereceita";
     }
 
@@ -68,8 +68,8 @@ public class HomeReceitaControllerImpl implements HomeReceitaController {
             attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
             return "updatereceita";
         }
-        receitaBO.atualizaReceita(codigo, receita);
-        model.addAttribute("receita", receita);
+        ReceitaDTO receitaDto = receitaBO.atualizaReceita(codigo, receita);
+        model.addAttribute("receita", receitaDto);
         return "updatereceita";
     }
 

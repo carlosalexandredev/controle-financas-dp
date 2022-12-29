@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-@AllArgsConstructor
 public class ReceitaDTO {
 	private Long codigo;
 	private String nome;
