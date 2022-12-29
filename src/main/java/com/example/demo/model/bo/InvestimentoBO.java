@@ -1,122 +1,94 @@
 package com.example.demo.model.bo;
 
-import com.example.demo.model.bo.event.RecursoCriadoEvent;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
-import com.example.demo.model.dao.despesa.DespesaDAO;
-import com.example.demo.model.dao.pessoa.PessoaDAO;
-import com.example.demo.model.dto.despesa.DespesaDTO;
-import com.example.demo.model.dto.despesa.ListaDespesaTipoDTO;
-import com.example.demo.model.dto.despesa.enuns.TipoDespesa;
-import com.example.demo.model.dto.pessoa.PessoaDTO;
-import com.example.demo.model.dto.pessoa.enuns.TipoStatus;
-import com.example.demo.model.entity.Despesa;
-import com.example.demo.model.entity.Pessoa;
+import com.example.demo.model.dao.investimento.InvestimentoDAO;
+import com.example.demo.model.dto.investimento.InvestimentoDTO;
+import com.example.demo.model.dto.investimento.ListaInvestimentoTipoDTO;
+import com.example.demo.model.entity.Investimento;
 import com.example.demo.model.util.ModelMapperUtil;
+import com.example.demo.model.util.MonetarioUtil;
+import com.example.demo.model.util.enuns.TipoInvestimentos;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class InvestimentoBO {
     @Autowired
-    private DespesaDAO despesaDAO;
-    @Autowired
-    private PessoaDAO pessoaDAO;
+    private InvestimentoDAO investimentoDAO;
 
+    MonetarioUtil monetarioUtil = MonetarioUtil.getInstance();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private ModelMapper modelMapper = ModelMapperUtil.getInstance();
 
-    @Autowired
-    private ApplicationEventPublisher publisher;
-
-    /**
-     * @Method buscaDespesaAll()
-     * @Rule 1 - Realiza busca de todos despesas na base de dados.
-     **/
-    public List<DespesaDTO> buscaDespesaAll(){
-        List<Despesa> despesas = despesaDAO.findAll();
+    public List<InvestimentoDTO> buscaDespesaAll(){
+        List<Investimento> despesas = investimentoDAO.findAll();
 
         return despesas.stream()
-                .map(task -> modelMapper.map(task, DespesaDTO.class))
+                .map(task -> modelMapper.map(task, InvestimentoDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public ListaDespesaTipoDTO buscaDespesasTipo(){
-        List<DespesaDTO> fixas = new ArrayList<>();
-        List<DespesaDTO> variaveis = new ArrayList<>();
-        List<DespesaDTO> extraordinarias = new ArrayList<>();
-        List<DespesaDTO> regulares = new ArrayList<>();
+    public ListaInvestimentoTipoDTO buscaDespesasTipo(){
+        List<InvestimentoDTO> fixas = new ArrayList<>();
+        List<InvestimentoDTO> variaveis = new ArrayList<>();
+        List<InvestimentoDTO> extraordinarias = new ArrayList<>();
+        List<InvestimentoDTO> regulares = new ArrayList<>();
 
-        List<DespesaDTO> despesas = despesaDAO.findAll()
-                .stream().map(task -> modelMapper.map(task, DespesaDTO.class))
-                .collect(Collectors.toList());
+        List<InvestimentoDTO> investimentos = investimentoDAO.findAll().stream()
+                .map(inv -> {
+                    InvestimentoDTO invDto = modelMapper.map(inv, InvestimentoDTO.class);
+                    invDto.setValorFormatado(monetarioUtil.monetarios(inv.getValor(), 17, inv.getTipomoeda()));
+                    invDto.setDataFormatada(invDto.getDataInvestimento().format(formatter));
+                    return invDto;
+                }).collect(Collectors.toList());
 
-        for (DespesaDTO despesa: despesas) {
-            if(despesa.getTipodespesa().equals(TipoDespesa.FIXAS))
-                fixas.add(despesa);
-            if(despesa.getTipodespesa().equals(TipoDespesa.VARIAVEIS))
-                variaveis.add(despesa);
-            if(despesa.getTipodespesa().equals(TipoDespesa.EXTRAORDINARIAS))
-                extraordinarias.add(despesa);
-            if(despesa.getTipodespesa().equals(TipoDespesa.REGULARES))
-                regulares.add(despesa);
+        for (InvestimentoDTO investimento: investimentos) {
+            if (investimento.getInvestimento().equals(TipoInvestimentos.TESOURO_DIRETO))
+                fixas.add(investimento);
+            if (investimento.getInvestimento().equals(TipoInvestimentos.CDB))
+                variaveis.add(investimento);
+            if (investimento.getInvestimento().equals(TipoInvestimentos.ACOES_DE_EMPRESAS))
+                extraordinarias.add(investimento);
+            if (investimento.getInvestimento().equals(TipoInvestimentos.FUNDOS_IMOBILIARIOS))
+                regulares.add(investimento);
         }
 
-        return ListaDespesaTipoDTO.builder()
-                .despesasFixas(fixas).totalFixas(calculaTotalDespesas(fixas))
-                .despesasVariaveis(variaveis).totalVariaveis(calculaTotalDespesas(variaveis))
-                .despesasExtraordinarias(extraordinarias).totalExtraordinarias(calculaTotalDespesas(extraordinarias))
-                .despesasRegulares(regulares).totalRegulares(calculaTotalDespesas(regulares))
+        return ListaInvestimentoTipoDTO.builder()
+                .despesasFixas(fixas)
+                .despesasVariaveis(variaveis)
+                .despesasExtraordinarias(extraordinarias)
+                .despesasRegulares(regulares)
                 .build();
     }
 
-    public BigDecimal calculaTotalDespesas(List<DespesaDTO> despesas){
-        return despesas.stream()
-                .map(despesa -> despesa.getValor())
-                .reduce(BigDecimal.ZERO,BigDecimal::add);
+//    public BigDecimal calculaTotalDespesas(List<DespesaDTO> despesas){
+//        return despesas.stream()
+//                .map(despesa -> despesa.getValor())
+//                .reduce(BigDecimal.ZERO,BigDecimal::add);
+//    }
+
+    public InvestimentoDTO buscaInvestimentoById(Long codigo) {
+        Optional<Investimento> despesa = investimentoDAO.findById(codigo);
+        InvestimentoDTO investimentoDTO = modelMapper.map(despesa.get(), InvestimentoDTO.class);
+        investimentoDTO.setDataFormatada(investimentoDTO.getDataInvestimento().format(formatter));
+        investimentoDTO.setValorFormatado(monetarioUtil.monetarios(investimentoDTO.getValor(), 17, investimentoDTO.getTipomoeda()));
+        return investimentoDTO;
     }
 
-    /**
-     * @Method buscaDespesasById(Long codigo)
-     * @Rule 1 - Realiza busca de uma única tarefa na base de dados.
-     **/
-    public Optional<DespesaDTO> buscaDespesaById(Long codigo) {
-        Optional<Despesa> despesa = despesaDAO.findById(codigo);
-        return Optional.of(modelMapper.map(despesa.get(), DespesaDTO.class));
+    public InvestimentoDTO criarInvestimento(InvestimentoDTO investimento, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
+        Investimento investimentoSalvo = investimentoDAO.save(modelMapper.map(investimento, Investimento.class));
+        return modelMapper.map(investimento, InvestimentoDTO.class);
     }
 
-    /**
-     * @Method criarDespesa(DespesaDTO despesa, HttpServletResponse response)
-     * @Rule 1 - Realiza inserção de despesa na base de dados.
-     * @Rule 2 - Regras checar Validations em DespesaDTO.
-     **/
-    public DespesaDTO criarDespesa(DespesaDTO despesa, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
-        Despesa despesaSalva = despesaDAO.save(modelMapper.map(despesa, Despesa.class));
-        publisher.publishEvent(new RecursoCriadoEvent(this, response, despesaSalva.getCodigo()));
-        return modelMapper.map(despesa, DespesaDTO.class);
-    }
-
-    /**
-     * @Method removerDespesa(Long codigo)
-     * @Rule 1 - Remover o despesa pelo seu codigo.
-     **/
-    public void removerDespesa(Long codigo) {
-        despesaDAO.deleteById(codigo);
-    }
-
-
-    public PessoaDTO atualizaDespesa(Long codigo, DespesaDTO tarefa) throws PessoaInexistenteOuInativaException {
-        Despesa despesaSalva = despesaDAO.getById(codigo);
-        BeanUtils.copyProperties(tarefa, despesaSalva, "codigo");
-        return modelMapper.map(despesaDAO.save(despesaSalva), PessoaDTO.class);
+    public void removerInvestimento(Long codigo) {
+        investimentoDAO.deleteById(codigo);
     }
 }

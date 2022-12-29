@@ -2,10 +2,7 @@ package com.example.demo.model.bo;
 
 import com.example.demo.model.dto.despesa.ListaDespesaTipoDTO;
 import com.example.demo.model.dto.despesa.enuns.TipoDespesa;
-import com.example.demo.model.dto.pessoa.enuns.TipoStatus;
 import com.example.demo.model.entity.Despesa;
-import com.example.demo.model.entity.Pessoa;
-import com.example.demo.model.bo.event.RecursoCriadoEvent;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
 import com.example.demo.model.dto.despesa.DespesaDTO;
 import com.example.demo.model.dto.pessoa.PessoaDTO;
@@ -32,8 +29,6 @@ public class DespesaBO {
 	
 	@Autowired
 	private DespesaDAO despesaDAO;
-	@Autowired
-	private PessoaDAO pessoaDAO;
 
 	private ModelMapper modelMapper = ModelMapperUtil.getInstance();
 
@@ -103,7 +98,6 @@ public class DespesaBO {
 	 **/
 	public DespesaDTO criarDespesa(DespesaDTO despesa, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
 		Despesa despesaSalva = despesaDAO.save(modelMapper.map(despesa, Despesa.class));
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, despesaSalva.getCodigo()));
 		return modelMapper.map(despesa, DespesaDTO.class);
 	}
 

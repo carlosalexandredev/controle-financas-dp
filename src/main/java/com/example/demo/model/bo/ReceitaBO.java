@@ -1,13 +1,10 @@
 package com.example.demo.model.bo;
 
-import com.example.demo.model.bo.event.RecursoCriadoEvent;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
 import com.example.demo.model.dao.receita.ReceitaDAO;
 import com.example.demo.model.dto.despesa.DespesaDTO;
 import com.example.demo.model.dto.despesa.ListaDespesaTipoDTO;
-import com.example.demo.model.dto.pessoa.PessoaDTO;
 import com.example.demo.model.dto.receita.ReceitaDTO;
-import com.example.demo.model.entity.Despesa;
 import com.example.demo.model.entity.Receita;
 import com.example.demo.model.util.ModelMapperUtil;
 import com.example.demo.model.util.MonetarioUtil;
@@ -17,20 +14,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ReceitaBO {
@@ -113,7 +104,6 @@ public class ReceitaBO {
 
     public ReceitaDTO criarDespesa(ReceitaDTO receita, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
         Receita receitaSalva = receitaDAO.save(modelMapper.map(receita, Receita.class));
-        publisher.publishEvent(new RecursoCriadoEvent(this, response, receitaSalva.getCodigo()));
         return modelMapper.map(receita, ReceitaDTO.class);
     }
 

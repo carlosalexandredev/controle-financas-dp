@@ -63,12 +63,6 @@
               <p>Usuários</p>
             </a>
           </li>
-          <li class="active-pro">
-            <a th:href="@{/logout}">
-              <i class="now-ui-icons arrows-1_minimal-left"></i>
-              <p>Sair</p>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -92,15 +86,11 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#administrador">
-                  <i class="now-ui-icons ui-2_settings-90"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Administrador</span>
-                  </p>
-                </a>
-              </li>
+            <ul class="nav">
+              <buttom class="btn btn-primary col-md-12" onclick="printFunction()">
+                <i class="now-ui-icons files_paper mr-3"></i>
+                <p>Imprimir</p>
+              </buttom>
             </ul>
           </div>
         </div>
@@ -115,11 +105,14 @@
           <div class="col-lg-3">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Investimentos</h5>
-                <h4 class="card-title">Tesouro Direto</h4>
+                <h3 class="card-category">Investimentos</h3>
+                <h5 class="card-title">Tesouro Direto</h5>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalFixas}"></span></h3>
+                <h5>R$ <span th:text="${0}"></span></h5>
+                <p>R$ <span th:text="${0}"></span></p>
+                <p>R$ <span th:text="${0}"></span></p>
+
               </div>
             </div>
           </div>
@@ -127,11 +120,14 @@
           <div class="col-lg-3">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Investimentos</h5>
-                <h4 class="card-title">CDB</h4>
+                <h3 class="card-category">Investimentos</h3>
+                <h5 class="card-title">CDB</h5>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalVariaveis}"></span></h3>
+                <h5>R$ <span th:text="${0}"></span></h5>
+                <p>R$ <span th:text="${0}"></span></p>
+                <p>R$ <span th:text="${0}"></span></p>
+
               </div>
             </div>
           </div>
@@ -139,11 +135,14 @@
           <div class="col-lg-3">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Investimentos</h5>
-                <h4 class="card-title">Ações</h4>
+                <h3 class="card-category">Investimentos</h3>
+                <h5 class="card-title">Ações</h5>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalExtraordinarias}"></span></h3>
+                <h5>R$ <span th:text="${0}"></span></h5>
+                <p>R$ <span th:text="${0}"></span></p>
+                <p>R$ <span th:text="${0}"></span></p>
+
               </div>
             </div>
           </div>
@@ -151,11 +150,13 @@
           <div class="col-lg-3">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Investimentos</h5>
-                <h6 class="card-title">Fundos Imobiliários</h6>
+                <h3 class="card-category">Investimentos</h3>
+                <h5 class="card-title">F. Imobiliários</h5>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalRegulares}"></span></h3>
+                <h5>R$ <span th:text="${0}"></span></h5>
+                <p>R$ <span th:text="${0}"></span></p>
+                <p>R$ <span th:text="${0}"></span></p>
               </div>
             </div>
           </div>
@@ -167,7 +168,7 @@
                 Cadastrar Investimentos
               </div>
               <div class="card-body ">
-                <form th:action="@{/salva-despesa}" th:object="${despesa}" method="post">
+                <form th:action="@{/salva-investimento}" th:object="${investimento}" method="post">
                   <div class="row">
                     <div class="col-md-6 px-3">
                       <div class="form-group">
@@ -192,7 +193,7 @@
                     <div class="col-md-4 px-3">
                       <div class="form-group">
                         <label>Tipo Investimento</label>
-                        <select class="form-control" placeholder="Moeda" name="tipomoeda" required>
+                        <select class="form-control" placeholder="Moeda" name="investimento" required>
                           <option value="">Selecione</option>
                           <option value="TESOURO_DIRETO">TESOURO DIRETO</option>
                           <option value="CDB">CDB</option>
@@ -215,7 +216,7 @@
                     <div class="col-md-4 px-3">
                       <div class="form-group">
                         <label>Data</label>
-                        <input type="date" min="0" class="form-control" placeholder="data" name="data" required>
+                        <input type="date" min="0" class="form-control" placeholder="data" name="dataInvestimento" required>
                       </div>
                     </div>
                   </div>
@@ -251,34 +252,34 @@
                       <th scope="col">Código</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Descrição</th>
-                      <th scope="col">Tipo Investimento</th>
-                      <th scope="col">Tipo Moeda</th>
+                      <th scope="col">Investimento</th>
+                      <th scope="col">Moeda</th>
                       <th scope="col">Valor</th>
                       <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  th:each="despesa : ${despesas.despesasFixas}">
+                    <tr  th:each="investimento : ${investimentos.despesasFixas}">
 
-                      <th data-label="Código" scope="row"><span th:utext="${despesa.codigo}"></span></th>
-                      <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
-                      <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                      <td data-label="Tipo Investimento"><span th:utext="${despesa.tipoinvestimento}"></span></td>
-                      <td data-label="Tipo Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
-                      <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                      <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                      <th data-label="Código" scope="row"><span th:utext="${investimento.codigo}"></span></th>
+                      <td data-label="Nome"><span th:utext="${investimento.nome}"></span></td>
+                      <td data-label="Descrição"><span th:utext="${investimento.descricao}"></span></td>
+                      <td data-label="Tipo Investimento"><span th:utext="${investimento.investimento}"></span></td>
+                      <td data-label="Tipo Moeda"><span th:utext="${investimento.tipomoeda}"></span></td>
+                      <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
+                      <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
                         </a>
-                        <a th:href="@{/delete_despesa(codigo=${despesa.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
+                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
                           <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
-                      <tr th:if="${despesas.despesasFixas.empty}">
+                      <tr th:if="${investimentos.despesasFixas.empty}">
                           <div class="alert alert-info mt-4">
-                            <span><b> Info - </b> Nenhuma receita fixa cadastrada!</span>
+                            <span><b> Info - </b> Nenhum investimento em Tesouro Direto cadastrado!</span>
                           </div>
                       </tr>
                     </tbody>
@@ -300,34 +301,34 @@
                       <th scope="col">Código</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Descrição</th>
-                      <th scope="col">Tipo Investimento</th>
-                      <th scope="col">Tipo Moeda</th>
+                      <th scope="col">Investimento</th>
+                      <th scope="col">Moeda</th>
                       <th scope="col">Valor</th>
                       <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  th:each="despesa : ${despesas.despesasFixas}">
+                    <tr  th:each="investimento : ${investimentos.despesasVariaveis}">
 
-                      <th data-label="Código" scope="row"><span th:utext="${despesa.codigo}"></span></th>
-                      <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
-                      <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                      <td data-label="Tipo Investimento"><span th:utext="${despesa.tipoinvestimento}"></span></td>
-                      <td data-label="Tipo Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
-                      <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                      <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                      <th data-label="Código" scope="row"><span th:utext="${investimento.codigo}"></span></th>
+                      <td data-label="Nome"><span th:utext="${investimento.nome}"></span></td>
+                      <td data-label="Descrição"><span th:utext="${investimento.descricao}"></span></td>
+                      <td data-label="Tipo Investimento"><span th:utext="${investimento.investimento}"></span></td>
+                      <td data-label="Tipo Moeda"><span th:utext="${investimento.tipomoeda}"></span></td>
+                      <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
+                      <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
                         </a>
-                        <a th:href="@{/delete_despesa(codigo=${despesa.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
+                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
                           <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
-                    <tr th:if="${despesas.despesasVariaveis.empty}">
+                    <tr th:if="${investimentos.despesasVariaveis.empty}">
                       <div class="alert alert-info mt-4">
-                        <span><b> Info - </b> Nenhuma receita variável cadastrada!</span>
+                        <span><b> Info - </b> Nenhum investimento em CDB cadastrado!</span>
                       </div>
                     </tr>
                     </tbody>
@@ -348,34 +349,34 @@
                       <th scope="col">Código</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Descrição</th>
-                      <th scope="col">Tipo Investimento</th>
-                      <th scope="col">Tipo Moeda</th>
+                      <th scope="col">Investimento</th>
+                      <th scope="col">Moeda</th>
                       <th scope="col">Valor</th>
                       <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  th:each="despesa : ${despesas.despesasFixas}">
+                    <tr  th:each="investimento : ${investimentos.despesasExtraordinarias}">
 
-                      <th data-label="Código" scope="row"><span th:utext="${despesa.codigo}"></span></th>
-                      <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
-                      <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                      <td data-label="Tipo Investimento"><span th:utext="${despesa.tipoinvestimento}"></span></td>
-                      <td data-label="Tipo Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
-                      <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                      <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                      <th data-label="Código" scope="row"><span th:utext="${investimento.codigo}"></span></th>
+                      <td data-label="Nome"><span th:utext="${investimento.nome}"></span></td>
+                      <td data-label="Descrição"><span th:utext="${investimento.descricao}"></span></td>
+                      <td data-label="Tipo Investimento"><span th:utext="${investimento.investimento}"></span></td>
+                      <td data-label="Tipo Moeda"><span th:utext="${investimento.tipomoeda}"></span></td>
+                      <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
+                      <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
                         </a>
-                        <a th:href="@{/delete_despesa(codigo=${despesa.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
+                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
                           <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
-                    <tr th:if="${despesas.despesasExtraordinarias.empty}">
+                    <tr th:if="${investimentos.despesasExtraordinarias.empty}">
                       <div class="alert alert-info mt-4">
-                        <span><b> Info - </b> Nenhuma receita extraordinária cadastrada!</span>
+                        <span><b> Info - </b> Nenhum investimento em Ações cadastrado!</span>
                       </div>
                     </tr>
                     </tbody>
@@ -398,34 +399,34 @@
                       <th scope="col">Código</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Descrição</th>
-                      <th scope="col">Tipo Investimento</th>
-                      <th scope="col">Tipo Moeda</th>
+                      <th scope="col">Investimento</th>
+                      <th scope="col">Moeda</th>
                       <th scope="col">Valor</th>
                       <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  th:each="despesa : ${despesas.despesasFixas}">
+                    <tr  th:each="investimento : ${investimentos.despesasRegulares}">
 
-                      <th data-label="Código" scope="row"><span th:utext="${despesa.codigo}"></span></th>
-                      <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
-                      <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                      <td data-label="Tipo Investimento"><span th:utext="${despesa.tipoinvestimento}"></span></td>
-                      <td data-label="Tipo Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
-                      <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
-                      <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                      <th data-label="Código" scope="row"><span th:utext="${investimento.codigo}"></span></th>
+                      <td data-label="Nome"><span th:utext="${investimento.nome}"></span></td>
+                      <td data-label="Descrição"><span th:utext="${investimento.descricao}"></span></td>
+                      <td data-label="Tipo Investimento"><span th:utext="${investimento.investimento}"></span></td>
+                      <td data-label="Tipo Moeda"><span th:utext="${investimento.tipomoeda}"></span></td>
+                      <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
+                      <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
                         </a>
-                        <a th:href="@{/delete_despesa(codigo=${despesa.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
+                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
                           <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
-                    <tr th:if="${despesas.despesasRegulares.empty}">
+                    <tr th:if="${investimentos.despesasRegulares.empty}">
                       <div class="alert alert-info mt-4">
-                        <span><b> Info - </b> Nenhuma receita regular cadastrada!</span>
+                        <span><b> Info - </b> Nenhum investimento em Fundos Imobiliários (FII) cadastrado!</span>
                       </div>
                     </tr>
                     </tbody>
@@ -444,17 +445,18 @@
   </div>
 
   <!--   Core JS Files   -->
-  <script src="../static/assets/js/core/jquery.min.js"></script>
-  <script src="../static/assets/js/core/popper.min.js"></script>
-  <script src="../static/assets/js/core/bootstrap.min.js"></script>
-  <script src="../static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-  <!-- Chart JS -->
-  <script src="../static/assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../static/assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../static/assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../static/assets/demo/demo.js"></script>
+  <script>
+    function printFunction() {
+      window.print();
+    }
+  </script>
+  <script th:src="@{/assets/js/core/jquery.min.js}"></script>
+  <script th:src="@{/assets/js/core/popper.min.js}"></script>
+  <script th:src="@{/assets/js/core/bootstrap.min.js}"></script>
+  <script th:src="@{/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+  <script th:src="@{/assets/js/plugins//bootstrap-notify.js}"></script>
+  <script th:src="@{/assets//demo/demo.js}"></script>
+  <script th:src="@{assets/js/now-ui-dashboard.js?v=1.0.1}"></script>
+  <script th:src="@{assets/demo/demo.js}"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 package com.example.demo.controller.investimento;
 
-import com.example.demo.model.bo.DespesaBO;
+import com.example.demo.model.bo.InvestimentoBO;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
-import com.example.demo.model.dto.despesa.DespesaDTO;
-import com.example.demo.model.dto.despesa.ListaDespesaTipoDTO;
+import com.example.demo.model.dto.investimento.InvestimentoDTO;
+import com.example.demo.model.dto.investimento.ListaInvestimentoTipoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,52 +23,52 @@ import java.util.Optional;
 @RequestMapping("/")
 public class HomeInvestimentoControllerImpl implements HomeInvestimentoController {
     @Autowired
-    private DespesaBO despesasBO;
+    private InvestimentoBO investimentoBO;
 
     @Override
     public String investimento(ModelMap model){
-        ListaDespesaTipoDTO despesas = despesasBO.buscaDespesasTipo();
-        model.addAttribute("despesas", despesas);
+        ListaInvestimentoTipoDTO investimentos = investimentoBO.buscaDespesasTipo();
+        model.addAttribute("investimentos", investimentos);
         return "investimento";
     }
 
     @Override
-    public String salvarInvestimento(@Valid @ModelAttribute DespesaDTO despesa, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
+    public String salvarInvestimento(@Valid @ModelAttribute InvestimentoDTO investimento, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
         if(result.hasErrors()){
             attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
-            return "redirect:/despesa";
+            return "redirect:/investimento";
         }
-        DespesaDTO depesaSalva = despesasBO.criarDespesa(despesa, response);
-        return "redirect:/despesa";
+        InvestimentoDTO investimentoSalvo = investimentoBO.criarInvestimento(investimento, response);
+        return "redirect:/investimento";
     }
 
     @Override
     public String handleDeleteInvestimento(@RequestParam(name = "codigo") Long codigo) {
-        despesasBO.removerDespesa(codigo);
+        investimentoBO.removerInvestimento(codigo);
 
-        return "redirect:/despesa";
+        return "redirect:/investimento";
     }
 
     @Override
-    public String editarInvestimento(@PathVariable long codigo, Model model) throws PessoaInexistenteOuInativaException {
-        Optional<DespesaDTO> despesa = despesasBO.buscaDespesaById(codigo);
-        model.addAttribute("despesa", despesa.get());
-        return "updatedespesa";
+    public String editarInvestimento(@PathVariable long codigo, Model model) {
+        InvestimentoDTO investimento = investimentoBO.buscaInvestimentoById(codigo);
+        model.addAttribute("investimento", investimento);
+        return "updateinvestimento";
     }
 
-    @Override
-    public String updateInvestimento(@PathVariable("codigo") long codigo, @Valid DespesaDTO despesa,
-                                BindingResult result, Model model, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
-        despesasBO.atualizaDespesa(codigo, despesa);
-        if (result.hasErrors()) {
-            despesa.setCodigo(codigo);
-            model.addAttribute("despesa", despesa);
-            attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
-            return "updatedespesa";
-        }
-        despesasBO.atualizaDespesa(codigo, despesa);
-        model.addAttribute("despesa", despesa);
-        return "updatedespesa";
-    }
+//    @Override
+//    public String updateInvestimento(@PathVariable("codigo") long codigo, @Valid InvestimentoDTO despesa,
+//                                BindingResult result, Model model, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
+//        investimentoBO.atualizaDespesa(codigo, despesa);
+//        if (result.hasErrors()) {
+//            despesa.setCodigo(codigo);
+//            model.addAttribute("despesa", despesa);
+//            attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
+//            return "updatedespesa";
+//        }
+//        investimentoBO.atualizaDespesa(codigo, despesa);
+//        model.addAttribute("despesa", despesa);
+//        return "updatedespesa";
+//    }
 
 }

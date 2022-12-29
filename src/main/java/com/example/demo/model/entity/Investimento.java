@@ -14,11 +14,11 @@ import java.time.LocalDate;
 public class Investimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long codigo;
     private String nome;
     private String descricao;
     private LocalDate data;
     private BigDecimal valor;
     private TipoInvestimentos investimento;
-    private TipoMoeda moeda;
+    private TipoMoeda tipomoeda;
 }

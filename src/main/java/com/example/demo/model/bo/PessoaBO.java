@@ -2,7 +2,6 @@ package com.example.demo.model.bo;
 
 import com.example.demo.model.dto.pessoa.enuns.TipoStatus;
 import com.example.demo.model.entity.Pessoa;
-import com.example.demo.model.bo.event.RecursoCriadoEvent;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
 import com.example.demo.model.dto.pessoa.PessoaDTO;
 import org.modelmapper.ModelMapper;
@@ -61,7 +60,6 @@ public class PessoaBO {
 
 		usuario.setSenha(usuario.getSenha());
 		Pessoa pessoaSalva = pessoaDAO.save(modelMapper.map(usuario, Pessoa.class));
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
 		return modelMapper.map(usuario, PessoaDTO.class);
 	}
 
