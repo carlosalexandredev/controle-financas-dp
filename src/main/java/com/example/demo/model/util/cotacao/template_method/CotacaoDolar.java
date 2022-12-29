@@ -25,7 +25,7 @@ public class CotacaoDolar extends CotacaoAPI<CotacaoDTO> {
     @DisplayName("Teste de classe e comunicação com API de Cotação")
     public static void testeRetorno() throws IOException {
         CotacaoDolar ct = new CotacaoDolar();
-        var dolarDto = ct.consultaCotacao(new BigDecimal(1));
+        CotacaoDTO dolarDto = ct.consultaCotacao(new BigDecimal(1));
         MonetarioUtil mon = MonetarioUtil.getInstance();
         System.out.println(mon.monetarios(dolarDto.getValorConvertido(), 17, TipoMoeda.DOLAR));
     }
