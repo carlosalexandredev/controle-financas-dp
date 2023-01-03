@@ -2,13 +2,17 @@ package com.example.demo.model.bo;
 
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
 import com.example.demo.model.dao.investimento.InvestimentoDAO;
+import com.example.demo.model.dto.despesa.DespesaDTO;
 import com.example.demo.model.dto.investimento.InvestimentoDTO;
 import com.example.demo.model.dto.investimento.ListaInvestimentoTipoDTO;
+import com.example.demo.model.dto.pessoa.PessoaDTO;
+import com.example.demo.model.entity.Despesa;
 import com.example.demo.model.entity.Investimento;
 import com.example.demo.model.util.ModelMapperUtil;
 import com.example.demo.model.util.MonetarioUtil;
 import com.example.demo.model.util.enuns.TipoInvestimentos;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +41,10 @@ public class InvestimentoBO {
     }
 
     public ListaInvestimentoTipoDTO buscaDespesasTipo(){
-        List<InvestimentoDTO> fixas = new ArrayList<>();
-        List<InvestimentoDTO> variaveis = new ArrayList<>();
-        List<InvestimentoDTO> extraordinarias = new ArrayList<>();
-        List<InvestimentoDTO> regulares = new ArrayList<>();
+        List<InvestimentoDTO> tesouroDireto = new ArrayList<>();
+        List<InvestimentoDTO> cdb = new ArrayList<>();
+        List<InvestimentoDTO> acoes = new ArrayList<>();
+        List<InvestimentoDTO> fundosImobiliarios = new ArrayList<>();
 
         List<InvestimentoDTO> investimentos = investimentoDAO.findAll().stream()
                 .map(inv -> {
@@ -52,20 +56,20 @@ public class InvestimentoBO {
 
         for (InvestimentoDTO investimento: investimentos) {
             if (investimento.getInvestimento().equals(TipoInvestimentos.TESOURO_DIRETO))
-                fixas.add(investimento);
+                tesouroDireto.add(investimento);
             if (investimento.getInvestimento().equals(TipoInvestimentos.CDB))
-                variaveis.add(investimento);
+                cdb.add(investimento);
             if (investimento.getInvestimento().equals(TipoInvestimentos.ACOES_DE_EMPRESAS))
-                extraordinarias.add(investimento);
+                acoes.add(investimento);
             if (investimento.getInvestimento().equals(TipoInvestimentos.FUNDOS_IMOBILIARIOS))
-                regulares.add(investimento);
+                fundosImobiliarios.add(investimento);
         }
 
         return ListaInvestimentoTipoDTO.builder()
-                .despesasFixas(fixas)
-                .despesasVariaveis(variaveis)
-                .despesasExtraordinarias(extraordinarias)
-                .despesasRegulares(regulares)
+                .tesouroDireto(tesouroDireto)
+                .cdb(cdb)
+                .acoes(acoes)
+                .fundosImobiliarios(fundosImobiliarios)
                 .build();
     }
 
@@ -90,5 +94,14 @@ public class InvestimentoBO {
 
     public void removerInvestimento(Long codigo) {
         investimentoDAO.deleteById(codigo);
+    }
+
+    public InvestimentoDTO atualizaInvestimento(Long codigo, InvestimentoDTO investimento) throws PessoaInexistenteOuInativaException {
+        Investimento investimentoSalvo = investimentoDAO.getById(codigo);
+        BeanUtils.copyProperties(investimento, investimentoSalvo, "codigo");
+        investimento = modelMapper.map(investimentoDAO.save(investimentoSalvo), InvestimentoDTO.class);
+        investimento.setValorFormatado(monetarioUtil.monetarios(investimento.getValor(), 17, investimento.getTipomoeda()));
+        investimento.setDataFormatada(investimento.getDataInvestimento().format(formatter));
+        return investimento;
     }
 }

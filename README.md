@@ -29,8 +29,8 @@ O **Singleton** permite a você garantir que uma classe tenha apenas uma instân
 
 #### Builder
 O **Builder** permite a você construir objetos complexos passo a passo. O padrão permite que você produza diferentes tipos e representações de um objeto usando o mesmo código de construção.</br>
- - [TAG - BD01 Builder ReceitaDTOBuilder](src/main/java/br/com/ifg/controlefinanca/models/receita/dto/ReceitaDTOBuilder.java)
- - [TAG - BD02 Builder DespesaDTOBuilder](src/main/java/br/com/ifg/controlefinanca/models)
+ - [TAG - BD01 Builder ~~ReceitaDTOBuilder~~](src/main/java/br/com/ifg/controlefinanca/models/receita/dto/ReceitaDTOBuilder.java)
+ - [TAG - BD02 Builder ReceitaDTOBuilder](src/main/java/com/example/demo/model/dto/receita/ReceitaDTOBuilder.java)
  - [TAG - BD02 Builder InvestimentoDTOBuilder](src/main/java/br/com/ifg/controlefinanca/models)
 
 

@@ -27,9 +27,9 @@ public interface HomeInvestimentoController {
     @GetMapping("/editar-investimento/{codigo}")
     public String editarInvestimento ( @PathVariable long codigo, Model model);
 
-//    @PostMapping("/update-investimento/{codigo}")
-//    public String updateInvestimento(@PathVariable("codigo") long codigo, @Valid InvestimentoDTO investimento,
-//                                BindingResult result, Model model, RedirectAttributes attributes, HttpServletResponse response) throws
-//    PessoaInexistenteOuInativaException;
-//
+    @PostMapping("/update_investimento/{codigo}")
+    public String updateInvestimento(@PathVariable("codigo") long codigo, @Valid InvestimentoDTO investimento,
+                                BindingResult result, Model model, RedirectAttributes attributes, HttpServletResponse response) throws
+    PessoaInexistenteOuInativaException;
+
     }

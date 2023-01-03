@@ -64,6 +64,12 @@
               <p>Usuários</p>
             </a>
           </li>
+          <li>
+            <a th:href="@{/relatorio}">
+              <i class="now-ui-icons files_paper"></i>
+              <p>Relatório</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -110,7 +116,9 @@
                 <h4 class="card-title">Fixas</h4>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalFixas}"></span></h3>
+                <h5>R$ <span th:text="${despesas.totalFixas}"></span></h5>
+                <p>US$ <span th:text="${0}"></span></p>
+                <p>€ <span th:text="${0}"></span></p>
               </div>
             </div>
           </div>
@@ -122,7 +130,9 @@
                 <h4 class="card-title">Variáveis</h4>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalVariaveis}"></span></h3>
+                <h5>R$ <span th:text="${despesas.totalVariaveis}"></span></h5>
+                <p>US$ <span th:text="${0}"></span></p>
+                <p>€ <span th:text="${0}"></span></p>
               </div>
             </div>
           </div>
@@ -134,7 +144,9 @@
                 <h4 class="card-title">Extraordinárias</h4>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalExtraordinarias}"></span></h3>
+                <h5>R$ <span th:text="${despesas.totalExtraordinarias}"></span></h5>
+                <p>US$ <span th:text="${0}"></span></p>
+                <p>€ <span th:text="${0}"></span></p>
               </div>
             </div>
           </div>
@@ -146,7 +158,9 @@
                 <h4 class="card-title">Regulares</h4>
               </div>
               <div class="card-body">
-                <h3>R$ <span th:text="${despesas.totalRegulares}"></span></h3>
+                <h5>R$ <span th:text="${despesas.totalRegulares}"></span></h5>
+                <p>US$ <span th:text="${0}"></span></p>
+                <p>€ <span th:text="${0}"></span></p>
               </div>
             </div>
           </div>
@@ -183,8 +197,8 @@
                       </div>
                       <div class="col-md-2 px-3">
                         <div class="form-group">
-                          <label>Vencimento</label>
-                          <input type="date" min="0" class="form-control" placeholder="Vencimento" name="dataVencimento" required>
+                          <label>Data</label>
+                          <input type="date" min="0" class="form-control" placeholder="Data" name="dataVencimento" required>
                         </div>
                       </div>
                       <div class="col-md-2 px-3">
@@ -197,6 +211,17 @@
                             <option value="EXTRAORDINARIAS">EXTRAORDINARIAS</option>
                             <option value="REGULARES">REGULARES</option>
                         </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2 px-3">
+                        <div class="form-group">
+                          <label>Tipo Moeda</label>
+                          <select class="form-control" placeholder="Moeda" name="tipomoeda" required>
+                            <option value="">Selecione</option>
+                            <option value="REAL">REAL</option>
+                            <option value="EURO">EURO</option>
+                            <option value="DOLAR">DÓLAR</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-md-2 px-3">
@@ -239,8 +264,9 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Setor</th>
                         <th scope="col">Descrição</th>
-                        <th scope="col">Vencimento</th>
+                        <th scope="col">Moeda</th>
                         <th scope="col">Valor</th>
+                        <th scope="col">Data</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -251,8 +277,9 @@
                         <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                         <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                         <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                        <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                        <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                         <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                        <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                         <td data-label="Editar" class="row-adjustments-line">
                           <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                             <i class="fa fa-edit" aria-hidden="true"></i>
@@ -287,9 +314,9 @@
                       <th scope="col">Nome</th>
                       <th scope="col">Setor</th>
                       <th scope="col">Descrição</th>
-                      <th scope="col">Vencimento</th>
+                      <th scope="col">Moeda</th>
                       <th scope="col">Valor</th>
-                      <th scope="col"></th>
+                      <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -299,8 +326,9 @@
                       <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                       <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                       <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                      <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                      <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                       <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                      <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
                         <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
@@ -334,9 +362,9 @@
                       <th scope="col">Nome</th>
                       <th scope="col">Setor</th>
                       <th scope="col">Descrição</th>
-                      <th scope="col">Vencimento</th>
+                      <th scope="col">Moeda</th>
                       <th scope="col">Valor</th>
-                      <th scope="col"></th>
+                      <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -346,8 +374,9 @@
                       <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                       <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                       <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                      <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                      <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                       <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                      <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
                         <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
@@ -383,9 +412,9 @@
                       <th scope="col">Nome</th>
                       <th scope="col">Setor</th>
                       <th scope="col">Descrição</th>
-                      <th scope="col">Vencimento</th>
+                      <th scope="col">Moeda</th>
                       <th scope="col">Valor</th>
-                      <th scope="col"></th>
+                      <th scope="col">Data</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -395,8 +424,9 @@
                       <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                       <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                       <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                      <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                      <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                       <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                      <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
                         <a th:href="@{/editar-despesa/{codigo}(codigo=${despesa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                           <i class="fa fa-edit" aria-hidden="true"></i>
@@ -487,9 +517,9 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Setor</th>
                     <th scope="col">Descrição</th>
-                    <th scope="col">Vencimento</th>
+                    <th scope="col">Moeda</th>
                     <th scope="col">Valor</th>
-                    <th scope="col"></th>
+                    <th scope="col">Data</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -499,8 +529,9 @@
                     <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                     <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                     <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                    <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                    <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                     <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                    <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                   </tr>
                   <tr th:if="${despesas.despesasFixas.empty}">
                     <div class="alert alert-info mt-4">
@@ -527,9 +558,9 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Setor</th>
                     <th scope="col">Descrição</th>
-                    <th scope="col">Vencimento</th>
+                    <th scope="col">Moeda</th>
                     <th scope="col">Valor</th>
-                    <th scope="col"></th>
+                    <th scope="col">Data</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -539,8 +570,9 @@
                     <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                     <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                     <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                    <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                    <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                     <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                    <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                   </tr>
                   <tr th:if="${despesas.despesasVariaveis.empty}">
                     <div class="alert alert-info mt-4">
@@ -566,9 +598,9 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Setor</th>
                     <th scope="col">Descrição</th>
-                    <th scope="col">Vencimento</th>
+                    <th scope="col">Moeda</th>
                     <th scope="col">Valor</th>
-                    <th scope="col"></th>
+                    <th scope="col">Data</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -578,8 +610,9 @@
                     <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                     <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                     <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                    <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                    <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                     <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                    <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                   </tr>
                   <tr th:if="${despesas.despesasExtraordinarias.empty}">
                     <div class="alert alert-info mt-4">
@@ -607,9 +640,9 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Setor</th>
                     <th scope="col">Descrição</th>
-                    <th scope="col">Vencimento</th>
+                    <th scope="col">Moeda</th>
                     <th scope="col">Valor</th>
-                    <th scope="col"></th>
+                    <th scope="col">Data</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -619,8 +652,9 @@
                     <td data-label="Nome"><span th:utext="${despesa.nome}"></span></td>
                     <td data-label="Setor"><span th:utext="${despesa.setor}"></span></td>
                     <td data-label="Descrição"><span th:utext="${despesa.descricao}"></span></td>
-                    <td data-label="Vencimento"><span  th:utext="${despesa.dataVencimento}"></span></td>
+                    <td data-label="Moeda"><span th:utext="${despesa.tipomoeda}"></span></td>
                     <td data-label="Valor">R$ <span th:utext="${despesa.valor}"></span></td>
+                    <td data-label="Data"><span  th:utext="${despesa.dataVencimento}"></span></td>
                   </tr>
                   <tr th:if="${despesas.despesasRegulares.empty}">
                     <div class="alert alert-info mt-4">

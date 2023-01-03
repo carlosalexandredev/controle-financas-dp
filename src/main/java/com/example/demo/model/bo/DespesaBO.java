@@ -97,7 +97,7 @@ public class DespesaBO {
 	 * @Rule 2 - Regras checar Validations em DespesaDTO.
 	 **/
 	public DespesaDTO criarDespesa(DespesaDTO despesa, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
-		Despesa despesaSalva = despesaDAO.save(modelMapper.map(despesa, Despesa.class));
+		despesaDAO.save(modelMapper.map(despesa, Despesa.class));
 		return modelMapper.map(despesa, DespesaDTO.class);
 	}
 

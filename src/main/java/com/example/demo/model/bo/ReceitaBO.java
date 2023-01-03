@@ -5,6 +5,7 @@ import com.example.demo.model.dao.receita.ReceitaDAO;
 import com.example.demo.model.dto.despesa.DespesaDTO;
 import com.example.demo.model.dto.despesa.ListaDespesaTipoDTO;
 import com.example.demo.model.dto.receita.ReceitaDTO;
+import com.example.demo.model.dto.receita.ReceitaDTOBuilder;
 import com.example.demo.model.entity.Receita;
 import com.example.demo.model.util.ModelMapperUtil;
 import com.example.demo.model.util.MonetarioUtil;
@@ -59,7 +60,7 @@ public class ReceitaBO {
 
         if(!receitas.isEmpty()) {
             for (Receita receita : receitas) {
-                ReceitaDTO receitaDto = ReceitaDTO.builder()
+                ReceitaDTO receitaDto = ReceitaDTOBuilder.builder()
                         .codigo(receita.getCodigo())
                         .nome(receita.getNome())
                         .descricao(receita.getDescricao())
@@ -90,7 +91,7 @@ public class ReceitaBO {
 
     public ReceitaDTO buscaReceitaById(Long codigo) {
         Receita receita = receitaDAO.findById(codigo).get();
-        return ReceitaDTO.builder()
+        return ReceitaDTOBuilder.builder()
                 .codigo(receita.getCodigo())
                 .nome(receita.getNome())
                 .descricao(receita.getDescricao())
@@ -111,12 +112,11 @@ public class ReceitaBO {
         receitaDAO.deleteById(codigo);
     }
 
-
     public ReceitaDTO atualizaReceita(Long codigo, ReceitaDTO receita) throws PessoaInexistenteOuInativaException {
         Receita receitaSalva = receitaDAO.getById(codigo);
         BeanUtils.copyProperties(receita, receitaSalva, "codigo");
         receitaSalva = receitaDAO.save(receitaSalva);
-        ReceitaDTO receitaDto = ReceitaDTO.builder()
+        ReceitaDTO receitaDto = ReceitaDTOBuilder.builder()
                 .codigo(receitaSalva.getCodigo())
                 .nome(receitaSalva.getNome())
                 .descricao(receitaSalva.getDescricao())

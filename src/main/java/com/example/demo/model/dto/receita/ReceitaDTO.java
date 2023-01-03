@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-@Builder
 public class ReceitaDTO {
 	private Long codigo;
 	private String nome;

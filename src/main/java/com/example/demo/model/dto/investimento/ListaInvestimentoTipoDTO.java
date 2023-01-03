@@ -7,10 +7,10 @@ import java.util.List;
 @Data
 @Builder
 public class ListaInvestimentoTipoDTO {
-    private List<InvestimentoDTO> despesasFixas;
-    private List<InvestimentoDTO> despesasVariaveis;
-    private List<InvestimentoDTO> despesasExtraordinarias;
-    private List<InvestimentoDTO> despesasRegulares;
+    private List<InvestimentoDTO> tesouroDireto;
+    private List<InvestimentoDTO> cdb;
+    private List<InvestimentoDTO> acoes;
+    private List<InvestimentoDTO> fundosImobiliarios;
 
     private BigDecimal totalFixas;
     private BigDecimal totalVariaveis;

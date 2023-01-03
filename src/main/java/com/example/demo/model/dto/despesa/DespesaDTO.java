@@ -2,6 +2,7 @@ package com.example.demo.model.dto.despesa;
 
 import com.example.demo.model.dto.despesa.enuns.TipoDespesa;
 import com.example.demo.model.entity.Pessoa;
+import com.example.demo.model.util.enuns.TipoMoeda;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,5 +36,8 @@ public class DespesaDTO {
 
 	@NotNull
 	private TipoDespesa tipodespesa;
+
+	@NotNull
+	private TipoMoeda tipomoeda;
 	
 }

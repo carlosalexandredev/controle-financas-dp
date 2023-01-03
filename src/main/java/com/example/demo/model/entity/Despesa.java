@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.demo.model.dto.despesa.enuns.TipoDespesa;
+import com.example.demo.model.util.enuns.TipoMoeda;
 import lombok.Data;
 
 @Entity
@@ -40,6 +41,8 @@ public class Despesa {
 	private TipoDespesa tipodespesa;
 	@NotNull
 	private BigDecimal valor;
+	@NotNull
+	private TipoMoeda tipomoeda;
 	@ManyToOne
 	@JoinColumn(name= "codigo_pessoa")
 	private Pessoa pessoa;

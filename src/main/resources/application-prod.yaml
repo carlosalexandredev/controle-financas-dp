@@ -1,0 +1,22 @@
+spring:
+  server:
+    port: 8080
+    jetty:
+      access-log:
+        file-date-format: yyyy-MM-dd
+  datasource:
+    url: jdbc:postgresql://containers-us-west-68.railway.app:6997/railway
+    username: postgres
+    password: yAT05kuyaINHnzslFgy5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true

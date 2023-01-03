@@ -2,6 +2,7 @@ package com.example.demo.model.dto.despesa;
 
 import com.example.demo.model.dto.despesa.enuns.TipoDespesa;
 import com.example.demo.model.entity.Pessoa;
+import com.example.demo.model.util.enuns.TipoMoeda;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,6 +17,7 @@ public final class DespesaDTOBuilder {
     private @NotNull LocalDate dataVencimento;
     private @NotNull BigDecimal valor;
     private @NotNull TipoDespesa tipodespesa;
+    private @NotNull TipoMoeda tipomoeda;
     private @NotNull Pessoa pessoa;
 
     private DespesaDTOBuilder() {
@@ -60,6 +62,11 @@ public final class DespesaDTOBuilder {
         return this;
     }
 
+    public DespesaDTOBuilder tipomoeda(TipoMoeda tipodespesa) {
+        this.tipomoeda = tipomoeda;
+        return this;
+    }
+
     public DespesaDTOBuilder pessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
         return this;
@@ -73,6 +80,7 @@ public final class DespesaDTOBuilder {
         despesaDTO.setDescricao(descricao);
         despesaDTO.setDataVencimento(dataVencimento);
         despesaDTO.setValor(valor);
+        despesaDTO.setTipomoeda(tipomoeda);
         despesaDTO.setTipodespesa(tipodespesa);
         return despesaDTO;
     }

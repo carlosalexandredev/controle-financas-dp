@@ -36,17 +36,17 @@ public class HomeInvestimentoControllerImpl implements HomeInvestimentoControlle
     public String salvarInvestimento(@Valid @ModelAttribute InvestimentoDTO investimento, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
         if(result.hasErrors()){
             attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
-            return "redirect:/investimento";
+            return "/investimento";
         }
-        InvestimentoDTO investimentoSalvo = investimentoBO.criarInvestimento(investimento, response);
-        return "redirect:/investimento";
+        investimentoBO.criarInvestimento(investimento, response);
+        return "/investimento";
     }
 
     @Override
     public String handleDeleteInvestimento(@RequestParam(name = "codigo") Long codigo) {
         investimentoBO.removerInvestimento(codigo);
 
-        return "redirect:/investimento";
+        return "/investimento";
     }
 
     @Override
@@ -56,19 +56,18 @@ public class HomeInvestimentoControllerImpl implements HomeInvestimentoControlle
         return "updateinvestimento";
     }
 
-//    @Override
-//    public String updateInvestimento(@PathVariable("codigo") long codigo, @Valid InvestimentoDTO despesa,
-//                                BindingResult result, Model model, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
-//        investimentoBO.atualizaDespesa(codigo, despesa);
-//        if (result.hasErrors()) {
-//            despesa.setCodigo(codigo);
-//            model.addAttribute("despesa", despesa);
-//            attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
-//            return "updatedespesa";
-//        }
-//        investimentoBO.atualizaDespesa(codigo, despesa);
-//        model.addAttribute("despesa", despesa);
-//        return "updatedespesa";
-//    }
+    @Override
+    public String updateInvestimento(@PathVariable("codigo") long codigo, @Valid InvestimentoDTO investimento,
+                                BindingResult result, Model model, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
+        investimento = investimentoBO.atualizaInvestimento(codigo, investimento);
+        if (result.hasErrors()) {
+            investimento.setCodigo(codigo);
+            model.addAttribute("investimento", investimento);
+            attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
+            return "updateinvestimento";
+        }
+        model.addAttribute("investimento", investimento);
+        return "updateinvestimento";
+    }
 
 }
