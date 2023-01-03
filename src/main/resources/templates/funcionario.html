@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <link rel="icon" type="image/png" th:href="@{/assets/img/favicon.png}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Fortune | Usuários</title>
+  <title>Fortune | Perfis</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -57,9 +57,9 @@
             </a>
           </li>
           <li class="active">
-            <a th:href="@{/funcionario}">
+            <a th:href="@{/perfis}">
               <i class="now-ui-icons users_single-02"></i>
-              <p>Usuários</p>
+              <p>Perfis</p>
             </a>
           </li>
           <li>
@@ -83,7 +83,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand">Usuários</a>
+            <a class="navbar-brand">Perfis</a>
           </div>
 <!--          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">-->
 <!--            <span class="navbar-toggler-bar navbar-kebab"></span>-->
@@ -112,7 +112,7 @@
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-                Criação de Usuário
+                Criação de Perfil
               </div>
               <div class="card-body ">
                   <form th:action="@{/salva-pessoa}" th:object="${funcionario}" method="post">
@@ -132,12 +132,6 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-2 px-3">
-                        <div class="form-group">
-                          <label>Idade</label>
-                          <input type="number" min="0" class="form-control" placeholder="Idade" name="idade" required>
-                        </div>
-                      </div>
                       <div class="col-md-2 px-3">
                         <div class="form-group">
                           <label>Estado</label>
@@ -175,28 +169,23 @@
                       </div>
                       <div class="col-md-4 px-3">
                         <div class="form-group">
-                          <label>Status</label>
-                          <select class="form-control" placeholder="Status" name="status" required>
-                            <option value="">Selecione</option>
-                            <option value="ATIVO">ATIVO</option>
-                            <option value="DESATIVO">DESATIVO</option>
-                        </select>
-                        </div>
+                            <label>Telefone</label>
+                            <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" required>
+                          </div>
                       </div>
+<!--                      <div class="col-md-4 px-3">-->
+<!--                        <div class="form-group">-->
+<!--                          <label>Privilégio</label>-->
+<!--                          <select class="form-control" placeholder="Privilégio" name="privilegio" required>-->
+<!--                            <option value="">Selecione</option>-->
+<!--                            <option value="COMUM">COMUM</option>-->
+<!--                            <option value="ADM">ADMINISTRADOR</option>-->
+<!--                        </select>-->
+<!--                        </div>-->
                       <div class="col-md-4 px-3">
                         <div class="form-group">
-                          <label>Privilégio</label>
-                          <select class="form-control" placeholder="Privilégio" name="privilegio" required>
-                            <option value="">Selecione</option>
-                            <option value="COMUM">COMUM</option>
-                            <option value="ADM">ADMINISTRADOR</option>
-                        </select>
-                        </div>
-                      </div>
-                      <div class="col-md-4 px-3">
-                        <div class="form-group">
-                          <label>Senha</label>
-                          <input type="password" class="form-control" placeholder="Senha" name="senha" required>
+                          <label>Registro</label>
+                          <input type="number" maxlength="14" class="form-control" placeholder="Registro" name="registro" required>
                         </div>
                       </div>
                     </div>
@@ -220,7 +209,6 @@
               </div>
 
 
-
               </div>
             </div>
           </div>
@@ -230,7 +218,7 @@
           <div class="col-md-12 p-0">
             <div class="card ">
               <div class="card-header ">
-                Lista de Usuários
+                Lista de Perfis
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -238,11 +226,9 @@
                         <th scope="col">Código</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Idade</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Privilégio</th>
-                        <th scope="col"></th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Registro</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -250,16 +236,25 @@
                         <th data-label="Código" scope="row"><span th:utext="${pessoa.codigo}"></span></th>
                         <td data-label="Nome"><span th:utext="${pessoa.nome}"></span></td>
                         <td data-label="Email"><span th:utext="${pessoa.email}"></span></td>
-                        <td data-label="Idade"><span th:utext="${pessoa.idade}"></span></td>
                         <td data-label="Estado"><span th:utext="${pessoa.estado}"></span></td>
-                        <td data-label="Status" class="text-center pr-4">
-                          <div th:switch="${pessoa.status}">
-                            <span th:case="${T(com.example.demo.model.dto.pessoa.enuns.TipoStatus).ATIVO}"><i class="now-ui-icons ui-1_check text-success"></i></span>
-                            <span th:case="${T(com.example.demo.model.dto.pessoa.enuns.TipoStatus).DESATIVO}"><i class="now-ui-icons ui-1_simple-remove text-danger"></i></span>
-                            <span th:case="*">--</span>
-                          </div>
+                        <td data-label="Telefone"><span th:utext="${pessoa.telefone}"></span></td>
+                        <td data-label="Registro">
+                          <form>
+                            <div class="row">
+                              <div class="col-md-10">
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Registro"  th:value="${pessoa.registro}" id="myInput" readonly="readonly">
+                                </div>
+                              </div>
+                                 <div class="col-md-2">
+                                    <div class="form-group">
+                                      <input type="checkbox" class="form-control" onclick="myFunction()">
+                                    </div>
+                               </div>
+                            </div>
+                          </form>
                         </td>
-                        <td data-label="Privilégio"><span th:utext="${pessoa.privilegio}"></span></td>
+
                         <td data-label="Editar" class="row-adjustments-line">
                           <a th:href="@{/editar/{codigo}(codigo=${pessoa.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
                             <i class="fa fa-edit" aria-hidden="true"></i>
@@ -271,7 +266,7 @@
                       </tr>
                       <tr th:if="${pessoas.empty}">
                           <div class="alert alert-info mt-4">
-                            <span><b> Info - </b> Nenhum usuário cadastrado!</span>
+                            <span><b> Info - </b> Nenhum perfil cadastrado!</span>
                           </div>
                       </tr>
                     </tbody>
@@ -287,7 +282,28 @@
     </div>
   </div>
 
+
+
+
   <!--   Core JS Files   -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  <script type="text/javascript">
+    $("#telefone").mask("(00) 00000-0000");
+  </script>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myInput");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+  </script>
+
+
   <script th:src="@{/assets/js/core/jquery.min.js}"></script>
   <script th:src="@{/assets/js/core/popper.min.js}"></script>
   <script th:src="@{/assets/js/core/bootstrap.min.js}"></script>

@@ -34,16 +34,16 @@ public class HomePessoaControllerImpl implements HomePessoaController {
     public String salvarPessoa(@Valid @ModelAttribute PessoaDTO funcionario, BindingResult result, RedirectAttributes attributes, HttpServletResponse response){
         if(result.hasErrors()){
             attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
-            return "redirect:/funcionario";
+            return "redirect:/perfis";
         }
         PessoaDTO user = pessoaBO.criarUser(funcionario, response);
-        return "redirect:/funcionario";
+        return "redirect:/perfis";
     }
 
     @Override
     public String handleDeletePessoa(@RequestParam(name="codigo")Long codigo) {
         pessoaBO.removerUser(codigo);
-        return "redirect:/funcionario";
+        return "redirect:/perfis";
     }
 
 

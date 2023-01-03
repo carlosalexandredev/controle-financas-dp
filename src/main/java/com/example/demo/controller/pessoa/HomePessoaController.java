@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RequestMapping("/default")
 public interface HomePessoaController {
-    @RequestMapping(value = "/funcionario", method = RequestMethod.GET)
+    @RequestMapping(value = "/perfis", method = RequestMethod.GET)
     public String funcionario(ModelMap model);
 
     @RequestMapping(value = "/salva-pessoa", method = RequestMethod.POST)

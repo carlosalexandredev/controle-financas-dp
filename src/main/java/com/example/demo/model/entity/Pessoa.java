@@ -32,17 +32,8 @@ public class Pessoa {
 	private String email;
 
 	@NotNull
-	private String senha;
+	private String telefone;
 
 	@NotNull
-	private Integer idade;
-
-	@NotNull
-	private String estado;
-	
-	@NotNull
-	private TipoStatus status;
-
-	@NotNull
-	private TipoUsuario privilegio;
+	private String registro;
 }

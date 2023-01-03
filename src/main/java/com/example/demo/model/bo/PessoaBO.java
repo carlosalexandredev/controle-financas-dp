@@ -28,9 +28,6 @@ public class PessoaBO {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@Autowired
-	private ApplicationEventPublisher publisher;
-
 	/**
 	 * @Method buscaAll()
 	 * @Rule 1 - Realiza busca de todos os usuários na base de dados.
@@ -57,8 +54,6 @@ public class PessoaBO {
 	 * @Rule 2 - Regras checar Validations em PessoaDTO.
 	 **/
 	public PessoaDTO criarUser(PessoaDTO usuario, HttpServletResponse response){
-
-		usuario.setSenha(usuario.getSenha());
 		Pessoa pessoaSalva = pessoaDAO.save(modelMapper.map(usuario, Pessoa.class));
 		return modelMapper.map(usuario, PessoaDTO.class);
 	}
@@ -69,7 +64,6 @@ public class PessoaBO {
 	 * @Rule 2 - Regras checar Validations em PessoaDTO.
 	 **/
 	public PessoaDTO atualizaUser(Long codigo, PessoaDTO pessoa) throws PessoaInexistenteOuInativaException {
-		pessoa.setSenha(pessoa.getSenha());
 		Pessoa pessoaSalva = (buscarPessoaPeloCodigo(codigo));
 		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
 		return modelMapper.map(pessoaDAO.save(pessoaSalva), PessoaDTO.class);
@@ -79,11 +73,11 @@ public class PessoaBO {
 	 * @Method atualizarPropriedadeAtiva(Long codigo, Boolean ativo)
 	 * @Rule 1 - Realiza atualização para ativar ou desativar usuário na base de dados.
 	 **/
-	public void atualizarPropriedadeAtiva(Long codigo, TipoStatus status) {
-		Pessoa pessoaSalva = (buscarPessoaPeloCodigo(codigo));
-		pessoaSalva.setStatus(status);
-		pessoaDAO.save(pessoaSalva);
-	}
+//	public void atualizarPropriedadeAtiva(Long codigo, TipoStatus status) {
+//		Pessoa pessoaSalva = (buscarPessoaPeloCodigo(codigo));
+//		pessoaSalva.setStatus(status);
+//		pessoaDAO.save(pessoaSalva);
+//	}
 
 	/**
 	 * @Method removerUser(Long codigo)

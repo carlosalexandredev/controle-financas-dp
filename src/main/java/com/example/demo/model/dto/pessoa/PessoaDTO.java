@@ -1,12 +1,7 @@
 package com.example.demo.model.dto.pessoa;
 
-import com.example.demo.model.dto.pessoa.enuns.TipoStatus;
-import com.example.demo.model.dto.pessoa.enuns.TipoUsuario;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,18 +21,12 @@ public class PessoaDTO {
 	private String email;
 
 	@NotNull
-	@Size(max = 40)
-	private String senha;
-
-	@NotNull
-	private Integer idade;
-
-	@NotNull
 	private String estado;
 
 	@NotNull
-	private TipoStatus status;
+	private String telefone;
 
 	@NotNull
-	private TipoUsuario privilegio;
+	@Size(max = 14)
+	private String registro;
 }
