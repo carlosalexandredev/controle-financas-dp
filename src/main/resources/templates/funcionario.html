@@ -236,19 +236,19 @@
                         <th data-label="Código" scope="row"><span th:utext="${pessoa.codigo}"></span></th>
                         <td data-label="Nome"><span th:utext="${pessoa.nome}"></span></td>
                         <td data-label="Email"><span th:utext="${pessoa.email}"></span></td>
-                        <td data-label="Estado"><span th:utext="${pessoa.estado}"></span></td>
-                        <td data-label="Telefone"><span th:utext="${pessoa.telefone}"></span></td>
+                        <td data-label="Estado" class="text-center"><span th:utext="${pessoa.estado}"></span></td>
+                        <td data-label="Telefone" style="word-break: keep-all; white-space: nowrap;"><span th:utext="${pessoa.telefone}"></span></td>
                         <td data-label="Registro">
                           <form>
                             <div class="row">
-                              <div class="col-md-10">
+                              <div class="col-sm-10" >
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Registro"  th:value="${pessoa.registro}" id="myInput" readonly="readonly">
+                                    <input style="cursor: text" type="password" class="form-control" placeholder="Registro"  th:value="${pessoa.registro}" id="myInput" readonly="readonly">
                                 </div>
                               </div>
-                                 <div class="col-md-2">
+                                 <div class="col-sm-2" style="justify-content: center; align-items: center;">
                                     <div class="form-group">
-                                      <input type="checkbox" class="form-control" onclick="myFunction()">
+                                      <input type="checkbox" onclick="myFunction()">
                                     </div>
                                </div>
                             </div>

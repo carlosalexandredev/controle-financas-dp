@@ -32,6 +32,9 @@ public class Pessoa {
 	private String email;
 
 	@NotNull
+	private String estado;
+
+	@NotNull
 	private String telefone;
 
 	@NotNull

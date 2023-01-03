@@ -57,15 +57,9 @@
             </a>
           </li>
           <li class="active">
-            <a th:href="@{/perfis}">
+            <a th:href="@{/funcionario}">
               <i class="now-ui-icons users_single-02"></i>
-              <p>Perfis</p>
-            </a>
-          </li>
-          <li>
-            <a th:href="@{/relatorio}">
-              <i class="now-ui-icons files_paper"></i>
-              <p>Relatório</p>
+              <p>Usuários</p>
             </a>
           </li>
         </ul>
@@ -117,7 +111,6 @@
               <div class="card-body ">
                   <form th:action="@{/update/{codigo}(codigo=${pessoa.codigo})}" th:object="${pessoa}" method="post">
                     <div class="row">
-                      
                       <div class="col-md-6 px-3">
                         <div class="form-group">
                           <label>Nome</label>
@@ -134,14 +127,8 @@
                     <div class="row">
                       <div class="col-md-2 px-3">
                         <div class="form-group">
-                          <label>Idade</label>
-                          <input type="number" min="0" class="form-control" placeholder="Idade" name="idade" th:value="${pessoa.idade}" required>
-                        </div>
-                      </div>
-                      <div class="col-md-2 px-3">
-                        <div class="form-group">
                           <label>Estado</label>
-                          <select id="UF" class="form-control" placeholder="Estado" name="estado" value="${pessoa.estado}" required>
+                          <select id="UF" class="form-control" placeholder="Estado" name="estado" th:value="${pessoa.estado}" required>
                             <option value="">Selecione</option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>
@@ -170,34 +157,25 @@
                             <option value="SP">SP</option>
                             <option value="SE">SE</option>
                             <option value="TO">TO</option>
-                         </select>
+                          </select>
                         </div>
                       </div>
                       <div class="col-md-4 px-3">
                         <div class="form-group">
-                          <label>Status</label>
-                          <select class="form-control" placeholder="Status" name="status" th:selected="${pessoa.status}" required>
-                            <option value="">Selecione</option>
-                            <option value="ATIVO">ATIVO</option>
-                            <option value="DESATIVO">DESATIVO</option>
-                        </select>
+                          <label>Telefone</label>
+                          <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" th:value="${pessoa.telefone}" required>
                         </div>
                       </div>
                       <div class="col-md-4 px-3">
                         <div class="form-group">
-                          <label>Privilégio</label>
-                          <select class="form-control" placeholder="Privilégio" name="privilegio" th:selected="${pessoa.privilegio}" required>
-                            <option value="">Selecione</option>
-                            <option value="COMUM">COMUM</option>
-                            <option value="ADM">ADMINISTRADOR</option>
-                        </select>
+                          <label>Registro</label>
+                          <input type="number" maxlength="14" class="form-control" placeholder="Registro" name="registro" th:value="${pessoa.registro}" required>
                         </div>
                       </div>
-                      <div class="col-md-4 px-3">
-                        <div class="form-group">
-                          <label>Senha</label>
-                          <input type="password" class="form-control" placeholder="Senha" name="senha" th:value="${pessoa.senha}" required>
-                        </div>
+                    </div>
+                    <div class="col-sm-2" style="justify-content: center; align-items: center;">
+                      <div class="form-group">
+                        <input type="checkbox" onclick="myFunction()">
                       </div>
                     </div>
                     <div class="alert alert-warning mt-4" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
@@ -222,7 +200,6 @@
                       </div>
                     </div>
                   </form>
-              </div>
             </div>
           </div>
           <div class="col-md-12 p-0">
@@ -236,11 +213,9 @@
                         <th scope="col">Código</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Idade</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Privilégio</th>
-                        <th scope="col"></th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Registro</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -248,18 +223,26 @@
                         <th data-label="Código" scope="row"><span th:utext="${pessoa.codigo}"></span></th>
                         <td data-label="Nome"><span th:utext="${pessoa.nome}"></span></td>
                         <td data-label="Email"><span th:utext="${pessoa.email}"></span></td>
-                        <td data-label="Idade"><span th:utext="${pessoa.idade}"></span></td>
-                        <td data-label="Estado"><span th:utext="${pessoa.estado}"></span></td>
-                        <td data-label="Status" class="text-center pr-4">
-                          <div th:switch="${pessoa.status}">
-                            <span th:case="${T(com.example.demo.model.dto.pessoa.enuns.TipoStatus).ATIVO}"><i class="now-ui-icons ui-1_check text-success"></i></span>
-                            <span th:case="${T(com.example.demo.model.dto.pessoa.enuns.TipoStatus).DESATIVO}"><i class="now-ui-icons ui-1_simple-remove text-danger"></i></span>
-                            <span th:case="*">--</span>
-                          </div>
+                        <td data-label="Estado" class="text-center"><span th:utext="${pessoa.estado}"></span></td>
+                        <td data-label="Telefone" style="word-break: keep-all; white-space: nowrap;"><span th:utext="${pessoa.telefone}"></span></td>
+                        <td data-label="Registro">
+                          <form>
+                            <div class="row" style="width: 100%">
+                              <div class="col-sm-10" >
+                                <div class="form-group">
+                                  <input style="cursor: text" type="password" class="form-control" placeholder="Registro"  th:value="${pessoa.registro}" id="myInput" readonly="readonly">
+                                </div>
+                              </div>
+                              <div class="col-sm-2" style="justify-content: center; align-items: center;">
+                                <div class="form-group">
+                                  <input type="checkbox" onclick="myFunction()">
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                         </td>
-                        <td data-label="Privilégio"><span th:utext="${pessoa.privilegio}"></span></td>
                       </tr>
-                      <tr th:if="${pessoas == null}">
+                      <tr th:if="${pessoa == null}">
                           <div class="alert alert-info mt-4">
                             <span><b> Info - </b> Nenhum usuário cadastrado!</span>
                           </div>
@@ -276,6 +259,22 @@
   </div>
 
   <!--   Core JS Files   -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  <script type="text/javascript">
+    $("#telefone").mask("(00) 00000-0000");
+  </script>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myInput");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+  </script>
   <script th:src="@{/assets/js/core/jquery.min.js}"></script>
   <script th:src="@{/assets/js/core/popper.min.js}"></script>
   <script th:src="@{/assets/js/core/bootstrap.min.js}"></script>
