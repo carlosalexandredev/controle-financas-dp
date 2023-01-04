@@ -16,7 +16,7 @@ public interface HomePessoaController {
     @RequestMapping(value = "/perfis", method = RequestMethod.GET)
     public String funcionario(ModelMap model);
 
-    @RequestMapping(value = "/salva-pessoa", method = RequestMethod.POST)
+    @RequestMapping(value = "/salva-perfil", method = RequestMethod.POST)
     public String salvarPessoa(@Valid @ModelAttribute PessoaDTO funcionario, BindingResult result, RedirectAttributes attributes, HttpServletResponse response);
 
     @RequestMapping(value = "/delete_usuario", method = RequestMethod.GET)

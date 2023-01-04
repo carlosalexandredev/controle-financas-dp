@@ -22,7 +22,6 @@ import lombok.Data;
 @Data
 @Table(name ="DESPESA")
 public class Despesa {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "DES_CODIGO")

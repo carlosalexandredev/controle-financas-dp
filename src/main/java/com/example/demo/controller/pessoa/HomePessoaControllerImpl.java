@@ -26,7 +26,7 @@ public class HomePessoaControllerImpl implements HomePessoaController {
     @Override
     public String funcionario(ModelMap model){
         List<PessoaDTO> funcionarios = pessoaBO.buscaAll();
-        model.addAttribute("pessoas", funcionarios);
+        model.addAttribute("perfils", funcionarios);
         return "funcionario";
     }
 
