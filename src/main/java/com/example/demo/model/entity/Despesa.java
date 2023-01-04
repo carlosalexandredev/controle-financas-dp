@@ -25,26 +25,33 @@ public class Despesa {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "DES_CODIGO")
 	private Long codigo;
 	@NotNull
 	@Size(max = 50)
+	@Column(name = "DES_NOME")
 	private String nome;
 	@NotNull
 	@Size(max = 50)
+	@Column(name = "DES_SETOR")
 	private String setor;
 	@Size(max = 80)
+	@Column(name = "DES_DESCRICAO")
 	private String descricao;
 	@NotNull
-	@Column(name = "data_vencimento")
+	@Column(name = "DES_DATA")
 	private LocalDate dataVencimento;
 	@NotNull
+	@Column(name = "DES_TIPO")
 	private TipoDespesa tipodespesa;
 	@NotNull
+	@Column(name = "DES_VALOR")
 	private BigDecimal valor;
 	@NotNull
+	@Column(name = "DES_MOEDA")
 	private TipoMoeda tipomoeda;
 	@ManyToOne
-	@JoinColumn(name= "codigo_pessoa")
-	private Pessoa pessoa;
+	@JoinColumn(name= "DES_PER")
+	private Perfil perfil;
 	
 }
