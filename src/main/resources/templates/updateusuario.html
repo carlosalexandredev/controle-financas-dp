@@ -100,21 +100,21 @@
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
-                Editar dados de <span th:text="${pessoa.nome}"></span>
+                Editar dados de <span th:text="${perfil.nome}"></span>
               </div>
               <div class="card-body ">
-                  <form th:action="@{/update/{codigo}(codigo=${pessoa.codigo})}" th:object="${pessoa}" method="post">
+                  <form th:action="@{/update/{codigo}(codigo=${perfil.codigo})}" th:object="${perfil}" method="post">
                     <div class="row">
                       <div class="col-md-6 px-3">
                         <div class="form-group">
                           <label>Nome</label>
-                          <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${pessoa.nome}" required>
+                          <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${perfil.nome}" required>
                         </div>
                       </div>
                       <div class="col-md-6 px-3">
                         <div class="form-group">
                           <label>Email</label>
-                          <input type="email" class="form-control" placeholder="Email" name="email" th:value="${pessoa.email}" required>
+                          <input type="email" class="form-control" placeholder="Email" name="email" th:value="${perfil.email}" required>
                         </div>
                       </div>
                     </div>
@@ -122,7 +122,7 @@
                       <div class="col-md-2 px-3">
                         <div class="form-group">
                           <label>Estado</label>
-                          <select id="UF" class="form-control" placeholder="Estado" name="estado" th:value="${pessoa.estado}" required>
+                          <select id="UF" class="form-control" placeholder="Estado" name="estado" th:value="${perfil.estado}" required>
                             <option value="">Selecione</option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>
@@ -157,13 +157,13 @@
                       <div class="col-md-4 px-3">
                         <div class="form-group">
                           <label>Telefone</label>
-                          <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" th:value="${pessoa.telefone}" required>
+                          <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" th:value="${perfil.telefone}" required>
                         </div>
                       </div>
                       <div class="col-md-4 px-3">
                         <div class="form-group">
                           <label>Registro</label>
-                          <input type="text" maxlength="14" minlength="11" class="form-control cpfOuCnpj" placeholder="Registro" name="registro" th:value="${pessoa.registro}" required>
+                          <input type="text" maxlength="14" minlength="11" class="form-control cpfOuCnpj" placeholder="Registro" name="registro" th:value="${perfil.registro}" required>
                         </div>
                       </div>
                     </div>
@@ -194,7 +194,7 @@
           <div class="col-md-12 p-0">
             <div class="card ">
               <div class="card-header ">
-                Dados de <span th:text="${pessoa.nome}"></span>
+                Dados de <span th:text="${perfil.nome}"></span>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -209,17 +209,17 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <th data-label="Código" scope="row"><span th:utext="${pessoa.codigo}"></span></th>
-                        <td data-label="Nome"><span th:utext="${pessoa.nome}"></span></td>
-                        <td data-label="Email"><span th:utext="${pessoa.email}"></span></td>
-                        <td data-label="Estado" class="text-center"><span th:utext="${pessoa.estado}"></span></td>
-                        <td data-label="Telefone" style="word-break: keep-all; white-space: nowrap;"><span th:utext="${pessoa.telefone}"></span></td>
+                        <th data-label="Código" scope="row"><span th:utext="${perfil.codigo}"></span></th>
+                        <td data-label="Nome"><span th:utext="${perfil.nome}"></span></td>
+                        <td data-label="Email"><span th:utext="${perfil.email}"></span></td>
+                        <td data-label="Estado" class="text-center"><span th:utext="${perfil.estado}"></span></td>
+                        <td data-label="Telefone" style="word-break: keep-all; white-space: nowrap;"><span th:utext="${perfil.telefone}"></span></td>
                         <td data-label="Registro">
                           <form>
                             <div class="row" style="width: 100%">
                               <div class="col-sm-10" >
                                 <div class="form-group">
-                                  <input style="cursor: text" type="password" class="form-control" placeholder="Registro"  th:value="${pessoa.registro}" id="myInput" readonly="readonly">
+                                  <input style="cursor: text" type="password" class="form-control" placeholder="Registro"  th:value="${perfil.registro}" id="myInput" readonly="readonly">
                                 </div>
                               </div>
                               <div class="col-sm-2" style="justify-content: center; align-items: center;">
@@ -231,7 +231,7 @@
                           </form>
                         </td>
                       </tr>
-                      <tr th:if="${pessoa == null}">
+                      <tr th:if="${perfil == null}">
                           <div class="alert alert-info mt-4">
                             <span><b> Info - </b> Nenhum perfil cadastrado!</span>
                           </div>

@@ -47,7 +47,7 @@
                         <td data-label="Assunto"><span th:utext="${tarefa.assunto}"></span></td>
                         <td	data-label="Descrição"><span th:utext="${tarefa.descricao}"></span></td>
                         <td	data-label="Data Vencimento"><span th:utext="${tarefa.dataVencimento}"></span></td>
-                        <td	data-label="Usuario"><span th:utext="${tarefa.pessoa.nome}"></span></td>
+                        <td	data-label="Usuario"><span th:utext="${tarefa.perfil.nome}"></span></td>
                     </tr>
                     <tr th:if="${despesas.empty}">
                         <td	colspan="8"	class="bg-danger">Nenhuma tarefa cadastrado.</td>

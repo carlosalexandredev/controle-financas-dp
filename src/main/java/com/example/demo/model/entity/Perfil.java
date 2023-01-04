@@ -1,42 +1,41 @@
 package com.example.demo.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.example.demo.model.dto.pessoa.enuns.TipoStatus;
-import com.example.demo.model.dto.pessoa.enuns.TipoUsuario;
 import lombok.Data;;
 
 @Entity
 @Data
-@Table(name = "PESSOA" )
-public class Pessoa {
-	
+@Table(name = "PERFIL" )
+public class Perfil {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PER_CODIGO")
 	private Long codigo;
 	
 	@NotNull
 	@Size(max = 80)
+	@Column(name = "PER_NOME")
 	private String nome;
 
 	@Email
 	@NotNull
 	@Size(max = 100)
+	@Column(name = "PER_EMAIL")
 	private String email;
 
 	@NotNull
+	@Column(name = "PER_ESTADO")
 	private String estado;
 
 	@NotNull
+	@Column(name = "PER_TELEFONE")
 	private String telefone;
 
 	@NotNull
+	@Column(name = "PER_REGISTRO")
 	private String registro;
 }

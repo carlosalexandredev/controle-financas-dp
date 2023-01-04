@@ -1,13 +1,11 @@
 package com.example.demo.model.bo;
 
-import com.example.demo.model.dto.pessoa.enuns.TipoStatus;
-import com.example.demo.model.entity.Pessoa;
+import com.example.demo.model.entity.Perfil;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
 import com.example.demo.model.dto.pessoa.PessoaDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +31,8 @@ public class PessoaBO {
 	 * @Rule 1 - Realiza busca de todos os usuários na base de dados.
 	 **/
 	public List<PessoaDTO> buscaAll(){
-		List<Pessoa> pessoas = pessoaDAO.findAll();
-		return pessoas.stream()
+		List<Perfil> perfils = pessoaDAO.findAll();
+		return perfils.stream()
 				.map(user -> modelMapper.map(user, PessoaDTO.class))
 				.collect(Collectors.toList());
 	}
@@ -44,7 +42,7 @@ public class PessoaBO {
 	 * @Rule 1 - Realiza busca de um único usuário na base de dados.
 	 **/
 	public Optional<PessoaDTO> buscaById(Long codigo) throws PessoaInexistenteOuInativaException {
-		Optional<Pessoa> usuario = Optional.of(buscarPessoaPeloCodigo(codigo));
+		Optional<Perfil> usuario = Optional.of(buscarPessoaPeloCodigo(codigo));
 		return Optional.of(modelMapper.map(usuario.get(), PessoaDTO.class));
 	}
 
@@ -54,7 +52,7 @@ public class PessoaBO {
 	 * @Rule 2 - Regras checar Validations em PessoaDTO.
 	 **/
 	public PessoaDTO criarUser(PessoaDTO usuario, HttpServletResponse response){
-		Pessoa pessoaSalva = pessoaDAO.save(modelMapper.map(usuario, Pessoa.class));
+		Perfil perfilSalva = pessoaDAO.save(modelMapper.map(usuario, Perfil.class));
 		return modelMapper.map(usuario, PessoaDTO.class);
 	}
 
@@ -64,9 +62,9 @@ public class PessoaBO {
 	 * @Rule 2 - Regras checar Validations em PessoaDTO.
 	 **/
 	public PessoaDTO atualizaUser(Long codigo, PessoaDTO pessoa) throws PessoaInexistenteOuInativaException {
-		Pessoa pessoaSalva = (buscarPessoaPeloCodigo(codigo));
-		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
-		return modelMapper.map(pessoaDAO.save(pessoaSalva), PessoaDTO.class);
+		Perfil perfilSalva = (buscarPessoaPeloCodigo(codigo));
+		BeanUtils.copyProperties(pessoa, perfilSalva, "codigo");
+		return modelMapper.map(pessoaDAO.save(perfilSalva), PessoaDTO.class);
 	}
 
 	/**
@@ -91,9 +89,9 @@ public class PessoaBO {
 	 * @Method buscarPessoaPeloCodigo(Long codigo)
 	 * @Rule 1 - Realiza busca do usuário pelo seu codigo.
 	 **/
-	public Pessoa buscarPessoaPeloCodigo(Long codigo) {
-		Pessoa pessoaSalva =  pessoaDAO.findById((codigo)).orElse(null);
-		if(!Objects.nonNull(pessoaSalva)){throw new EmptyResultDataAccessException(1);}
-		return pessoaSalva;
+	public Perfil buscarPessoaPeloCodigo(Long codigo) {
+		Perfil perfilSalva =  pessoaDAO.findById((codigo)).orElse(null);
+		if(!Objects.nonNull(perfilSalva)){throw new EmptyResultDataAccessException(1);}
+		return perfilSalva;
 	}
 }

@@ -1,7 +1,7 @@
 package com.example.demo.model.dto.despesa;
 
 import com.example.demo.model.dto.despesa.enuns.TipoDespesa;
-import com.example.demo.model.entity.Pessoa;
+import com.example.demo.model.entity.Perfil;
 import com.example.demo.model.util.enuns.TipoMoeda;
 
 import javax.validation.constraints.NotNull;
@@ -18,7 +18,7 @@ public final class DespesaDTOBuilder {
     private @NotNull BigDecimal valor;
     private @NotNull TipoDespesa tipodespesa;
     private @NotNull TipoMoeda tipomoeda;
-    private @NotNull Pessoa pessoa;
+    private @NotNull Perfil perfil;
 
     private DespesaDTOBuilder() {
     }
@@ -67,8 +67,8 @@ public final class DespesaDTOBuilder {
         return this;
     }
 
-    public DespesaDTOBuilder pessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public DespesaDTOBuilder pessoa(Perfil perfil) {
+        this.perfil = perfil;
         return this;
     }
 
