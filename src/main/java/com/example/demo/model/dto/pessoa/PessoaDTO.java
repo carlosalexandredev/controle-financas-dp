@@ -27,6 +27,5 @@ public class PessoaDTO {
 	private String telefone;
 
 	@NotNull
-	@Size(max = 14)
 	private String registro;
 }

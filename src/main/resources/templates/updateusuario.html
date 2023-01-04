@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <link rel="icon" type="image/png" th:href="@{/assets/img/favicon.png}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Fortune | Editar Usuário</title>
+  <title>Fortune | Editar Perfil</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -57,9 +57,15 @@
             </a>
           </li>
           <li class="active">
-            <a th:href="@{/funcionario}">
+            <a th:href="@{/perfil}">
               <i class="now-ui-icons users_single-02"></i>
-              <p>Usuários</p>
+              <p>Perfil</p>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/relatorio}">
+              <i class="now-ui-icons files_paper"></i>
+              <p>Relatório</p>
             </a>
           </li>
         </ul>
@@ -77,25 +83,13 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand">Usuários</a>
+            <a class="navbar-brand">Perfis</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#administrador">
-                  <i class="now-ui-icons ui-2_settings-90"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Administrador</span>
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </nav>
       <!-- End Navbar -->
@@ -169,13 +163,8 @@
                       <div class="col-md-4 px-3">
                         <div class="form-group">
                           <label>Registro</label>
-                          <input type="number" maxlength="14" class="form-control" placeholder="Registro" name="registro" th:value="${pessoa.registro}" required>
+                          <input type="text" maxlength="14" minlength="11" class="form-control cpfOuCnpj" placeholder="Registro" name="registro" th:value="${pessoa.registro}" required>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-2" style="justify-content: center; align-items: center;">
-                      <div class="form-group">
-                        <input type="checkbox" onclick="myFunction()">
                       </div>
                     </div>
                     <div class="alert alert-warning mt-4" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
@@ -195,7 +184,7 @@
                       </div>
                       <div class="col-md-2 px-3">
                         <div class="form-group">
-                          <a th:href="@{/funcionario}" class="btn btn-secondary form-control design_app" value="Voltar" style="background-color: #003e7e; color: white">Voltar</a>
+                          <a th:href="@{/perfil}" class="btn btn-secondary form-control design_app" value="Voltar" style="background-color: #003e7e; color: white">Voltar</a>
                         </div>
                       </div>
                     </div>
@@ -244,7 +233,7 @@
                       </tr>
                       <tr th:if="${pessoa == null}">
                           <div class="alert alert-info mt-4">
-                            <span><b> Info - </b> Nenhum usuário cadastrado!</span>
+                            <span><b> Info - </b> Nenhum perfil cadastrado!</span>
                           </div>
                       </tr>
                     </tbody>
@@ -275,6 +264,17 @@
       }
     }
   </script>
+  <script>
+    var options = {
+    onKeyPress: function (cpf, ev, el, op) {
+    var masks = ['000.000.000-000', '00.000.000/0000-00'];
+    $('.cpfOuCnpj').mask((cpf.length > 14) ? masks[1] : masks[0], op);
+      }
+    }
+
+    $('.cpfOuCnpj').length > 11 ? $('.cpfOuCnpj').mask('00.000.000/0000-00', options) : $('.cpfOuCnpj').mask('000.000.000-00#', options);
+  </script>
+
   <script th:src="@{/assets/js/core/jquery.min.js}"></script>
   <script th:src="@{/assets/js/core/popper.min.js}"></script>
   <script th:src="@{/assets/js/core/bootstrap.min.js}"></script>

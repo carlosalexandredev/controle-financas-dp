@@ -16,6 +16,8 @@
     <link href="../static/assets/css/now-ui-dashboard.css?v=1.5.0"  th:href="@{/assets/css/now-ui-dashboard.css}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../static/assets/demo/demo.css" th:href="@{/assets/demo/demo.css}" rel="stylesheet" />
+    <link href="../static/css/printable.css" th:href="@{/css/printable.css}" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -90,6 +92,14 @@
                     <span class="navbar-toggler-bar navbar-kebab"></span>
                     <span class="navbar-toggler-bar navbar-kebab"></span>
                 </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                    <ul class="nav">
+                        <buttom class="btn btn-primary col-md-12" onclick="printFunction()">
+                            <i class="now-ui-icons files_paper mr-3"></i>
+                            <p>Imprimir</p>
+                        </buttom>
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- End Navbar -->
@@ -191,11 +201,11 @@
                                         <td data-label="Descrição"><span class="text-danger" th:utext="${0}"></span></td>
                                         <td data-label="Data"><span class="text-danger" th:utext="${0}"></span></td>
                                     </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td data-label="Moeda"><span th:utext="${0}"></span></td>
-                                        <td data-label="Descrição"><span th:utext="${0}"></span></td>
-                                        <td data-label="Data"><span  th:utext="${0}"></span></td>
+                                    <tr class="font-weight-bold">
+                                            <td>Total</td>
+                                            <td data-label="Moeda"><span th:utext="${0}"></span></td>
+                                            <td data-label="Descrição"><span th:utext="${0}"></span></td>
+                                            <td data-label="Data"><span  th:utext="${0}"></span></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -228,9 +238,27 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Versão impressa -->
+    <div class="printable d-none d-print-block">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    Em desenvolvimento...
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </div>
 
+<script>
+    function printFunction() {
+        window.print();
+    }
+</script>
 <!--   Core JS Files   -->
 <script th:src="@{/assets/js/core/jquery.min.js}"></script>
 <script th:src="@{/assets/js/core/popper.min.js}"></script>

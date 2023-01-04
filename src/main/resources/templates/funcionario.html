@@ -173,19 +173,10 @@
                             <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" required>
                           </div>
                       </div>
-<!--                      <div class="col-md-4 px-3">-->
-<!--                        <div class="form-group">-->
-<!--                          <label>Privilégio</label>-->
-<!--                          <select class="form-control" placeholder="Privilégio" name="privilegio" required>-->
-<!--                            <option value="">Selecione</option>-->
-<!--                            <option value="COMUM">COMUM</option>-->
-<!--                            <option value="ADM">ADMINISTRADOR</option>-->
-<!--                        </select>-->
-<!--                        </div>-->
                       <div class="col-md-4 px-3">
                         <div class="form-group">
                           <label>Registro</label>
-                          <input type="number" maxlength="14" class="form-control" placeholder="Registro" name="registro" required>
+                          <input type="text" class="form-control mascara-cpfcnpj" placeholder="Registro" name="registro" required>
                         </div>
                       </div>
                     </div>
@@ -303,6 +294,17 @@
     }
   </script>
 
+  <script>
+    var cpfMascara = function (val) {
+              return val.replace(/\D/g, '').length > 11 ? '00.000.000/0000-00' : '000.000.000-009';
+            },
+            cpfOptions = {
+              onKeyPress: function(val, e, field, options) {
+                field.mask(cpfMascara.apply({}, arguments), options);
+              }
+            };
+    $('.mascara-cpfcnpj').mask(cpfMascara, cpfOptions);
+  </script>
 
   <script th:src="@{/assets/js/core/jquery.min.js}"></script>
   <script th:src="@{/assets/js/core/popper.min.js}"></script>
