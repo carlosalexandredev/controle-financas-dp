@@ -103,17 +103,128 @@
                             Relatório
                         </div>
                         <div class="card-body ">
+                            <form th:action="@{/conversor}" th:object="${conversor}" method="get">
+                                <div class="row">
+                                    <div class="col-md-3 px-3">
+                                        <div class="form-group">
+                                            <label>Tipo Moeda</label>
+                                            <select class="form-control" placeholder="Moeda" name="moedaPrimaria" required>
+                                                <option value="">Selecione</option>
+                                                <option value="REAL">REAL</option>
+                                                <option value="EURO">EURO</option>
+                                                <option value="DOLAR">DÓLAR</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 px-3">
+                                        <div class="form-group">
+                                            <label>Data</label>
+                                            <input type="date" min="0" class="form-control" placeholder="data" name="dataInvestimento" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 px-3 mt-3 ml-auto">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary form-control design_app">Buscar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 px-3 mt-3 ">
+                                        <div class="form-group">
+                                            <button type="reset" class="btn btn-secondary form-control design_app" value="Limpar">Limpar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 px-3 mt-3 ">
+                                        <div class="form-group">
+                                            <a th:href="@{/despesa}" class="btn btn-secondary form-control design_app" value="Voltar" style="background-color: #003e7e; color: white">Voltar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h5 class="card-category">Filtro</h5>
+                        </div>
+                        <div class="card-body text-center">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h2 class="text-primary mt-lg-5">Página em manutenção, disponível em breve.</h2>
+                                    <h3>Moeda: {Real}</h3>
                                 </div>
                                 <div class="col-md-6">
-                                    <img th:src="@{assets/img/manutencao.jpg}">
+                                    <h3>Data: {12/01/2023}</h3>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="card-header ">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th scope="col">Real</th>
+                                        <th scope="col">Euro</th>
+                                        <th scope="col">Dólar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Receita</td>
+                                        <td data-label="Moeda"><span th:utext="${0}"></span></td>
+                                        <td data-label="Descrição"><span th:utext="${0}"></span></td>
+                                        <td data-label="Data"><span  th:utext="${0}"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Investimento</td>
+                                        <td data-label="Moeda"><span th:utext="${0}"></span></td>
+                                        <td data-label="Descrição"><span th:utext="${0}"></span></td>
+                                        <td data-label="Data"><span  th:utext="${0}"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Despesas</td>
+                                        <td data-label="Moeda"><span class="text-danger" th:utext="${0}"></span></td>
+                                        <td data-label="Descrição"><span class="text-danger" th:utext="${0}"></span></td>
+                                        <td data-label="Data"><span class="text-danger" th:utext="${0}"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td data-label="Moeda"><span th:utext="${0}"></span></td>
+                                        <td data-label="Descrição"><span th:utext="${0}"></span></td>
+                                        <td data-label="Data"><span  th:utext="${0}"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+
+                <div class="col-md-12" th:if="${conversor != null}">
+                    <div class="card ">
+                        <div class="card-header ">
+                            Conversão <span th:utext="${conversor.nome}"></span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <h5>Valor de Entrada: R$ <span th:utext="${conversor.valorPrimario}"></span></h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Valor Convertido: <span th:utext="${conversor.valorConvertidoFormatado}"></span></h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Sigla: <span th:utext="${conversor.sigla}"></span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
