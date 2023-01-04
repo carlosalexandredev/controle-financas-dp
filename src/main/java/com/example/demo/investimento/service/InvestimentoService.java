@@ -5,7 +5,6 @@ import com.example.demo.investimento.dto.InvestimentoDTO;
 import com.example.demo.investimento.dto.ListaInvestimentoTipoDTO;
 import com.example.demo.investimento.entity.Investimento;
 import com.example.demo.investimento.repository.InvestimentoRepository;
-import com.example.demo.fortune.util.ModelMapperUtil;
 import com.example.demo.fortune.util.MonetarioUtil;
 import com.example.demo.fortune.util.enuns.TipoInvestimentos;
 import org.modelmapper.ModelMapper;
@@ -27,7 +26,9 @@ public class InvestimentoService {
 
     MonetarioUtil monetarioUtil = MonetarioUtil.getInstance();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private ModelMapper modelMapper = ModelMapperUtil.getInstance();
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<InvestimentoDTO> buscaDespesaAll(){
         List<Investimento> despesas = investimentoDAO.findAll();

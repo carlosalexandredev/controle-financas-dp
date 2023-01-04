@@ -7,7 +7,6 @@ import com.example.demo.despesa.enuns.TipoDespesa;
 import com.example.demo.despesa.repository.DespesaRepository;
 import com.example.demo.fortune.exceptions.PessoaInexistenteOuInativaException;
 import com.example.demo.perfil.dto.PerfilDTO;
-import com.example.demo.fortune.util.ModelMapperUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,8 @@ public class DespesaService {
 	@Autowired
 	private DespesaRepository despesaDAO;
 
-	private ModelMapper modelMapper = ModelMapperUtil.getInstance();
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
