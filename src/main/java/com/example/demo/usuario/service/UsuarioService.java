@@ -27,8 +27,8 @@ public class UsuarioService implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private EmailAComfimacaoService emailConfimacaoService;
+//    @Autowired
+//    private EmailAComfimacaoService emailConfimacaoService;
     private final static String USER_NOT_FOUND_MSG = "Usuario não encontrado email";
 
     /** Verifica o se usuario informado no login existe na base de dados */
@@ -52,14 +52,14 @@ public class UsuarioService implements UserDetailsService {
     }
 
     private void enviaEmailConfimacao(Usuario usuario, String token) {
-        String link =  System.getenv().getOrDefault("HOST", "http://localhost:8080") + "/api/v1/registration/confirm?token=" + token;
-
-        Email email = Email.builder()
-                .subject("Confirmação de Cadastro")
-                .urlConfirme(link)
-                .usuario(usuario)
-                .build();
-        emailConfimacaoService.enviaEmail(email);
+//        String link =  System.getenv().getOrDefault("HOST", "http://localhost:8080") + "/api/v1/registration/confirm?token=" + token;
+//
+//        Email email = Email.builder()
+//                .subject("Confirmação de Cadastro")
+//                .urlConfirme(link)
+//                .usuario(usuario)
+//                .build();
+//        emailConfimacaoService.enviaEmail(email);
     }
     private String salvaToken(Usuario usuario) {
         String token = UUID.randomUUID().toString();
