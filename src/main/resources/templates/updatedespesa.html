@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <head>
   <meta charset="utf-8" />
@@ -115,12 +115,14 @@
                 Editar dados da despesa <span th:text="${despesa.nome}"></span>
               </div>
               <div class="card-body ">
-                <form th:action="@{/update_despesa/{codigo}(codigo=${despesa.codigo})}" th:object="${despesa}" method="post">
+                <form th:action="@{/home-despesa/update_despesa/{codigo}(codigo=${despesa.codigo})}"
+                      th:object="${despesa}" method="post">
                   <div class="row">
                     <div class="col-md-6 px-3">
                       <div class="form-group">
                         <label>Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${despesa.nome}" required>
+                        <input type="text" class="form-control" placeholder="Nome" name="nome"
+                               th:value="${despesa.nome}" required>
                       </div>
                     </div>
                     <div class="col-md-6 px-3">

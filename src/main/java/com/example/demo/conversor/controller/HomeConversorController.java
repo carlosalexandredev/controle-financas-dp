@@ -1,14 +1,7 @@
 package com.example.demo.conversor.controller;
 
-import com.example.demo.conversor.dto.ConversorDTO;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
-
-@RequestMapping("/default")
+@RequestMapping("/home-conversor")
 public interface HomeConversorController {
-
-    @RequestMapping(value="/conversor", method=RequestMethod.GET)
-    public String conversorDados(@ModelAttribute ConversorDTO conversor, Model model) throws IOException;
-    }
+}

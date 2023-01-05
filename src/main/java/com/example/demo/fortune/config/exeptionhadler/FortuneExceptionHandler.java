@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @ControllerAdvice
-public class FlyBeyondExceptionHandler extends ResponseEntityExceptionHandler {
+public class FortuneExceptionHandler extends ResponseEntityExceptionHandler {
     @Autowired
     private MessageSource messageSource;
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <head>
   <meta charset="utf-8" />
@@ -23,7 +23,6 @@
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="orange">
-
       <div class="logo">
         <a class="simple-text logo-mini">
           FT
@@ -137,17 +136,17 @@
                 Cadastrar Receita
               </div>
               <div class="card-body ">
-                  <form th:action="@{/salva-receita}" th:object="${receita}" method="post">
-                    <div class="row">
-                      <div class="col-md-6 px-3">
-                        <div class="form-group">
-                          <label>Nome</label>
-                          <input type="text" class="form-control" placeholder="Nome" name="nome" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6 px-3">
-                        <div class="form-group">
-                          <label>Descrição</label>
+                  <form th:action="@{/home-receita/salva-receita}" th:object="${receita}" method="post">
+                      <div class="row">
+                          <div class="col-md-6 px-3">
+                              <div class="form-group">
+                                  <label>Nome</label>
+                                  <input type="text" class="form-control" placeholder="Nome" name="nome" required>
+                              </div>
+                          </div>
+                          <div class="col-md-6 px-3">
+                              <div class="form-group">
+                                  <label>Descrição</label>
                           <input type="text" min="0" class="form-control" placeholder="Descrição" name="descricao">
                         </div>
                       </div>
@@ -224,12 +223,14 @@
                         <td data-label="Tipo Moeda" class="text-center"><span th:utext="${receita.tipomoeda}"></span></td>
                         <td data-label="Data"><span  th:utext="${receita.dataformatada}"></span></td>
                         <td data-label="Editar" class="row-adjustments-line">
-                          <a th:href="@{/editar-receita/{codigo}(codigo=${receita.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
-                            <i class="fa fa-edit" aria-hidden="true"></i>
-                          </a>
-                          <a th:href="@{/delete_receita(codigo=${receita.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
-                              <i class="fa fa-trash" aria-hidden="true"></i>
-                          </a>
+                            <a th:href="@{/home-receita/editar-receita/{codigo}(codigo=${receita.codigo})}"
+                               class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </a>
+                            <a th:href="@{/home-receita/delete_receita(codigo=${receita.codigo})}"
+                               style="color: white!important;" class="btn btn-danger col-md-5">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
                         </td>
                       </tr>
                       <tr th:if="${receitas.listaFinancas.empty}">

@@ -1,21 +1,28 @@
 package com.example.demo.usuario.entity;
 
-import com.example.demo.usuario.enuns.UsuarioRole;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity
 @ToString
 @SuperBuilder
 @NoArgsConstructor
-@Table(name = "FT_ROLE")
+@Entity
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private UsuarioRole role;
+    private String name;
+
+    public Role(String name) {
+        super();
+        this.name = name;
+    }
 }
