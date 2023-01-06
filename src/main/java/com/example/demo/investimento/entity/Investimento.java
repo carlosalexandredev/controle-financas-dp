@@ -30,7 +30,7 @@ public class Investimento {
     @Column(name = "INV_MOEDA")
     private TipoMoeda tipomoeda;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
 }
