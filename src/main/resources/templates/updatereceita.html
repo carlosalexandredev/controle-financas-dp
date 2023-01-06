@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <head>
   <meta charset="utf-8" />
@@ -32,7 +32,7 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li>
+          <li class="active">
             <a thref="@{/receita}">
               <i class="now-ui-icons business_money-coins"></i>
               <p>Receita</p>
@@ -44,7 +44,7 @@
               <p>Investimento</p>
             </a>
           </li>
-          <li class="active">
+          <li>
             <a thref="@{/despesa}">
               <i class="now-ui-icons shopping_basket"></i>
               <p>Despesa</p>
@@ -121,12 +121,14 @@
                 Editar dados da receita <span th:text="${receita.nome}"></span>
               </div>
               <div class="card-body ">
-                <form th:action="@{/update_receita/{codigo}(codigo=${receita.codigo})}" th:object="${receita}" method="post">
+                <form th:action="@{/home-receita/update_receita/{codigo}(codigo=${receita.codigo})}"
+                      th:object="${receita}" method="post">
                   <div class="row">
                     <div class="col-md-6 px-3">
                       <div class="form-group">
                         <label>Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${receita.nome}" required>
+                        <input type="text" class="form-control" placeholder="Nome" name="nome"
+                               th:value="${receita.nome}" required>
                       </div>
                     </div>
                     <div class="col-md-6 px-3">

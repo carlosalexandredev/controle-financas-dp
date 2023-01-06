@@ -3,6 +3,7 @@ package com.example.demo.despesa.controler;
 import com.example.demo.despesa.dto.DespesaDTO;
 import com.example.demo.despesa.service.DespesaService;
 import com.example.demo.fortune.exceptions.PessoaInexistenteOuInativaException;
+import com.example.demo.fortune.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +39,10 @@ public class HomeDespesaControllerImpl implements HomeDespesaController {
     }
 
     @Override
-    public String editarDespesa(@PathVariable long codigo, Model model) throws PessoaInexistenteOuInativaException {
-        Optional<DespesaDTO> despesa = depesaService.buscaDespesaById(codigo);
-        model.addAttribute("despesa", despesa.get());
+    public String editarDespesa(@PathVariable long codigo, Model model) {
+        DespesaDTO despesa = depesaService.buscaDespesaById(codigo)
+                .orElseThrow(() -> new ResourceNotFoundException(codigo));
+        model.addAttribute("despesa", despesa);
         return "updatedespesa";
     }
 

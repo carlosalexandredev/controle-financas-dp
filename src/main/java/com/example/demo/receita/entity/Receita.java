@@ -33,7 +33,7 @@ public class Receita {
     @Column(name = "REC_MOEDA")
     private TipoMoeda tipomoeda;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
 }
