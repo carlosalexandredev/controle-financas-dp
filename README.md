@@ -8,8 +8,10 @@ Padrões de projeto são soluções típicas para problemas comuns em projeto de
 - **[Estruturais(Structural)](#estruturaisstructural)**
     - [Adpter](#adapter )
 - **[Comportamentais(Behavioral)](#comportamentaisbehavioral)**
+  - [Template Method](#templatemethod) 
 - **[Outros](#outros)**
     - [Data Transfer Object (DTO)](#data-transfer-object-dto)
+    - [Data Transfer Object (DTO)](#data-access-object-dao)
 - **[Bibliografia](#bibliografia)**
 
 ### Padrão de Arquitetural
@@ -23,21 +25,17 @@ O MVC é uma sigla do termo em inglês Model (modelo) View (visão) e Controller
 ### Criacionais(Creational)
 #### Singleton
 O **Singleton** permite a você garantir que uma classe tenha apenas uma instância, enquanto provê um ponto de acesso global para essa instância.</br>
- - [TAG - SG01 Singleton ModelMapper Utilitário](src/main/java/br/com/ifg/controlefinanca/models/util/ModelMapperUtil.java)
- - [TAG - SG02 Singleton Monetário Utilitário](src/main/java/br/com/ifg/controlefinanca/models/util)
- - [TAG - SG02 Singleton DateFormat Utilitário](src/main/java/br/com/ifg/controlefinanca/models/util)
 
 #### Builder
 O **Builder** permite a você construir objetos complexos passo a passo. O padrão permite que você produza diferentes tipos e representações de um objeto usando o mesmo código de construção.</br>
- - [TAG - BD01 Builder ~~ReceitaDTOBuilder~~](src/main/java/br/com/ifg/controlefinanca/models/receita/dto/ReceitaDTOBuilder.java)
- - [TAG - BD02 Builder ReceitaDTOBuilder](src/main/java/com/example/demo/model/dto/receita/ReceitaDTOBuilder.java)
- - [TAG - BD02 Builder InvestimentoDTOBuilder](src/main/java/br/com/ifg/controlefinanca/models)
-
 
 ### Comportamentais(Behavioral)
 #### Adapter
 O **Adapter** é um padrão de projeto estrutural que permite objetos com interfaces incompatíveis colaborarem entre si.
-- [TAG - ADPTO01 Adapter Cotações](src/main/java/br/com/ifg/controlefinanca/models)
+
+### Comportamentais(Behavioral)
+#### Template Method
+O Template Method é um padrão de projeto comportamental que define o esqueleto de um algoritmo na superclasse mas deixa as subclasses sobrescreverem etapas específicas do algoritmo sem modificar sua estrutura.
 
 ### Outros
 
@@ -48,10 +46,10 @@ Diferente do que ocorre com os objetos de negócio e os objetos de acesso a dado
 
 O DTO é bastante utilizado também quando não queremos expor todos os dados da nossa camada de persistência mas precisamos exibir ao nosso cliente estes mesmos dados. Vamos focar nosso post nessa linha de raciocício.
 
-- [TAG - DTO01 Data Transfer Object Receita](src/main/java/br/com/ifg/controlefinanca/models/receita/dto/ReceitaDTO.java)
-- [TAG - DTO02 Data Transfer Object Despesa](src/main/java/br/com/ifg/controlefinanca/models/)
-- [TAG - DTO03 Data Transfer Object Investimento](src/main/java/br/com/ifg/controlefinanca/models/investimento/dto/InvestimentoDTO.java)
+#### Data Access Object (DAO)
+O DAO é um padrão para aplicações implementadas com linguagens de programação orientada a objetos.  E que utilizam persistência de dados, onde existe a separação das regras de negócio das regras de acesso a banco de dados. E ainda, onde todas as funcionalidades de bancos de dados, tais como obter conexões, mapear objetos para tipos de dados SQL ou executar comandos SQL, devem ser feitas por classes DAO.
 
+Em síntese, o DAO é a camada do sistema (pacotes, classes e métodos) que abstrai todo o acesso ao banco de dados separadamente da lógica de negócio da aplicação. É no DAO que implementamos os métodos do CRUD (Create – Read – Update – Delete). Bem como é por meio do DAO que as operações no banco de dados são realizadas.
 ### Bibliografia
 [Padrões de Projeto - Solucões Reutilizáveis de Software Orientado a Objetos.pdf](https://github.com/carlosalexandredev/desing-patterns/blob/c0ddbf7b49bed10d18ecf1941745d72e97ab6105/Padr%C3%B5es%20de%20Projeto%20-%20Soluc%C3%B5es%20Reutiliz%C3%A1veis%20de%20Software%20Orientado%20a%20Objetos.pdf)
 
