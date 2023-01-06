@@ -13,6 +13,9 @@ import com.example.demo.investimento.service.InvestimentoService;
 import com.example.demo.perfil.dto.PerfilDTO;
 import com.example.demo.perfil.service.PerfilService;
 import com.example.demo.receita.service.ReceitaService;
+import com.example.demo.relatorio.dto.FiltroRelatorioDTO;
+import com.example.demo.relatorio.dto.RelatorioDTO;
+import com.example.demo.relatorio.service.RelatorioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +40,9 @@ public class MainController {
 
     @Autowired
     private PerfilService perfilService;
+
+    @Autowired
+    private RelatorioService srvReceita;
 
     @GetMapping("/receita")
     public String receita(ModelMap model) {
@@ -80,7 +86,11 @@ public class MainController {
     }
 
     @GetMapping("/relatorio")
-    public String relatorio() {
+    public String relatorio(FiltroRelatorioDTO filtroReq, ModelMap model) {
+        RelatorioDTO totais = srvReceita.buscaTotais(filtroReq);
+        model.addAttribute("totais", totais);
         return "relatorio";
     }
+
+
 }
