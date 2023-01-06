@@ -45,6 +45,7 @@ body, html {
     justify-content: center;
 }
 
+
 a{
     color: #f96332!important;
 }
@@ -91,6 +92,10 @@ a{
     font-weight: bold;
     font-family: 'Source Sans Pro',sans-serif;
     color: white;
+}
+
+input{
+    width: 65vh!important;
 }
 
 .cadastro-link{
@@ -237,7 +242,7 @@ label span {
     width: 20vh;
     height: 49px;
     font-size: 16px;
-    position: absolute;
+    position: relative;
     transition: 0.3s;
     cursor: pointer;
     margin-top: 10px;

@@ -1,4 +1,5 @@
 html, * {
+
     margin: 0;
     padding: 0;
 
@@ -6,6 +7,8 @@ html, * {
 body{
     font-family: 'calibri light', calibri, arial, sans-serif;
 
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -51,8 +54,8 @@ a{
     background-color: #0e2849!important;
 }
 
-.container{
-    height: 100%!important;
+.row{
+    height: 80vh!important;
 }
 
 .caixa-bottom{
@@ -65,6 +68,5 @@ a{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 30vh;
     color: white;
 }
