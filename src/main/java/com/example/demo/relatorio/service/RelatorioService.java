@@ -39,7 +39,7 @@ public class RelatorioService {
 
         List<Receita> receita = rptReceita.findReceitasByUser(userService.getUser());
         List<Investimento> investimento = rptInvestimento.findInvestimentoByUser(userService.getUser());
-        List<Despesa> despesa = rptDespesa.findReceitasByUser(userService.getUser());
+        List<Despesa> despesa = rptDespesa.findDespesaByUser(userService.getUser());
 
         if(filtro.getData() != null){
             receita = receita.stream().filter(r -> r.getData().equals(filtro.getData())).collect(Collectors.toList());
