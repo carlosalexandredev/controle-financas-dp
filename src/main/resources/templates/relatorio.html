@@ -59,13 +59,13 @@
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/perfis}">
+                    <a th:href="@{./perfis}">
                         <i class="now-ui-icons users_single-02"></i>
                         <p>Perfis</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a th:href="@{/relatorio}">
+                    <a th:href="@{./relatorio}">
                         <i class="now-ui-icons files_paper"></i>
                         <p>Relatório</p>
                     </a>
@@ -119,12 +119,12 @@
                             Relatório
                         </div>
                         <div class="card-body ">
-                            <form th:action="@{/conversor}" th:object="${conversor}" method="get">
+                            <form th:action="@{/relatorio}" th:object="${filtroReq}" method="get">
                                 <div class="row">
                                     <div class="col-md-3 px-3">
                                         <div class="form-group">
                                             <label>Tipo Moeda</label>
-                                            <select class="form-control" placeholder="Moeda" name="moedaPrimaria" required>
+                                            <select class="form-control" placeholder="Moeda" name="moeda" >
                                                 <option value="">Selecione</option>
                                                 <option value="REAL">REAL</option>
                                                 <option value="EURO">EURO</option>
@@ -135,7 +135,7 @@
                                     <div class="col-md-3 px-3">
                                         <div class="form-group">
                                             <label>Data</label>
-                                            <input type="date" min="0" class="form-control" placeholder="data" name="dataInvestimento" required>
+                                            <input type="date" min="0" class="form-control" placeholder="data" name="data">
                                         </div>
                                     </div>
                                     <div class="col-md-2 px-3 mt-3 ml-auto">
@@ -158,7 +158,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" th:if="${totais != null}">
                     <div class="card card-chart">
                         <div class="card-header">
                             <h5 class="card-category">Filtro</h5>
@@ -166,16 +166,16 @@
                         <div class="card-body text-center">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h3>Moeda: {Real}</h3>
+                                    <h3>Moeda: <span th:text="${totais.filtro.moeda} ? ${totais.filtro.moeda} : 'N/A'"></span></h3>
                                 </div>
                                 <div class="col-md-6">
-                                    <h3>Data: {12/01/2023}</h3>
+                                    <h3>Data: <span th:text="${totais.filtro.data} ? ${totais.filtro.data} : 'N/A'"></span></h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" th:if="${totais != null}">
                     <div class="card ">
                         <div class="card-header ">
                             <div class="table-responsive">
@@ -183,35 +183,35 @@
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th scope="col">Real</th>
-                                        <th scope="col">Euro</th>
-                                        <th scope="col">Dólar</th>
+                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}">Real</th>
+                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}">Euro</th>
+                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}">Dólar</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>Receita</td>
-                                        <td data-label="Moeda"><span th:utext="${0}"></span></td>
-                                        <td data-label="Descrição"><span th:utext="${0}"></span></td>
-                                        <td data-label="Data"><span  th:utext="${0}"></span></td>
+                                        <td data-label="Receita Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.receitaReal}"></span></td>
+                                        <td data-label="Receita Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.receitaEuro}"></span></td>
+                                        <td data-label="Receita Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.receitaDolar}"></span></td>
                                     </tr>
                                     <tr>
                                         <td>Investimento</td>
-                                        <td data-label="Moeda"><span th:utext="${0}"></span></td>
-                                        <td data-label="Descrição"><span th:utext="${0}"></span></td>
-                                        <td data-label="Data"><span  th:utext="${0}"></span></td>
+                                        <td data-label="Investimento Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.investimentoReal}"></span></td>
+                                        <td data-label="Investimento Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.investimentoEuro}"></span></td>
+                                        <td data-label="Investimento Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.investimentoDolar}"></span></td>
                                     </tr>
                                     <tr>
                                         <td>Despesas</td>
-                                        <td data-label="Moeda"><span class="text-danger" th:utext="${0}"></span></td>
-                                        <td data-label="Descrição"><span class="text-danger" th:utext="${0}"></span></td>
-                                        <td data-label="Data"><span class="text-danger" th:utext="${0}"></span></td>
+                                        <td data-label="Despesas Real" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${'- '+totais.despesaReal}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"></span></td>
+                                        <td data-label="Despesas Euro" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${'- '+totais.despesaEuro}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"></span></td>
+                                        <td data-label="Despesas Dolár" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${'- '+totais.despesaDolar}"></span></td>
                                     </tr>
                                     <tr class="font-weight-bold">
-                                            <td>Total</td>
-                                            <td data-label="Moeda"><span th:utext="${0}"></span></td>
-                                            <td data-label="Descrição"><span th:utext="${0}"></span></td>
-                                            <td data-label="Data"><span  th:utext="${0}"></span></td>
+                                        <td>Total</td>
+                                        <td data-label="Total Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.totalReal}"></span></td>
+                                        <td data-label="Total Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.totalEuro}"></span></td>
+                                        <td data-label="Total Dolar" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.totalDolar}"></span></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -219,45 +219,72 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
-
-                <div class="col-md-12" th:if="${conversor != null}">
-                    <div class="card ">
-                        <div class="card-header ">
-                            Conversão <span th:utext="${conversor.nome}"></span>
-                        </div>
-                        <div class="card-body">
-                            <div class="row text-center">
-                                <div class="col-md-4">
-                                    <h5>Valor de Entrada: R$ <span th:utext="${conversor.valorPrimario}"></span></h5>
-                                </div>
-                                <div class="col-md-4">
-                                    <h5>Valor Convertido: <span th:utext="${conversor.valorConvertidoFormatado}"></span></h5>
-                                </div>
-                                <div class="col-md-4">
-                                    <h5>Sigla: <span th:utext="${conversor.sigla}"></span></h5>
-                                </div>
-                            </div>
+<!-- Versão impressa -->
+<div class="printable d-none d-print-block">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12" th:if="${totais != null}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Moeda: <span th:text="${totais.filtro.moeda} ? ${totais.filtro.moeda} : 'N/A'"></span></h3>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Data: <span th:text="${totais.filtro.data} ? ${totais.filtro.data} : 'N/A'"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" th:if="${totais != null}">
+                <div class="card ">
+                    <div class="card-header ">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}">Real</th>
+                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}">Euro</th>
+                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}">Dólar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Receita</td>
+                                    <td data-label="Receita Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.receitaReal}"></span></td>
+                                    <td data-label="Receita Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.receitaEuro}"></span></td>
+                                    <td data-label="Receita Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.receitaDolar}"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Investimento</td>
+                                    <td data-label="Investimento Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.investimentoReal}"></span></td>
+                                    <td data-label="Investimento Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.investimentoEuro}"></span></td>
+                                    <td data-label="Investimento Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.investimentoDolar}"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Despesas</td>
+                                    <td data-label="Despesas Real" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${'- '+totais.despesaReal}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"></span></td>
+                                    <td data-label="Despesas Euro" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${'- '+totais.despesaEuro}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"></span></td>
+                                    <td data-label="Despesas Dolár" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${'- '+totais.despesaDolar}"></span></td>
+                                </tr>
+                                <tr class="font-weight-bold">
+                                    <td>Total</td>
+                                    <td data-label="Total Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.totalReal}"></span></td>
+                                    <td data-label="Total Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.totalEuro}"></span></td>
+                                    <td data-label="Total Dolar" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.totalDolar}"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <!-- Versão impressa -->
-    <div class="printable d-none d-print-block">
-        <div class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    Em desenvolvimento...
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
 </div>
 
 <script>
