@@ -24,10 +24,10 @@ public class HomeInvestimentoControllerImpl implements HomeInvestimentoControlle
     public String salvarInvestimento(@Valid @ModelAttribute InvestimentoDTO investimento, BindingResult result, RedirectAttributes attributes, HttpServletResponse response) throws PessoaInexistenteOuInativaException {
         if(result.hasErrors()){
             attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
-            return "/investimento";
+            return "redirect:/investimento";
         }
         investimentoService.criarInvestimento(investimento, response);
-        return "/investimento";
+        return "redirect:/investimento";
     }
 
     @Override
