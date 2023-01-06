@@ -7,6 +7,7 @@ import com.example.demo.despesa.enuns.TipoDespesa;
 import com.example.demo.despesa.repository.DespesaRepository;
 import com.example.demo.fortune.exceptions.PessoaInexistenteOuInativaException;
 import com.example.demo.fortune.exceptions.ResourceNotFoundException;
+import com.example.demo.fortune.util.BeanUtilsCustom;
 import com.example.demo.perfil.dto.PerfilDTO;
 import com.example.demo.usuario.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class DespesaService {
 		List<DespesaDTO> regulares = new ArrayList<>();
 
 		List<DespesaDTO> despesas = despesaRepository
-				.findReceitasByUser(userService.getUser())
+				.findDespesaByUser(userService.getUser())
 				.stream().map(task -> modelMapper.map(task, DespesaDTO.class))
 				.collect(Collectors.toList());
 
@@ -96,16 +97,14 @@ public class DespesaService {
 	 * @Rule 1 - Remover o despesa pelo seu codigo.
 	 **/
 	public void removerDespesa(Long codigo) {
-		despesaRepository
-				.deleteById(codigo);
+		despesaRepository.deleteById(codigo);
 	}
 
 
-	public PerfilDTO atualizaDespesa(Long codigo, DespesaDTO tarefa) {
-		Despesa despesaSalva = despesaRepository
-				.getById(codigo);
-		BeanUtils.copyProperties(tarefa, despesaSalva, "codigo");
-		return modelMapper.map(despesaRepository
-				.save(despesaSalva), PerfilDTO.class);
+	public DespesaDTO atualizaDespesa(Long codigo, DespesaDTO despesaDTO) {
+		Despesa despesa = despesaRepository.findById(codigo)
+				.orElseThrow(() -> new ResourceNotFoundException(codigo));
+		BeanUtilsCustom.copyNonNullProperties(despesaDTO, despesa);
+		return modelMapper.map(despesaRepository.save(despesa), DespesaDTO.class);
 	}
 }
