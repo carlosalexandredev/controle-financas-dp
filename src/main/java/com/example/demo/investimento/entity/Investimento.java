@@ -2,6 +2,7 @@ package com.example.demo.investimento.entity;
 
 import com.example.demo.fortune.util.enuns.TipoInvestimentos;
 import com.example.demo.fortune.util.enuns.TipoMoeda;
+import com.example.demo.usuario.entity.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,4 +29,8 @@ public class Investimento {
     private TipoInvestimentos investimento;
     @Column(name = "INV_MOEDA")
     private TipoMoeda tipomoeda;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

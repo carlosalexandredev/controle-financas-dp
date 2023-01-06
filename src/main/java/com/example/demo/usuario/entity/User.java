@@ -1,21 +1,24 @@
 package com.example.demo.usuario.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "first_name")
@@ -26,6 +29,7 @@ public class User {
 
     private String email;
 
+    @ToString.Exclude
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -26,7 +26,7 @@ public class HomeReceitaControllerImpl implements HomeReceitaController {
             attributes.addFlashAttribute("mensagem", "Verifique se todos os campos foram preechidos!");
             return "redirect:/receita";
         }
-        ReceitaDTO receitSalva = receitaService.criarDespesa(receita, response);
+        ReceitaDTO receitSalva = receitaService.criarReceita(receita, response);
         return "redirect:/receita";
     }
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <head>
   <meta charset="utf-8" />
@@ -182,17 +182,17 @@
                 Cadastrar Investimentos
               </div>
               <div class="card-body ">
-                <form th:action="@{/salva-investimento}" th:object="${investimento}" method="post">
-                  <div class="row">
-                    <div class="col-md-6 px-3">
-                      <div class="form-group">
-                        <label>Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome" name="nome" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6 px-3">
-                      <div class="form-group">
-                        <label>Descrição</label>
+                <form th:action="@{/home-investimento/salva-investimento}" th:object="${investimento}" method="post">
+                    <div class="row">
+                        <div class="col-md-6 px-3">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" placeholder="Nome" name="nome" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-3">
+                            <div class="form-group">
+                                <label>Descrição</label>
                         <input type="text" min="0" class="form-control" placeholder="Descrição" name="descricao">
                       </div>
                     </div>
@@ -283,12 +283,14 @@
                       <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
                       <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
-                          <i class="fa fa-edit" aria-hidden="true"></i>
-                        </a>
-                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
+                          <a th:href="@{/home-investimento/editar-investimento/{codigo}(codigo=${investimento.codigo})}"
+                             class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                              <i class="fa fa-edit" aria-hidden="true"></i>
+                          </a>
+                          <a th:href="@{/home-investimento/delete-investimento(codigo=${investimento.codigo})}"
+                             style="color: white!important;" class="btn btn-danger col-md-5">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                          </a>
                       </td>
                     </tr>
                       <tr th:if="${investimentos.tesouroDireto.empty}">
@@ -332,12 +334,14 @@
                       <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
                       <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
-                          <i class="fa fa-edit" aria-hidden="true"></i>
-                        </a>
-                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
+                          <a th:href="@{/home-investimento/editar-investimento/{codigo}(codigo=${investimento.codigo})}"
+                             class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                              <i class="fa fa-edit" aria-hidden="true"></i>
+                          </a>
+                          <a th:href="@{/home-investimento/delete-investimento(codigo=${investimento.codigo})}"
+                             style="color: white!important;" class="btn btn-danger col-md-5">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                          </a>
                       </td>
                     </tr>
                     <tr th:if="${investimentos.cdb.empty}">
@@ -380,12 +384,14 @@
                       <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
                       <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
-                          <i class="fa fa-edit" aria-hidden="true"></i>
-                        </a>
-                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
+                          <a th:href="@{/home-investimento/editar-investimento/{codigo}(codigo=${investimento.codigo})}"
+                             class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                              <i class="fa fa-edit" aria-hidden="true"></i>
+                          </a>
+                          <a th:href="@{/home-investimento/delete-investimento(codigo=${investimento.codigo})}"
+                             style="color: white!important;" class="btn btn-danger col-md-5">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                          </a>
                       </td>
                     </tr>
                     <tr th:if="${investimentos.acoes.empty}">
@@ -430,12 +436,14 @@
                       <td data-label="Valor"><span th:utext="${investimento.valorFormatado}"></span></td>
                       <td data-label="Data"><span  th:utext="${investimento.dataFormatada}"></span></td>
                       <td data-label="Editar" class="row-adjustments-line">
-                        <a th:href="@{/editar-investimento/{codigo}(codigo=${investimento.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
-                          <i class="fa fa-edit" aria-hidden="true"></i>
-                        </a>
-                        <a th:href="@{/delete-investimento(codigo=${investimento.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
+                          <a th:href="@{/home-investimento/editar-investimento/{codigo}(codigo=${investimento.codigo})}"
+                             class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                              <i class="fa fa-edit" aria-hidden="true"></i>
+                          </a>
+                          <a th:href="@{/home-investimento/delete-investimento(codigo=${investimento.codigo})}"
+                             style="color: white!important;" class="btn btn-danger col-md-5">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                          </a>
                       </td>
                     </tr>
                     <tr th:if="${investimentos.fundosImobiliarios.empty}">

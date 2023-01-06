@@ -121,17 +121,17 @@
                 Criação de Perfil
               </div>
               <div class="card-body ">
-                  <form th:action="@{/salva-perfil}" th:object="${funcionario}" method="post">
-                    <div class="row">
-                      
-                      <div class="col-md-6 px-3">
-                        <div class="form-group">
-                          <label>Nome</label>
-                          <input type="text" class="form-control" placeholder="Nome" name="nome" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6 px-3">
-                        <div class="form-group">
+                  <form th:action="@{/home-perfil/salva-perfil}" th:object="${funcionario}" method="post">
+                      <div class="row">
+
+                          <div class="col-md-6 px-3">
+                              <div class="form-group">
+                                  <label>Nome</label>
+                                  <input type="text" class="form-control" placeholder="Nome" name="nome" required>
+                              </div>
+                          </div>
+                          <div class="col-md-6 px-3">
+                              <div class="form-group">
                           <label>Email</label>
                           <input type="email" class="form-control" placeholder="Email" name="email" required>
                         </div>
@@ -253,12 +253,14 @@
                         </td>
 
                         <td data-label="Editar" class="row-adjustments-line">
-                          <a th:href="@{/editar/{codigo}(codigo=${perfil.codigo})}" class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
-                            <i class="fa fa-edit" aria-hidden="true"></i>
-                          </a>
-                          <a th:href="@{/delete_usuario(codigo=${perfil.codigo})}" style="color: white!important;"  class="btn btn-danger col-md-5">
-                              <i class="fa fa-trash" aria-hidden="true"></i>
-                          </a>
+                            <a th:href="@{/home-perfil/editar-perfil/{codigo}(codigo=${perfil.codigo})}"
+                               class="btn btn-primary col-md-5" style="background-color: #003e7e; color: white">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </a>
+                            <a th:href="@{/home-perfil/delete_usuario(codigo=${perfil.codigo})}"
+                               style="color: white!important;" class="btn btn-danger col-md-5">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
                         </td>
                       </tr>
                       <tr th:if="${perfils.empty}">

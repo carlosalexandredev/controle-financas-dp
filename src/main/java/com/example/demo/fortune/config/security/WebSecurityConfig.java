@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private static final String[] PUBLIC_MATCHERS = {"/registration**", "/js/**", "/css/**", "/img/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/registration**", "/js/**", "/css/**", "/img/**", "/h2-console/**"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and().csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean

@@ -1,23 +1,15 @@
 package com.example.demo.despesa.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import com.example.demo.despesa.enuns.TipoDespesa;
+import com.example.demo.fortune.util.enuns.TipoMoeda;
+import com.example.demo.usuario.entity.User;
+import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.example.demo.despesa.enuns.TipoDespesa;
-import com.example.demo.perfil.entity.Perfil;
-import com.example.demo.fortune.util.enuns.TipoMoeda;
-import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -50,8 +42,9 @@ public class Despesa {
 	@NotNull
 	@Column(name = "DES_MOEDA")
 	private TipoMoeda tipomoeda;
-	@ManyToOne
-	@JoinColumn(name= "DES_PER")
-	private Perfil perfil;
-	
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private User user;
+
 }

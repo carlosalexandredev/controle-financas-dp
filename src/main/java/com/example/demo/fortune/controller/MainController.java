@@ -13,6 +13,8 @@ import com.example.demo.investimento.service.InvestimentoService;
 import com.example.demo.perfil.dto.PerfilDTO;
 import com.example.demo.perfil.service.PerfilService;
 import com.example.demo.receita.service.ReceitaService;
+import com.example.demo.usuario.entity.User;
+import com.example.demo.usuario.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,45 +40,74 @@ public class MainController {
     @Autowired
     private PerfilService perfilService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/receita")
     public String receita(ModelMap model) {
-        TotalizadorMoedaDTO receitas = receitaService.buscaReceitasAll();
-        model.addAttribute("receitas", receitas);
-        return "receita";
+        User user = userService.getUser();
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            TotalizadorMoedaDTO receitas = receitaService.buscaReceitasByPerfil();
+            model.addAttribute("receitas", receitas);
+            return "receita";
+        } else {
+            return "login";
+        }
     }
 
     @GetMapping("/investimento")
     public String investimento(ModelMap model) {
-        ListaInvestimentoTipoDTO investimentos = investimentoService.buscaDespesasTipo();
-        model.addAttribute("investimentos", investimentos);
-        return "investimento";
+        User user = userService.getUser();
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            ListaInvestimentoTipoDTO investimentos = investimentoService.buscaInvestimentosByPerfil();
+            model.addAttribute("investimentos", investimentos);
+            return "investimento";
+        } else {
+            return "login";
+        }
     }
 
     @GetMapping("/despesa")
     public String despesa(ModelMap model) {
-        ListaDespesaTipoDTO despesas = depesaService.buscaDespesasTipo();
-        model.addAttribute("despesas", despesas);
-        return "despesa";
+        User user = userService.getUser();
+
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            ListaDespesaTipoDTO despesas = depesaService.buscaDespesasByPerfil();
+            model.addAttribute("despesas", despesas);
+            return "despesa";
+        } else {
+            return "login";
+        }
     }
 
     @GetMapping("/perfis")
     public String perfil(ModelMap model) {
-        List<PerfilDTO> funcionarios = perfilService.buscaAll();
-        model.addAttribute("perfils", funcionarios);
-        return "perfil";
+        User user = userService.getUser();
+
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            List<PerfilDTO> funcionarios = perfilService.buscaAll();
+            model.addAttribute("perfils", funcionarios);
+            return "perfil";
+        } else {
+            return "login";
+        }
     }
 
     @GetMapping("/conversor")
     public String conversor(ConversorDTO conversor, Model model) throws IOException {
         MonetarioUtil monetarioUtil = MonetarioUtil.getInstance();
-
-        if (Objects.nonNull(conversor.getMoedaPrimaria()) && Objects.nonNull(conversor.getValor())) {
-            CotacaoAPI cotacao = CotacaoFabrica.getCotacao(conversor.getMoedaPrimaria());
-            CotacaoDTO valorConvertido = cotacao.consultaCotacao(conversor.getValor());
-            valorConvertido.setValorConvertidoFormatado(monetarioUtil.monetarios(valorConvertido.getValorConvertido(), 17, conversor.getMoedaPrimaria()));
-            model.addAttribute("conversor", valorConvertido);
+        User user = userService.getUser();
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            if (Objects.nonNull(conversor.getMoedaPrimaria()) && Objects.nonNull(conversor.getValor())) {
+                CotacaoAPI cotacao = CotacaoFabrica.getCotacao(conversor.getMoedaPrimaria());
+                CotacaoDTO valorConvertido = cotacao.consultaCotacao(conversor.getValor());
+                valorConvertido.setValorConvertidoFormatado(monetarioUtil.monetarios(valorConvertido.getValorConvertido(), 17, conversor.getMoedaPrimaria()));
+                model.addAttribute("conversor", valorConvertido);
+            }
+            return "conversor";
+        } else {
+            return "login";
         }
-        return "conversor";
     }
 
     @GetMapping("/relatorio")

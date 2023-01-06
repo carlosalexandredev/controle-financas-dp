@@ -16,13 +16,13 @@ public interface HomePerfilController {
     @RequestMapping(value = "/salva-perfil", method = RequestMethod.POST)
     String salvarPessoa(@Valid @ModelAttribute PerfilDTO perfilDTO, BindingResult result, RedirectAttributes attributes, HttpServletResponse response);
 
-    @RequestMapping(value = "/delete_usuario", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete-perfil", method = RequestMethod.GET)
     String handleDeletePessoa(@RequestParam(name = "codigo") Long codigo);
 
-    @GetMapping("/editar/{codigo}")
+    @GetMapping("/editar-perfil/{codigo}")
     String editarPessoa(@PathVariable long codigo, Model model) throws PessoaInexistenteOuInativaException;
 
-    @PostMapping("/update/{codigo}")
+    @PostMapping("/update-perfil/{codigo}")
     String atualizaPessoa(@PathVariable("codigo") long codigo, @Valid PerfilDTO pessoa,
                           BindingResult result, Model model, RedirectAttributes attributes) throws PessoaInexistenteOuInativaException;
 }

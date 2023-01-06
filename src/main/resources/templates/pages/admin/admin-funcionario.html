@@ -1,5 +1,5 @@
 <html xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <title>Painel de Funcionários</title>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -135,15 +135,20 @@
                                             <h4 class="modal-title">Atualizar Funcionário</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form th:action="@{/update/{codigo}(codigo=${funcionario.codigo})}" th:object="${funcionario}" method="post">
+                                            <form th:action="@{/home-perfil/update-perfil/{codigo}(codigo=${funcionario.codigo})}"
+                                                  th:object="${funcionario}" method="post">
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <label for="inputNomeModal">Nome</label>
-                                                        <input type="text" class="form-control" id="inputNomeModal" placeholder="Nome" name="nome" th:value="${funcionario.nome}">
+                                                        <input type="text" class="form-control" id="inputNomeModal"
+                                                               placeholder="Nome" name="nome"
+                                                               th:value="${funcionario.nome}">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="inputAssuntoModal">Senha</label>
-                                                        <input type="password" class="form-control" id="inputAssuntoModal" placeholder="Senha" name="senha" th:value="${funcionario.senha}">
+                                                        <input type="password" class="form-control"
+                                                               id="inputAssuntoModal" placeholder="Senha" name="senha"
+                                                               th:value="${funcionario.senha}">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="inputIdadeModal">Idade</label>

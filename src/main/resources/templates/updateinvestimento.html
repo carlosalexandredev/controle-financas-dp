@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <head>
   <meta charset="utf-8" />
@@ -121,17 +121,19 @@
                 Editar dados do Investimento <span th:text="${investimento.nome}"></span>
               </div>
               <div class="card-body ">
-                <form th:action="@{/update_investimento/{codigo}(codigo=${investimento.codigo})}" th:object="${investimento}" method="post">
-                  <div class="row">
-                    <div class="col-md-6 px-3">
-                      <div class="form-group">
-                        <label>Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome" name="nome" th:value="${investimento.nome}" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6 px-3">
-                      <div class="form-group">
-                        <label>Descrição</label>
+                <form th:action="@{/home-investimento/update_investimento/{codigo}(codigo=${investimento.codigo})}"
+                      th:object="${investimento}" method="post">
+                    <div class="row">
+                        <div class="col-md-6 px-3">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" placeholder="Nome" name="nome"
+                                       th:value="${investimento.nome}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-3">
+                            <div class="form-group">
+                                <label>Descrição</label>
                         <input type="text" min="0" class="form-control" placeholder="Descrição" th:value="${investimento.descricao}" name="descricao">
                       </div>
                     </div>
