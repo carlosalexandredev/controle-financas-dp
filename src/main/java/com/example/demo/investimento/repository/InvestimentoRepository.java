@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface InvestimentoRepository extends JpaRepository<Investimento, Long> {
 
-    List<Receita> findInvestimentoByUser(User user);
+    List<Investimento> findInvestimentoByUser(User user);
 }

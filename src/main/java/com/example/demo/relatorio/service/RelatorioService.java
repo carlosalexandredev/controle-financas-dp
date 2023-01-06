@@ -10,6 +10,8 @@ import com.example.demo.receita.entity.Receita;
 import com.example.demo.receita.repository.ReceitaRepository;
 import com.example.demo.relatorio.dto.FiltroRelatorioDTO;
 import com.example.demo.relatorio.dto.RelatorioDTO;
+import com.example.demo.usuario.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,21 +19,33 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RelatorioService {
+
     @Autowired
     private ReceitaRepository rptReceita;
     @Autowired
     private InvestimentoRepository rptInvestimento;
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private DespesaRepository rptDespesa;
     MonetarioUtil monetarioUtil = MonetarioUtil.getInstance();
 
     public RelatorioDTO buscaTotais(FiltroRelatorioDTO filtro){
-        List<Receita> receita = rptReceita.findAll();
-        List<Investimento> investimento = rptInvestimento.findAll();
-        List<Despesa> despesa = rptDespesa.findAll();
+
+        List<Receita> receita = rptReceita.findReceitasByUser(userService.getUser());
+        List<Investimento> investimento = rptInvestimento.findInvestimentoByUser(userService.getUser());
+        List<Despesa> despesa = rptDespesa.findReceitasByUser(userService.getUser());
+
+        if(filtro.getData() != null){
+            receita = receita.stream().filter(r -> r.getData().equals(filtro.getData())).collect(Collectors.toList());
+            investimento = investimento.stream().filter(i -> i.getData().equals(filtro.getData())).collect(Collectors.toList());
+            despesa = despesa.stream().filter(d -> d.getDataVencimento().equals(filtro.getData())).collect(Collectors.toList());
+        }
 
         return RelatorioDTO.builder()
                 .filtro(filtro)

@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface DespesaRepository extends JpaRepository<Despesa, Long> {
 
-    List<Receita> findReceitasByUser(User user);
+    List<Despesa> findReceitasByUser(User user);
 }

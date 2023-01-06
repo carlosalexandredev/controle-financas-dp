@@ -13,6 +13,9 @@ import com.example.demo.investimento.service.InvestimentoService;
 import com.example.demo.perfil.dto.PerfilDTO;
 import com.example.demo.perfil.service.PerfilService;
 import com.example.demo.receita.service.ReceitaService;
+import com.example.demo.relatorio.dto.FiltroRelatorioDTO;
+import com.example.demo.relatorio.dto.RelatorioDTO;
+import com.example.demo.relatorio.service.RelatorioService;
 import com.example.demo.usuario.entity.User;
 import com.example.demo.usuario.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,8 @@ public class MainController {
 
     @Autowired
     private PerfilService perfilService;
+
+    @Autowired RelatorioService rltService;
 
     @Autowired
     private UserService userService;
@@ -111,7 +116,17 @@ public class MainController {
     }
 
     @GetMapping("/relatorio")
-    public String relatorio() {
+    public String relatorio(FiltroRelatorioDTO filtroReq, ModelMap model) {
+        User user = userService.getUser();
+
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            RelatorioDTO totais = rltService.buscaTotais(filtroReq);
+            model.addAttribute("totais", totais);
         return "relatorio";
+        } else {
+            return "login";
+        }
     }
+
+
 }
