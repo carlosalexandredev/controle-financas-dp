@@ -6,7 +6,58 @@
     <link href="../static/css/login.css" th:href="@{/css/login.css}" rel="stylesheet"/>
 </head>
 <body>
-<div class="container">
+<div class="caixa">
+    <div class="fortune">
+        <a href="/" th:href="@{/login}">FORTUNE</a>
+    </div>
+    <div class="texto-login">
+        <span >Faça o login para acompanhar seus investimentos.</span>
+    </div>
+</div>
+
+<div class="estilo-login-cadastro">
+    <div class="row tamanho-row" style="width: 100%">
+            <div class="ajuste-login col-md-6" style="background-color: #234871;">
+                <form  name="form1" th:action="@{/login}" method="post">
+                    <div class="texto-color">
+                    <span>Já é cliente?</span>
+                    </div>
+                    <div class="texto-color-conta">
+                    <span>Acesse sua conta</span>
+                    </div>
+                    <div class="espaco-input">
+                    <input class="form-control" type="text" name="username" placeholder="Usuario">
+                    </div>
+                    <div class="espaco-input">
+                    <input class="form-control" type="password" name="password" placeholder="Senha">
+                    </div>
+                    <button type="submit" class="btn1">Acessar</button>
+                </form>
+                <div th:if="${param.error}">
+                    <div class="alert alert-primary"  role="alert">
+                        Senha ou usuário invalido!
+                    </div>
+                </div>
+
+                <div th:if="${param.logout}">
+                    <div class="alert alert-primary" role="alert">
+                        Realize o Login de acesso!
+                    </div>
+                </div>
+            </div>
+            <div class="ajuste-cadastro col-md-6">
+                <div>
+                    <span class="texto-color-cadastro">Ainda não tem conta?</span>
+                    <h3 class="espaco-input">Cadastre-se grátis</h3>
+                    <span class="texto-color-cadastro espaco-input">Faça parte do melhor sistemas de investimento</span>
+                    <div class="form-group cadastro-link espaco-input">
+                        <a href="/" th:href="@{/registration}">Cadastre-se</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<!--div  class="container">
     <form name="form1" class="box" th:action="@{/login}" method="post">
         <h4>Fortune<span> | Login</span></h4>
 
@@ -16,19 +67,12 @@
 
         <button type="submit" class="btn1">Acessar</button>
     </form>
-</div>
+</div-->
 
 
-<div th:if="${param.error}">
-    <div class="alert alert-primary position-absolute top-0 end-0 mr-3 mt-3"  role="alert">
-        Senha ou usuario invalido!
-    </div>
-</div>
 
-<div th:if="${param.logout}">
-    <div class="alert alert-primary position-absolute top-0 end-0 translate-middle mr-3 mt-3" role="alert">
-        Realize o Login de acesso!
-    </div>
+<div class="caixa-bottom">
+    <span class="texto-bottom align-middle">Não perca tempo e junte-se ao nosso time</span>
 </div>
 </body>
 </html>
