@@ -11,11 +11,6 @@ import java.util.Objects;
 import static java.text.NumberFormat.getNumberInstance;
 import static org.apache.commons.lang3.StringUtils.right;
 
-/**
- * @TAG SG02
- * Singleton - Design Pattern Criacional
- * */
-
 public class MonetarioUtil {
 
     private static MonetarioUtil monetarioUtil;

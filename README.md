@@ -1,12 +1,11 @@
 ### Padrões de projeto(Design Patterns):
-Padrões de projeto são soluções típicas para problemas comuns em projeto de software. Eles são como plantas de obra pré fabricadas que você pode customizar para resolver um problema de projeto recorrente em seu código.</br>
+Padrões de projeto são soluções típicas para problemas comuns em projeto de software.</br>
 - **[Padrão Arquitetural](#criacionaiscreational)**
   - [Model, View, Controller (MVC)](#model-view-controller-mvc)
 - **[Criacionais(Creational)](#criacionaiscreational)**
   - [Builder](#builder)
   - [Singleton](#singleton)
-- **[Estruturais(Structural)](#estruturaisstructural)**
-  - [Adpter](#adapter )
+  - [Factory Method](#factorymethod)
 - **[Comportamentais(Behavioral)](#comportamentaisbehavioral)**
   - [Template Method](#templatemethod)
 - **[Outros](#outros)**
@@ -27,6 +26,10 @@ O **Singleton** permite a você garantir que uma classe tenha apenas uma instân
 
 #### Builder
 O **Builder** permite a você construir objetos complexos passo a passo. O padrão permite que você produza diferentes tipos e representações de um objeto usando o mesmo código de construção.</br>
+
+#### Factory Method
+O **Factory Method** é um padrão criacional de projeto que fornece uma interface para criar objetos em uma superclasse, mas permite que as subclasses alterem o tipo de objetos que serão criados.
+
 
 ### Comportamentais(Behavioral)
 #### Template Method

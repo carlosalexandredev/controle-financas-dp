@@ -38,8 +38,8 @@ public abstract class CotacaoAPI<DTO> {
     /** Template Method */
     public CotacaoDTO consultaCotacao(BigDecimal valor) throws IOException {
         String response = cotacaoMoeda(getRequestKey());
-        CotacaoDTO dolarJson = converteJsonParaDTO(valor, response);
-        return dolarJson;
+        CotacaoDTO cotacaoJson = converteJsonParaDTO(valor, response);
+        return cotacaoJson;
     }
 
     private CotacaoDTO converteJsonParaDTO(BigDecimal valor, String response) throws JsonProcessingException {
@@ -47,13 +47,13 @@ public abstract class CotacaoAPI<DTO> {
         JsonNode rootNode = objectMapper.readTree(response);
         String baseKey = getResponseKey();
 
-        CotacaoDTO dolarDto = CotacaoDTO.builder()
+        CotacaoDTO cotacaoDto = CotacaoDTO.builder()
                 .nome(rootNode.path(baseKey).path("name").asText())
                 .sigla(rootNode.path(baseKey).path("code").asText())
                 .valorPrimario(valor)
                 .valorConvertido(converteMoeda(valor, rootNode.path(baseKey).path("bid").asText()))
                 .build();
-        return dolarDto;
+        return cotacaoDto;
     }
 
     private BigDecimal converteMoeda(BigDecimal valor, String bid) {
