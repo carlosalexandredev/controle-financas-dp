@@ -183,35 +183,35 @@
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}">Real</th>
-                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}">Euro</th>
-                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}">Dólar</th>
+                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}">Real</th>
+                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}">Euro</th>
+                                        <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}">Dólar</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>Receita</td>
-                                        <td data-label="Receita Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.receitaReal}"></span></td>
-                                        <td data-label="Receita Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.receitaEuro}"></span></td>
-                                        <td data-label="Receita Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.receitaDolar}"></span></td>
+                                        <td data-label="Receita Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.receitaReal}"></span></td>
+                                        <td data-label="Receita Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.receitaEuro}"></span></td>
+                                        <td data-label="Receita Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${totais.receitaDolar}"></span></td>
                                     </tr>
                                     <tr>
                                         <td>Investimento</td>
-                                        <td data-label="Investimento Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.investimentoReal}"></span></td>
-                                        <td data-label="Investimento Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.investimentoEuro}"></span></td>
-                                        <td data-label="Investimento Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.investimentoDolar}"></span></td>
+                                        <td data-label="Investimento Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.investimentoReal}"></span></td>
+                                        <td data-label="Investimento Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.investimentoEuro}"></span></td>
+                                        <td data-label="Investimento Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${totais.investimentoDolar}"></span></td>
                                     </tr>
                                     <tr>
                                         <td>Despesas</td>
-                                        <td data-label="Despesas Real" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${'- '+totais.despesaReal}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"></span></td>
-                                        <td data-label="Despesas Euro" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${'- '+totais.despesaEuro}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"></span></td>
-                                        <td data-label="Despesas Dolár" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${'- '+totais.despesaDolar}"></span></td>
+                                        <td data-label="Despesas Real" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${'- '+totais.despesaReal}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"></span></td>
+                                        <td data-label="Despesas Euro" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${'- '+totais.despesaEuro}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"></span></td>
+                                        <td data-label="Despesas Dolár" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${'- '+totais.despesaDolar}"></span></td>
                                     </tr>
                                     <tr class="font-weight-bold">
                                         <td>Total</td>
-                                        <td data-label="Total Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.totalReal}"></span></td>
-                                        <td data-label="Total Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.totalEuro}"></span></td>
-                                        <td data-label="Total Dolar" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.totalDolar}"></span></td>
+                                        <td data-label="Total Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.totalReal}"></span></td>
+                                        <td data-label="Total Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.totalEuro}"></span></td>
+                                        <td data-label="Total Dolar" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${totais.totalDolar}"></span></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -247,35 +247,35 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}">Real</th>
-                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}">Euro</th>
-                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}">Dólar</th>
+                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}">Real</th>
+                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}">Euro</th>
+                                    <th scope="col" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}">Dólar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td>Receita</td>
-                                    <td data-label="Receita Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.receitaReal}"></span></td>
-                                    <td data-label="Receita Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.receitaEuro}"></span></td>
-                                    <td data-label="Receita Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.receitaDolar}"></span></td>
+                                    <td data-label="Receita Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.receitaReal}"></span></td>
+                                    <td data-label="Receita Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.receitaEuro}"></span></td>
+                                    <td data-label="Receita Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${totais.receitaDolar}"></span></td>
                                 </tr>
                                 <tr>
                                     <td>Investimento</td>
-                                    <td data-label="Investimento Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.investimentoReal}"></span></td>
-                                    <td data-label="Investimento Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.investimentoEuro}"></span></td>
-                                    <td data-label="Investimento Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.investimentoDolar}"></span></td>
+                                    <td data-label="Investimento Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.investimentoReal}"></span></td>
+                                    <td data-label="Investimento Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.investimentoEuro}"></span></td>
+                                    <td data-label="Investimento Dolár" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${totais.investimentoDolar}"></span></td>
                                 </tr>
                                 <tr>
                                     <td>Despesas</td>
-                                    <td data-label="Despesas Real" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${'- '+totais.despesaReal}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"></span></td>
-                                    <td data-label="Despesas Euro" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${'- '+totais.despesaEuro}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"></span></td>
-                                    <td data-label="Despesas Dolár" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${'- '+totais.despesaDolar}"></span></td>
+                                    <td data-label="Despesas Real" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${'- '+totais.despesaReal}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"></span></td>
+                                    <td data-label="Despesas Euro" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${'- '+totais.despesaEuro}" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"></span></td>
+                                    <td data-label="Despesas Dolár" class="text-danger" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${'- '+totais.despesaDolar}"></span></td>
                                 </tr>
                                 <tr class="font-weight-bold">
                                     <td>Total</td>
-                                    <td data-label="Total Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.totalReal}"></span></td>
-                                    <td data-label="Total Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.totalEuro}"></span></td>
-                                    <td data-label="Total Dolar" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.fortune.util.enuns.TipoMoeda).DOLAR}"><span  th:utext="${totais.totalDolar}"></span></td>
+                                    <td data-label="Total Real" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).REAL}"><span th:utext="${totais.totalReal}"></span></td>
+                                    <td data-label="Total Euro" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).EURO}"><span th:utext="${totais.totalEuro}"></span></td>
+                                    <td data-label="Total Dolar" th:if="${totais.filtro.moeda == null || totais.filtro.moeda == T(com.example.demo.model.fortune.util.enuns.TipoMoeda).DOLAR}"><span th:utext="${totais.totalDolar}"></span></td>
                                 </tr>
                                 </tbody>
                             </table>
